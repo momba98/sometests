@@ -1,15 +1,16 @@
-Documentação geo_bezier_3d
-=========================================
+Documentação ``geo_bezier_3d``
+=========================================================
 
 .. figure:: esfinge.jpg
    :align: center
 
-Seja bem-vindo à documentação de geo_bezier_3d!
-
-Projetado para ser o mais robusto possível, geo_bezier_3d é capaz de entregar
+Projetado para ser o mais robusto possível, ``geo_bezier_3d`` é capaz de entregar
 resultados satisfatórios quando se trata de construção de sólidos para `IBM
-<https://www.sciencedirect.com/topics/engineering/immersed-boundary-method>`_,
-aplicada no código `incompact3d <https://www.incompact3d.com/>`_.
+<https://www.sciencedirect.com/topics/engineering/immersed-boundary-method>`_
+aplicada no código |optparse.incompact3d|_.
+
+.. |optparse.incompact3d| replace:: ``incompact3d``
+.. _optparse.incompact3d: https://www.incompact3d.com/
 
 Toda matemática utilizada para criação do conteúdo é descrita pela abordagem
 de Bézier.
@@ -17,6 +18,16 @@ de Bézier.
 Neste *doc*, o usuário será
 capaz de entender como as :ref:`funções disponíveis funcionam <instrucoes>` e
 também terá acesso aos :ref:`exemplos <exemplos>` já desenvolvidos.
+
+Agora, vamos à definições de alguns termos que são exaustivamente repetidos
+ao longo deste *doc* e talvez não tenham um significado tão evidente:
+
+    **1. Notebook:** interface encontrada na pasta ``/Jupyter Notebook``
+    em arquivo ``.ipynb`` em que o usuário pode construir
+    sólidos e/ou montar exemplos já construídos.
+
+    **2. Matriz Epsi:** matriz binária construída através do ``geo_bezier_3d`` e
+    usada como entrada no ``incompact3d``.
 
 Aproveite e, na hora de construir um sólido, seja criativo!
 
