@@ -6,7 +6,7 @@ Para que seja possível rodar os exemplos demonstrados na página,
 **copie as linhas de código e cole nos locais indicados no** ``Notebook``.
 
 Caso queira apenas obter os arquivos necessários para visualização no
-*ParaView (arquivo .xdmf lido com a opção XMDF Reader)* e simulação numérica através
+ParaView (arquivo .xdmf lido com a opção XMDF Reader) e simulação numérica através
 do ``incompact3d`` (arquivos Epsi), **faça o download disponível**.
 
 1. Cybertruck
