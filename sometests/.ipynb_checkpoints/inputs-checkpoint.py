@@ -1,0 +1,10 @@
+lx=5
+ly=5
+lz=5
+nx=5
+ny=5
+nz=5
+dx=1.25
+dy=1.25
+dz=1.25
+nome="hou"

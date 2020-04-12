@@ -1,0 +1,17 @@
+.. _settingup:
+
+Setting up
+===========
+
+tudo ok?
+
+sim
+---
+
+aqui tambem
+-----------
+
+.. automodule:: creating_solid
+    :members:
+
+.. figure:: /images/carro.png
