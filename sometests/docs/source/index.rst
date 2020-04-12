@@ -19,7 +19,7 @@ Neste *doc*, o usuário será
 capaz de entender como as :ref:`funções disponíveis funcionam <instrucoes>` e
 também terá acesso aos :ref:`exemplos <exemplos>` já desenvolvidos.
 
-Agora, vamos à definições de alguns termos que são exaustivamente repetidos
+Deve-se definir alguns termos que são exaustivamente repetidos
 ao longo deste *doc* e talvez não tenham um significado tão evidente:
 
     **1. Notebook:** interface encontrada na pasta ``/Jupyter Notebook``
