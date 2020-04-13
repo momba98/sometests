@@ -19,17 +19,17 @@ Neste *doc*, o usuário será
 capaz de entender como as :ref:`funções disponíveis funcionam <instrucoes>` e
 também terá acesso aos :ref:`exemplos <exemplos>` já desenvolvidos.
 
-Deve-se definir alguns termos que são exaustivamente repetidos
-ao longo deste *doc* e talvez não tenham um significado tão evidente:
+Antes de prosseguir aos conteúdos, deve-se definir alguns termos que são exaustivamente
+repetidos ao longo deste *doc* e talvez não tenham um significado tão evidente:
 
     **1. Notebook:** interface encontrada na pasta ``/Jupyter Notebook``
-    em arquivo ``.ipynb`` em que o usuário pode construir
-    sólidos e/ou montar exemplos já construídos.
+      em arquivo ``.ipynb`` em que o usuário pode construir
+      sólidos e/ou montar exemplos já construídos.
 
     **2. Matriz Epsi:** matriz binária construída através do ``geo_bezier_3d`` e
-    usada como entrada no ``incompact3d``.
+      usada como entrada no ``incompact3d``.
 
-Aproveite e, na hora de construir um sólido, seja criativo!
+Aproveite a documentação e, na hora de construir um sólido, seja criativo!
 
 .. toctree::
    :maxdepth: 10

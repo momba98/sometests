@@ -300,7 +300,7 @@ def gen_bezi_cylinder(bases_plane,radius,center_1,center_2,init_height,final_hei
     
     """
     Uma função derivada de :obj:`gen_bezi()` que facilita a criação de cilíndros. De saída são geradas
-    4 Béziers diferenes que juntas formam um cilíndro. Caso chamada, no momento de solução
+    4 Béziers diferentes que juntas formam um cilíndro. Caso esta função seja chamada, no momento de solução
     da Epsi será necessário usar a função :obj:`gen_epsi_cylinder()`.
     
     Args:
@@ -311,7 +311,7 @@ def gen_bezi_cylinder(bases_plane,radius,center_1,center_2,init_height,final_hei
         init_height (:obj:`float`): Altura da base inferior do cilíndro.
         final_height (:obj:`float`): Altura da base superior do cilíndro.
         identif_inicial (:obj:`str`): O mesmo :obj:`identif` do resto do código. O usuário deverá criar a identificação da primeira
-        das quatro Béziers criadas na função, as outras identificações são automáticas.
+            das quatro Béziers geradas na função, as outras identificações são automáticas.
         
     Exemplo:
         Para criar um cilíndro de raio 1 e altura 2 no plano :obj:`xz` caso alguma superfície já tenha sido criada e 
@@ -589,24 +589,26 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
     Args:
         tipo (:obj:`str`): Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido.
         
-            +-------------------------+------------------------------------+------------+
-            | Tipo                    | Variável                           | Exemplo    |
-            +=========================+====================================+============+
-            | Entrada                 | :obj:`'entrada+saída e/ou entrada'`| /          |
-            +-------------------------+------------------------------------+------------+
-            | Saída                   | :obj:`'entrada+saída e/ou saída'`  | /          |
-            +-------------------------+------------------------------------+------------+
-            | Entrada/Saída Pura      | Both                               | U, V       |
-            +-------------------------+------------------------------------+------------+
-            | Entrada/Saída + Entrada | :obj:`'entrada+saída e/ou entrada'`| J          |
-            +-------------------------+------------------------------------+------------+
-            | Entrada/Saída + Saída   | :obj:`'entrada+saída e/ou saída'`  | J (inverse)| 
-            +-------------------------+------------------------------------+------------+
+            +-------------------------+------------------------------------+
+            | Tipo                    | Sete  :obj:`tipo` como             | 
+            +=========================+====================================+
+            | Entrada                 | :obj:`'entrada+saída e/ou entrada'`|
+            +-------------------------+------------------------------------+
+            | Saída                   | :obj:`'entrada+saída e/ou saída'`  |
+            +-------------------------+------------------------------------+
+            | Entrada/Saída Pura      | Tanto faz                          |
+            +-------------------------+------------------------------------+
+            | Entrada/Saída + Entrada | :obj:`'entrada+saída e/ou entrada'`|
+            +-------------------------+------------------------------------+
+            | Entrada/Saída + Saída   | :obj:`'entrada+saída e/ou saída'`  |  
+            +-------------------------+------------------------------------+
         
     Note:
-        Caso seja a superfície identificada com :obj:`identif` seja *entrada*, a partir do momento em que a Epsi encontrar a superfície até o fim da 
+        Caso a superfície identificada com :obj:`identif` seja *entrada*, a partir do momento em que a Epsi encontrar a superfície até o fim da 
         Epsi será setado como 1. Caso seja *saída*, 
-        a partir do momento em que a Epsi encontrar a superfície até o fim da Epsi será setado como 0. *É necessário perceber que a ordem com que essa 
+        a partir do momento em que a Epsi encontrar a superfície até o fim da Epsi será setado como 0. 
+        
+        *É necessário perceber que a ordem com que essa 
         função é chamada tem muita importância:* caso o usuário chame primeiro as saídas, o código vai entender que a partir do encontro da superfície 
         é necessário marcar como 0 algo que já está setado como 0 (a matriz Epsi é setada inicialmente apemas com 0, com dimensões nx, ny e nz). Seguindo a lógica, 
         o usuário agora então chamaria as entradas. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido. 
@@ -635,7 +637,7 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
         **Dica:** normalmente o plano com mais intersecções na :obj:`previa_intersecçao` é o mais correto a ser escolhido.
     
     Args:
-        identif(:obj:`str`): Chame a superfície já determinada e identificada com :obj:`identif`.
+        identif(:obj:`str`): Repita o argumento :obj:`identif` da superfície em questão.
         simetria(:obj:`str`, optional): Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`.
         
     Warning:
@@ -814,8 +816,9 @@ def gen_epsi_cylinder(bases_plane,tipo,plano,identif_inicial,simetria='global',r
     :obj:`gen_bezi_cylinder()`. 
     
     Args:
-        bases_plane (:obj:`str`): DPode assumir :obj:`'xy','xz','zy'`. Deverá ser igual ao definido para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
-        tipo (:obj:`str`): Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido. Mais informações em :obj:`gen_epsi()`.
+        bases_plane (:obj:`str`): Pode assumir :obj:`'xy','xz','zy'`. Deverá ser igual ao definido para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
+        tipo (:obj:`str`): Defina se a superfície em questão é considerada um :obj:`'contorno'` (imagine posicionar um cilíndro dentro de
+            um cubo e subtraí-lo, como se fosse uma tubulação) ou um :obj:`'sólido'`(ideal para pneus, rodas, etc).
         plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Pode assumir apenas :obj:`'xz','xy','zy'`. Mais informações em :obj:`gen_epsi()`.
         identif_inicial (:obj:`str`): O mesmo :obj:`identif` setado para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
         simetria(:obj:`str`, optional): Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`. Mais informações em :obj:`gen_epsi()`.

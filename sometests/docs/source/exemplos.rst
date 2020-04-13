@@ -154,32 +154,16 @@ Faça o :download:`download dos arquivos  <downloads/cyber.zip>` ou
         transladar('x',2)
         gen_bezi('13','lat_chao_dir')
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[4.375,0.625,0.34]
-        armz_pt['P01']=[4.375,1.025,0.34]
-        armz_pt['P10']=[4.81,0.625,0]
-        armz_pt['P11']=[4.81,1.025,0]
-        armz_pt['P20']=[5.25,0.625,0.34]
-        armz_pt['P21']=[5.25,1.025,0.34]
-        cria_matriz_pontos(desvio=True)
-        transladar('x',2)
-        gen_bezi('14','r1')
+        gen_bezi_cylinder('xz',0.5,4.81+2,0.5,0.625,1.025,'14')
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[0.45,0.625,0.34]
-        armz_pt['P01']=[0.45,1.025,0.34]
-        armz_pt['P10']=[0.885,0.625,0]
-        armz_pt['P11']=[0.885,1.025,0]
-        armz_pt['P20']=[1.32,0.625,0.34]
-        armz_pt['P21']=[1.32,1.025,0.34]
-        cria_matriz_pontos(desvio=True)
-        transladar('x',2)
-        gen_bezi('15','r3')
+        gen_bezi_cylinder('xz',0.5,0.885+2,0.5,0.625,1.025,'18')
 
    **1.3.3. Geração da Epsi** ::
 
         c.epsi_3d=np.zeros((c.nx,c.ny,c.nz),dtype=np.float32)
 
+        gen_epsi_cylinder('xz','sólido','zy','18',simetria='simetria_y')
+        gen_epsi_cylinder('xz','sólido','zy','14',simetria='simetria_y')
         gen_epsi('entrada+saída e/ou entrada','zy','4', simetria='simetria_y')
         gen_epsi('entrada+saída e/ou entrada','zy','5', simetria='simetria_y')
         gen_epsi('entrada+saída e/ou entrada','zy','6', simetria='simetria_y')
