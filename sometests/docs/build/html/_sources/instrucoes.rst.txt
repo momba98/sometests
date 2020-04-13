@@ -1,7 +1,7 @@
 .. _instrucoes:
 
-Instruções
-==========
+Funções e respectivas instruções
+================================
 
 .. automodule:: creating_solid
     :members:

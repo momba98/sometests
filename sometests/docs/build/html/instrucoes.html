@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Instruções &mdash; geo_bezier_3d v.0.2 documentation</title>
+  <title>Funções e respectivas instruções &mdash; geo_bezier_3d v.0.2 documentation</title>
   
 
   
@@ -82,7 +82,7 @@
             
               <p class="caption"><span class="caption-text">Conteúdos:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Instruções</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Funções e respectivas instruções</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exemplos.html">Exemplos</a></li>
 </ul>
 
@@ -129,7 +129,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Instruções</li>
+      <li>Funções e respectivas instruções</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,7 +149,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-creating_solid">
-<span id="id1"></span><span id="instrucoes"></span><h1>Instruções<a class="headerlink" href="#module-creating_solid" title="Permalink to this headline">¶</a></h1>
+<span id="funcoes-e-respectivas-instrucoes"></span><span id="instrucoes"></span><h1>Funções e respectivas instruções<a class="headerlink" href="#module-creating_solid" title="Permalink to this headline">¶</a></h1>
 <p>O usuário recebe nessa página todas informações dos argumentos de todas as funções presentes no código:</p>
 <dl class="py function">
 <dt id="creating_solid.berstein">
@@ -223,7 +223,7 @@ a convergência das equações não é garantida - por enquanto.</p>
 <dt id="creating_solid.gen_bezi_cylinder">
 <code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_bezi_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bases_plane</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">center_1</span></em>, <em class="sig-param"><span class="n">center_2</span></em>, <em class="sig-param"><span class="n">init_height</span></em>, <em class="sig-param"><span class="n">final_height</span></em>, <em class="sig-param"><span class="n">identif_inicial</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_bezi_cylinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uma função derivada de <a class="reference internal" href="#creating_solid.gen_bezi" title="creating_solid.gen_bezi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi()</span></code></a> que facilita a criação de cilíndros. De saída são geradas
-4 Béziers diferenes que juntas formam um cilíndro. Caso chamada, no momento de solução
+4 Béziers diferentes que juntas formam um cilíndro. Caso esta função seja chamada, no momento de solução
 da Epsi será necessário usar a função <a class="reference internal" href="#creating_solid.gen_epsi_cylinder" title="creating_solid.gen_epsi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi_cylinder()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -234,8 +234,8 @@ da Epsi será necessário usar a função <a class="reference internal" href="#c
 <li><p><strong>center_2</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Coordenada do eixo correspondente à segunda letra do <code class="xref py py-obj docutils literal notranslate"><span class="pre">bases_plane</span></code>.</p></li>
 <li><p><strong>init_height</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Altura da base inferior do cilíndro.</p></li>
 <li><p><strong>final_height</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Altura da base superior do cilíndro.</p></li>
-<li><p><strong>identif_inicial</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – O mesmo <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> do resto do código. O usuário deverá criar a identificação da primeira</p></li>
-<li><p><strong>quatro Béziers criadas na função</strong><strong>, </strong><strong>as outras identificações são automáticas.</strong> (<em>das</em>) – </p></li>
+<li><p><strong>identif_inicial</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – O mesmo <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> do resto do código. O usuário deverá criar a identificação da primeira
+das quatro Béziers geradas na função, as outras identificações são automáticas.</p></li>
 </ul>
 </dd>
 </dl>
@@ -274,36 +274,29 @@ Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos
 <dd class="field-odd"><p><strong>tipo</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – <p>Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 49%" />
-<col style="width: 16%" />
+<col style="width: 41%" />
+<col style="width: 59%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Tipo</p></th>
-<th class="head"><p>Variável</p></th>
-<th class="head"><p>Exemplo</p></th>
+<th class="head"><p>Sete  <code class="xref py py-obj docutils literal notranslate"><span class="pre">tipo</span></code> como</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Entrada</p></td>
 <td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">entrada'</span></code></p></td>
-<td><p>/</p></td>
 </tr>
 <tr class="row-odd"><td><p>Saída</p></td>
 <td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">saída'</span></code></p></td>
-<td><p>/</p></td>
 </tr>
 <tr class="row-even"><td><p>Entrada/Saída Pura</p></td>
-<td><p>Both</p></td>
-<td><p>U, V</p></td>
+<td><p>Tanto faz</p></td>
 </tr>
 <tr class="row-odd"><td><p>Entrada/Saída + Entrada</p></td>
 <td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">entrada'</span></code></p></td>
-<td><p>J</p></td>
 </tr>
 <tr class="row-even"><td><p>Entrada/Saída + Saída</p></td>
 <td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">saída'</span></code></p></td>
-<td><p>J (inverse)</p></td>
 </tr>
 </tbody>
 </table>
@@ -312,9 +305,10 @@ Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Caso seja a superfície identificada com <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> seja <em>entrada</em>, a partir do momento em que a Epsi encontrar a superfície até o fim da
+<p>Caso a superfície identificada com <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> seja <em>entrada</em>, a partir do momento em que a Epsi encontrar a superfície até o fim da
 Epsi será setado como 1. Caso seja <em>saída</em>,
-a partir do momento em que a Epsi encontrar a superfície até o fim da Epsi será setado como 0. <em>É necessário perceber que a ordem com que essa
+a partir do momento em que a Epsi encontrar a superfície até o fim da Epsi será setado como 0.</p>
+<p><em>É necessário perceber que a ordem com que essa
 função é chamada tem muita importância:</em> caso o usuário chame primeiro as saídas, o código vai entender que a partir do encontro da superfície
 é necessário marcar como 0 algo que já está setado como 0 (a matriz Epsi é setada inicialmente apemas com 0, com dimensões nx, ny e nz). Seguindo a lógica,
 o usuário agora então chamaria as entradas. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido.
@@ -347,7 +341,7 @@ tornando mais clara a escolha deste argumento.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Chame a superfície já determinada e identificada com <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code>.</p></li>
+<li><p><strong>identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Repita o argumento <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> da superfície em questão.</p></li>
 <li><p><strong>simetria</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'simetria_x','simetria_y',simetria_z'</span></code>.</p></li>
 </ul>
 </dd>
@@ -371,8 +365,9 @@ tornando mais clara a escolha deste argumento.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bases_plane</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – DPode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xy','xz','zy'</span></code>. Deverá ser igual ao definido para o cilíndro em questão na função <a class="reference internal" href="#creating_solid.gen_bezi_cylinder" title="creating_solid.gen_bezi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi_cylinder()</span></code></a>.</p></li>
-<li><p><strong>tipo</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido. Mais informações em <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a>.</p></li>
+<li><p><strong>bases_plane</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xy','xz','zy'</span></code>. Deverá ser igual ao definido para o cilíndro em questão na função <a class="reference internal" href="#creating_solid.gen_bezi_cylinder" title="creating_solid.gen_bezi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi_cylinder()</span></code></a>.</p></li>
+<li><p><strong>tipo</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina se a superfície em questão é considerada um <code class="xref py py-obj docutils literal notranslate"><span class="pre">'contorno'</span></code> (imagine posicionar um cilíndro dentro de
+um cubo e subtraí-lo, como se fosse uma tubulação) ou um <code class="xref py py-obj docutils literal notranslate"><span class="pre">'sólido'</span></code> (ideal para pneus, rodas, etc). A variável só pode assumir os dois termos destacados.</p></li>
 <li><p><strong>plano</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Escolha o melhor plano para resolver sua superfície. Pode assumir apenas <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xz','xy','zy'</span></code>. Mais informações em <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a>.</p></li>
 <li><p><strong>identif_inicial</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – O mesmo <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> setado para o cilíndro em questão na função <a class="reference internal" href="#creating_solid.gen_bezi_cylinder" title="creating_solid.gen_bezi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi_cylinder()</span></code></a>.</p></li>
 <li><p><strong>simetria</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'simetria_x','simetria_y',simetria_z'</span></code>. Mais informações em <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a>.</p></li>

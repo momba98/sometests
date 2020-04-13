@@ -818,7 +818,7 @@ def gen_epsi_cylinder(bases_plane,tipo,plano,identif_inicial,simetria='global',r
     Args:
         bases_plane (:obj:`str`): Pode assumir :obj:`'xy','xz','zy'`. Deverá ser igual ao definido para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
         tipo (:obj:`str`): Defina se a superfície em questão é considerada um :obj:`'contorno'` (imagine posicionar um cilíndro dentro de
-            um cubo e subtraí-lo, como se fosse uma tubulação) ou um :obj:`'sólido'`(ideal para pneus, rodas, etc).
+            um cubo e subtraí-lo, como se fosse uma tubulação) ou um :obj:`'sólido'` (ideal para pneus, rodas, etc). A variável só pode assumir os dois termos destacados.
         plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Pode assumir apenas :obj:`'xz','xy','zy'`. Mais informações em :obj:`gen_epsi()`.
         identif_inicial (:obj:`str`): O mesmo :obj:`identif` setado para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
         simetria(:obj:`str`, optional): Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`. Mais informações em :obj:`gen_epsi()`.
