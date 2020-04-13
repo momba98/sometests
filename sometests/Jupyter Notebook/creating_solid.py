@@ -22,6 +22,7 @@ from IPython.display import display
 import infos as s
 import inputs as i
 
+armz_pt=s.armz_pt
 npsu=s.npsu
 npsv=s.npsv
 u=s.u
@@ -63,7 +64,11 @@ def prepara_matriz_pontos(pontos_u,pontos_v):
     """
     Importante função em que o usuário determinará o número de pontos em cada direção :obj:`[u,v]`.
     
-    Caso fique em dúvida da nomenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com :obj:`print(armz_pt)`.
+    Caso fique em dúvida da nomenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com :obj:`print(armz_pt)`::
+        
+        #exemplo de como tirar a dúvida dos pontos que devem receber algum input
+        prepara_matriz_pontos(3,3)
+        print(armz_pt)
     
     Basicamente, os pontos a serem determinados possuem 2 sub-índices: :obj:`i` e :obj:`j` → :obj:`Pij`.
     
@@ -115,7 +120,7 @@ def prepara_matriz_pontos(pontos_u,pontos_v):
 def cria_matriz_pontos(desvio=False):
     
     """
-    Auxílio na hora de setar os pontos necessários para as equações da função :obj:`bezi()`.
+    Auxílio na hora de setar os pontos necessários para as equações da função :obj:`gen_bezi()`.
     
     Args: 
         desvio (:obj:`Bool`, optional): Sete como :obj:`True` caso queira que a superfície passe pelos pontos de controle 
@@ -172,7 +177,7 @@ def transladar(direcao,quantidade):
         quantidade (:obj:`int`): Assume quantas unidades de comprimento de domínio o usuário quer transladar sua superfície.
         
     Note: 
-        Deverá ser obrigatoriamente chamada entre a função :obj:`cria_matriz_pontos()` e a função :obj:`bezi()`.
+        Deverá ser obrigatoriamente chamada entre a função :obj:`cria_matriz_pontos()` e a função :obj:`gen_bezi()`.
         
     Exemplo::
         
@@ -189,7 +194,7 @@ def transladar(direcao,quantidade):
 
         transladar('x',-0.5)
 
-        bezi('0',capô)
+        gen_bezi('0',capô)
 
     """
     
@@ -212,7 +217,7 @@ def transladar(direcao,quantidade):
                 s.mpz[i][j] = s.mpz[i][j]+quantidade
 
                 
-def bezi(identif, nome, show_equation=False):
+def gen_bezi(identif, nome, show_equation=False):
     
     """
     
@@ -230,9 +235,6 @@ def bezi(identif, nome, show_equation=False):
     Warning:
         É importante frisar que, caso construída uma superfície muito complexa (com variações não lineares entre os pontos em mais de 2 direções :obj:`xyz`), 
         a convergência das equações não é garantida - por enquanto.
-        
-    Note:
-        Círculos são o ponto fraco das Bézier. Tente evitá-los ou, se não puder, segmentá-los ao máximo.
     
     Args:
         identif (:obj:`str`): Crie a *identificação* da sua superfície com :obj:`'n'`, onde :obj:`n=0,1,2,3...` (começar em '0' e somar '1' a cada nova superfície).
@@ -277,7 +279,7 @@ def bezi(identif, nome, show_equation=False):
 def berstein(n_p):
     
     """
-    Matemática chave por trás das curvas/superfícies de Bézier, dentro da própria função :obj:`bezi()`. 
+    Matemática chave por trás das curvas/superfícies de Bézier, dentro da própria função :obj:`gen_bezi()`. 
     
     Args:
         n_p(:obj:`int`): Não há necessidade alguma de manipulação por parte do usuário.
@@ -294,6 +296,170 @@ def berstein(n_p):
             s.mm[i][j]=aux[j] #matriz chave do polinomio d
                 
                 
+def gen_bezi_cylinder(bases_plane,radius,center_1,center_2,init_height,final_height,identif_inicial):
+    
+    """
+    Uma função derivada de :obj:`gen_bezi()` que facilita a criação de cilíndros. De saída são geradas
+    4 Béziers diferenes que juntas formam um cilíndro. Caso chamada, no momento de solução
+    da Epsi será necessário usar a função :obj:`gen_epsi_cylinder()`.
+    
+    Args:
+        bases_plane (:obj:`str`): Defina o plano paralelo à base. Pode assumir :obj:`'xy','xz','zy'`.
+        radius (:obj:`float`): Defina o raio do cilíndro
+        center_1 (:obj:`float`): Coordenada do eixo correspondente à primeira letra do :obj:`bases_plane`.
+        center_2 (:obj:`float`): Coordenada do eixo correspondente à segunda letra do :obj:`bases_plane`.
+        init_height (:obj:`float`): Altura da base inferior do cilíndro.
+        final_height (:obj:`float`): Altura da base superior do cilíndro.
+        identif_inicial (:obj:`str`): O mesmo :obj:`identif` do resto do código. O usuário deverá criar a identificação da primeira
+        das quatro Béziers criadas na função, as outras identificações são automáticas.
+        
+    Exemplo:
+        Para criar um cilíndro de raio 1 e altura 2 no plano :obj:`xz` caso alguma superfície já tenha sido criada e 
+        identificada com :obj:`identif='0'`::
+        
+            gen_bezi_cylinder(bases_plane='xz',radius=1,
+                              center_1=3, center_2=3
+                              init_height=2,final_height=4,
+                              identif_inicial='1')
+                              
+    Warning:
+        Como já descrito, são geradas 4 Béziers nesta função. Portanto, caso haja alguma geração de Bézier depois dessa em questão,
+        o argumento :obj:`identif` deverá ser igual ao desta função somadas mais 4 unidades. No exemplo descrito logo acima, o próximo
+        :obj:`identif`, quaisquer que seja, deveria ser :obj:`'5'`.
+
+    """
+    
+    identif_inicial=int(identif_inicial)
+    cos=math.cos(math.radians(45))
+    sin=math.sin(math.radians(45))
+    
+    if bases_plane=='xy':
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1-radius,center_2,init_height]
+        armz_pt['P01']=[center_1-radius,center_2,final_height]
+        armz_pt['P10']=[center_1-radius*cos,center_2+radius*sin,init_height]
+        armz_pt['P11']=[center_1-radius*cos,center_2+radius*sin,final_height]
+        armz_pt['P20']=[center_1,center_2+radius,init_height]
+        armz_pt['P21']=[center_1,center_2+radius,final_height]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial}','rs,entrada')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1,center_2+radius,init_height]
+        armz_pt['P01']=[center_1,center_2+radius,final_height]
+        armz_pt['P10']=[center_1+radius*cos,center_2+radius*sin,init_height]
+        armz_pt['P11']=[center_1+radius*cos,center_2+radius*sin,final_height]
+        armz_pt['P20']=[center_1+radius,center_2,init_height]
+        armz_pt['P21']=[center_1+radius,center_2,final_height]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+1}','rs,saida')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1-radius,center_2,init_height]
+        armz_pt['P01']=[center_1-radius,center_2,final_height]
+        armz_pt['P10']=[center_1-radius*cos,center_2-radius*sin,init_height]
+        armz_pt['P11']=[center_1-radius*cos,center_2-radius*sin,final_height]
+        armz_pt['P20']=[center_1,center_2-radius,init_height]
+        armz_pt['P21']=[center_1,center_2-radius,final_height]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+2}','ri,entrada')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1,center_2-radius,init_height]
+        armz_pt['P01']=[center_1,center_2-radius,final_height]
+        armz_pt['P10']=[center_1+radius*cos,center_2-radius*sin,init_height]
+        armz_pt['P11']=[center_1+radius*cos,center_2-radius*sin,final_height]
+        armz_pt['P20']=[center_1+radius,center_2,init_height]
+        armz_pt['P21']=[center_1+radius,center_2,final_height]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+3}','ri,saida')
+        
+    if bases_plane=='xz':
+    
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1-radius,init_height,center_2]
+        armz_pt['P01']=[center_1-radius,final_height,center_2]
+        armz_pt['P10']=[center_1-radius*cos,init_height,center_2+radius*sin]
+        armz_pt['P11']=[center_1-radius*cos,final_height,center_2+radius*sin]
+        armz_pt['P20']=[center_1,init_height,center_2+radius]
+        armz_pt['P21']=[center_1,final_height,center_2+radius]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial}','rs,entrada')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1,init_height,center_2+radius]
+        armz_pt['P01']=[center_1,final_height,center_2+radius]
+        armz_pt['P10']=[center_1+radius*cos,init_height,center_2+radius*sin]
+        armz_pt['P11']=[center_1+radius*cos,final_height,center_2+radius*sin]
+        armz_pt['P20']=[center_1+radius,init_height,center_2]
+        armz_pt['P21']=[center_1+radius,final_height,center_2]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+1}','rs,saida')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1-radius,init_height,center_2]
+        armz_pt['P01']=[center_1-radius,final_height,center_2]
+        armz_pt['P10']=[center_1-radius*cos,init_height,center_2-radius*sin]
+        armz_pt['P11']=[center_1-radius*cos,final_height,center_2-radius*sin]
+        armz_pt['P20']=[center_1,init_height,center_2-radius]
+        armz_pt['P21']=[center_1,final_height,center_2-radius]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+2}','ri,entrada')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[center_1,init_height,center_2-radius]
+        armz_pt['P01']=[center_1,final_height,center_2-radius]
+        armz_pt['P10']=[center_1+radius*cos,init_height,center_2-radius*sin]
+        armz_pt['P11']=[center_1+radius*cos,final_height,center_2-radius*sin]
+        armz_pt['P20']=[center_1+radius,init_height,center_2]
+        armz_pt['P21']=[center_1+radius,final_height,center_2]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+3}','ri,saida')
+
+        
+    if bases_plane=='zy':
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[init_height,center_2,center_1-radius]
+        armz_pt['P01']=[final_height,center_2,center_1-radius]
+        armz_pt['P10']=[init_height,center_2+radius*sin,center_1-radius*cos]
+        armz_pt['P11']=[final_height,center_2+radius*sin,center_1-radius*cos]
+        armz_pt['P20']=[init_height,center_2+radius,center_1]
+        armz_pt['P21']=[final_height,center_2+radius,center_1]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial}','rs,entrada')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[init_height,center_2+radius,center_1]
+        armz_pt['P01']=[final_height,center_2+radius,center_1]
+        armz_pt['P10']=[init_height,center_2+radius*sin,center_1+radius*cos]
+        armz_pt['P11']=[final_height,center_2+radius*sin,center_1+radius*cos]
+        armz_pt['P20']=[init_height,center_2,center_1+radius]
+        armz_pt['P21']=[final_height,center_2,center_1+radius]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+1}','rs,saida')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[init_height,center_2,center_1-radius]
+        armz_pt['P01']=[final_height,center_2,center_1-radius]
+        armz_pt['P10']=[init_height,center_2-radius*sin,center_1-radius*cos]
+        armz_pt['P11']=[final_height,center_2-radius*sin,center_1-radius*cos]
+        armz_pt['P20']=[init_height,center_2-radius,center_1]
+        armz_pt['P21']=[final_height,center_2-radius,center_1]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+2}','ri,entrada')
+
+        prepara_matriz_pontos(3,2)
+        armz_pt['P00']=[init_height,center_2-radius,center_1]
+        armz_pt['P01']=[final_height,center_2-radius,center_1]
+        armz_pt['P10']=[init_height,center_2-radius*sin,center_1+radius*cos]
+        armz_pt['P11']=[final_height,center_2-radius*sin,center_1+radius*cos]
+        armz_pt['P20']=[init_height,center_2,center_1+radius]
+        armz_pt['P21']=[final_height,center_2,center_1+radius]
+        cria_matriz_pontos(desvio=True)
+        gen_bezi(f'{identif_inicial+3}','ri,saida')
+                
 def plota_superficie(identif_inicial,identif_final, pontos=False, alpha=0.3):
     
     """
@@ -304,6 +470,9 @@ def plota_superficie(identif_inicial,identif_final, pontos=False, alpha=0.3):
         alpha (:obj:`float`, optional): Controlador da opacidade da superfície em questão. Pode assumir qualquer valor entre :obj:`0` (transparente) e :obj:`1` (opaco).
 
     """
+    identif_inicial=int(identif_inicial)
+    identif_final=int(identif_final)
+    
     global fig,ax
     
     fig = plt.figure(figsize=(9,9))
@@ -356,6 +525,9 @@ def previa_intersecçao(identif_inicial,identif_final):
         plano estão reconhecendo a sua superfície como deveriam.
     
     """
+    
+    identif_inicial=int(identif_inicial)
+    identif_final=int(identif_final)
     
     fig = plt.figure(figsize=(9,9))
     ax = fig.add_subplot(1, 1, 1, projection='3d', proj_type='ortho')
@@ -634,7 +806,104 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
     
     bar.finish()
     
+
+def gen_epsi_cylinder(bases_plane,tipo,plano,identif_inicial,simetria='global',raf0='normal'):
     
+    """
+    Uma função derivada de :obj:`gen_epsi()` que facilita a geração da Epsi de cilíndros criados com a função
+    :obj:`gen_bezi_cylinder()`. 
+    
+    Args:
+        bases_plane (:obj:`str`): DPode assumir :obj:`'xy','xz','zy'`. Deverá ser igual ao definido para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
+        tipo (:obj:`str`): Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido. Mais informações em :obj:`gen_epsi()`.
+        plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Pode assumir apenas :obj:`'xz','xy','zy'`. Mais informações em :obj:`gen_epsi()`.
+        identif_inicial (:obj:`str`): O mesmo :obj:`identif` setado para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
+        simetria(:obj:`str`, optional): Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`. Mais informações em :obj:`gen_epsi()`.
+        raf0(:obj:`str`, optional): Não há necessidade alguma de manipulação por parte do usuário. 
+        
+
+    """
+    
+    identif_inicial=int(identif_inicial)
+    
+    if tipo=='sólido':
+        if bases_plane=='xz':
+            if plano=='zy':
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                
+            if plano=='xy':
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            
+        if bases_plane=='xy':
+            if plano=='xz':
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            if plano=='zy':
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                
+        if bases_plane=='zy':
+            if plano=='xz':
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            if plano=='xy':
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                
+        
+    if tipo=='contorno':
+        if bases_plane=='xz':
+            if plano=='zy':
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                
+            if plano=='xy':
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            
+        if bases_plane=='xy':
+            if plano=='xz':
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            if plano=='zy':
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                
+        if bases_plane=='zy':
+            if plano=='xz':
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            if plano=='xy':
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
+                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
+                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')    
+    
+
 def plot_epsi(direcao, grid=True ,integral=False, raf1='normal'):
     
     """
@@ -725,11 +994,13 @@ def gen_output(names, raf2='normal'):
     """
     global contador
     
+    
     if raf2=='normal':
-        if not os.path.exists(f'./{names}/'):
-            os.makedirs(f'./{names}/')
-        os.chdir(f'./{names}/')
         contador+=1
+        if contador==1:
+            if not os.path.exists(f'./{names}/'):
+                os.makedirs(f'./{names}/')
+            os.chdir(f'./{names}/')
     
     dx_print,dy_print,dz_print=dx,dy,dz
     nx_print,ny_print,nz_print=nx,ny,nz
