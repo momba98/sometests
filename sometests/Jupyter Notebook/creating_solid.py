@@ -62,6 +62,7 @@ armz_nomenclt_epsi=s.armz_nomenclt_epsi
 def prepara_matriz_pontos(pontos_u,pontos_v):
     
     """
+    
     Importante função em que o usuário determinará o número de pontos em cada direção :obj:`[u,v]`.
     
     Caso fique em dúvida da nomenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com :obj:`print(armz_pt)`::
@@ -577,14 +578,12 @@ def previa_intersecçao(identif_inicial,identif_final):
 def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
     
     """
-    O ponto crítico do código.
     
     Aqui, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é sólido (na Epsi, :obj:`1`) e onde
     não é sólido (na Epsi, :obj:`0`). Vamos setar o que é considerado entrada e saída, ou ambos ao mesmo tempo, **para todas as superfícies criadas**. 
     Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos definir qual o melhor plano para calcular os limites.
     
-    Warning:
-        **Preste atenção. Se algo pode dar errado, é aqui.**
+    **Preste atenção. Se algo pode dar errado, é aqui.**
         
     Args:
         tipo (:obj:`str`): Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido.
@@ -592,9 +591,9 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
             +-------------------------+------------------------------------+
             | Tipo                    | Sete  :obj:`tipo` como             | 
             +=========================+====================================+
-            | Entrada                 | :obj:`'entrada+saída e/ou entrada'`|
+            | Entrada Pura            | :obj:`'entrada+saída e/ou entrada'`|
             +-------------------------+------------------------------------+
-            | Saída                   | :obj:`'entrada+saída e/ou saída'`  |
+            | Saída Pura              | :obj:`'entrada+saída e/ou saída'`  |
             +-------------------------+------------------------------------+
             | Entrada/Saída Pura      | Tanto faz                          |
             +-------------------------+------------------------------------+
@@ -602,7 +601,34 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
             +-------------------------+------------------------------------+
             | Entrada/Saída + Saída   | :obj:`'entrada+saída e/ou saída'`  |  
             +-------------------------+------------------------------------+
+            
+    **Exemplo:**
+        .. figure:: ex_entradasaidasaida.png
+           :scale: 60%
+           :align: center
+           
+        Podemos notar 2 supefícies na figura, uma verde (:obj:`identif='0'`) e outra roxa (:obj:`identif='1'`). 
+        De acordo com esta situação, a invocação da função :obj:`gen_epsi()` pode se dar na seguinte forma::
+            
+            gen_epsi('entrada+saída e/ou entrada','zy','0')
+            gen_epsi('entrada+saída e/ou saída','zy','1')
+           
+        Podemos notar também um ponto que é o início de um vetor perpendicular ao plano 'zy'. Este vetor é a representação do que define o :obj:`tipo` de cada superfície.
+        Toda vez que o vetor encontrar alguma superfícies, será definido um limite para a criação da Epsi.
+        Devemos imaginar que para cada combinação de coordenada 'z' e 'y' (espaçamento definido por dz e dy) um vetor desses é originado. Portanto: 
         
+            1. O sólido verde é considerado *Entrada Pura* pois, no instante em que é interceptado pelos vetores, 
+            **entra-se no sólido**. 
+            
+            2. O sólido roxo deve ser dividido em 2 partes e é considerado *Entrada/Saída + Saída*. A primeira parte é a superior, logo acima da superfície verde.
+            Toda esta parte será interceptada pelos vetores duas vezes e **por isso é considerada Entrada/Saída**. A segunda parte é a inferior, que 'compartilha'
+            altura com a superfície verde. Esta parte será interceptada pelos vetores apenas uma vez e em todas elas o sólido já terá acabado, por isso é considerada
+            também como *Saída*.
+        
+    Warning:
+        Caso construída uma superfície que possua segmentos com possíveis entradas/saídas simultâneas (superfície roxa), certificar que a superfície seja construída 
+        no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plano.
+    
     Note:
         Caso a superfície identificada com :obj:`identif` seja *entrada*, a partir do momento em que a Epsi encontrar a superfície até o fim da 
         Epsi será setado como 1. Caso seja *saída*, 
@@ -613,16 +639,13 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
         é necessário marcar como 0 algo que já está setado como 0 (a matriz Epsi é setada inicialmente apemas com 0, com dimensões nx, ny e nz). Seguindo a lógica, 
         o usuário agora então chamaria as entradas. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido. 
         Ou seja, o sólido *não foi representado corretamente.*
-    
-    Warning:
-        Caso construída uma superfície que possua segmentos com possíveis entradas/saídas (um U ou um 0), certificar que a superfície seja construída 
-        no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plano.
 
     Args: 
         plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Caso o plano xy seja o melhor, setar :obj:`plano='xy'`. Pode assumir apenas :obj:`'xz','xy','zy'`.
         
     Note:
-        **Mas, como assim 'plano'?**\
+        **Mas, como assim 'plano'?**
+        
         Para cada combinação de coordenada (xy, xz ou zy), imagine um vetor saíndo de cada nó existente.
         Como por exemplo, falaremos do plano xy. De cada posição x e de cada posição y possível, sairá um vetor em direção à z.
         Toda vez que esse vetor cruzar uma superfície, será contabilizado um limite para a Epsi. O usuário já determinou que 
@@ -634,8 +657,6 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
         E isso é perfeitamente demonstrado pela :obj:`previa_intersecçao`. Inclusive, o retorno desta função explicita onde há interceptação dos vetores com a superfície, 
         tornando mais clara a escolha deste argumento.
         
-        **Dica:** normalmente o plano com mais intersecções na :obj:`previa_intersecçao` é o mais correto a ser escolhido.
-    
     Args:
         identif(:obj:`str`): Repita o argumento :obj:`identif` da superfície em questão.
         simetria(:obj:`str`, optional): Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`.

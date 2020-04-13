@@ -16,8 +16,8 @@ Toda matemática utilizada para criação do conteúdo é descrita pela abordage
 de Bézier.
 
 Neste *doc*, o usuário será
-capaz de entender como as :ref:`funções disponíveis funcionam <instrucoes>` e
-também terá acesso aos :ref:`exemplos <exemplos>` já desenvolvidos.
+capaz de entender como as funções disponíveis funcionam e
+também terá acesso aos exemplos já desenvolvidos.
 
 Antes de prosseguir aos conteúdos, deve-se definir alguns termos que são exaustivamente
 repetidos ao longo deste *doc* e talvez não tenham um significado tão evidente:
