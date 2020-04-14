@@ -1,6 +1,6 @@
 .. _instrucoes:
 
-Funções e respectivas instruções
+Funções e Respectivas Instruções
 ================================
 
 .. automodule:: creating_solid

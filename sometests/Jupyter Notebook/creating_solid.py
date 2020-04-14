@@ -73,8 +73,7 @@ def prepara_matriz_pontos(pontos_u,pontos_v):
     
     Basicamente, os pontos a serem determinados possuem 2 sub-índices: :obj:`i` e :obj:`j` → :obj:`Pij`.
     
-    Note:
-        Os sub-índices começarão em :obj:`0` e irão até :obj:`i-1` e/ou :obj:`j-1`.
+    Os sub-índices começarão em :obj:`0` e irão até :obj:`i-1` e/ou :obj:`j-1`.
     
     Args:
         pontos_u (:obj:`int`): Determine o número de pontos que a direção :obj:`u` terá.
@@ -177,7 +176,7 @@ def transladar(direcao,quantidade):
         direcao (:obj:`str`): Defina em qual direção a translação será feita. Deve assumir :obj:`'x', 'y', 'z'`.
         quantidade (:obj:`int`): Assume quantas unidades de comprimento de domínio o usuário quer transladar sua superfície.
         
-    Note: 
+    Warning: 
         Deverá ser obrigatoriamente chamada entre a função :obj:`cria_matriz_pontos()` e a função :obj:`gen_bezi()`.
         
     Exemplo::
@@ -231,22 +230,32 @@ def gen_bezi(identif, nome, show_equation=False):
     portanto a curva/superfície nunca *encosta* neles.
     
     Como o grau das equações é definido por :obj:`número de pontos definidos pelo usuário - 1`, recomenda-se usar no máximo 3 pontos em cada direção, 
-    para que assim os cálculos se tornem baratos. Caso um objeto seja extremamente complexo, recomenda-se dividí-lo em várias superfícies de grau 2.
-    
-    Warning:
-        É importante frisar que, caso construída uma superfície muito complexa (com variações não lineares entre os pontos em mais de 2 direções :obj:`xyz`), 
-        a convergência das equações não é garantida - por enquanto.
+    para que assim os cálculos se tornem baratos e viáveis. **Caso um objeto seja extremamente complexo, recomenda-se dividí-lo em várias superfícies de grau 2.**
     
     Args:
         identif (:obj:`str`): Crie a *identificação* da sua superfície com :obj:`'n'`, onde :obj:`n=0,1,2,3...` (começar em '0' e somar '1' a cada nova superfície).
-    
-    Note:
-        :obj:`identif()` **necessita atenção especial**: o usuário voltará a chamar o parâmetro por diversas vezes ao decorrer do código.
-        
-    Args:
         nome (:obj:`str`): Crie um nome para a superfície. Não há regras. 
         show_equations (:obj:`Bool`, optional): Sete como :obj:`True` caso queira visualizar as equações governantes da superfície em questão.
-
+        
+    Warning:
+        :obj:`identif()` **necessita atenção especial**: o usuário voltará a chamar o parâmetro por diversas vezes ao decorrer do código.
+        
+    É importante frisar que, caso construída uma superfície muito complexa (com variações não lineares entre os pontos em mais de 2 direções :obj:`xyz`, uma
+    superfície muito torcida), a convergência das equações não é garantida - por enquanto.
+    
+    .. image:: ex_supcomplexa.png
+       :align: right
+       :scale: 40%
+                         
+    A superfície ao lado possui seguintes equações::
+    
+        x(𝑢,𝑣)=4.0𝑢²−2.0𝑢+𝑣²(3.0𝑢2−6.0𝑢+3.0)+𝑣(−6.0𝑢²+12.0𝑢−6.0)+3.0 
+        y(𝑢,𝑣)=2.0𝑢²+𝑣²(2.0𝑢2+1.0)+𝑣(4.0−4.0𝑢²) 
+        z(𝑢,𝑣)=−3.0𝑢²+4.0𝑢+𝑣²(−11.0𝑢²+14.0𝑢−7.0)+𝑣(18.0𝑢²−20.0𝑢+10.0)
+        
+    Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. Maiores dúvida sobre 
+    convergência consultar a função :obj:`previa_interseccao()`.
+    
     """
     
     for matriz_base,tipo,matriz_sem_desvio in [s.mpx,'x',s.mpx_sem_desvio],[s.mpy,'y',s.mpy_sem_desvio],[s.mpz,'z',s.mpz_sem_desvio]:
@@ -306,13 +315,13 @@ def gen_bezi_cylinder(bases_plane,radius,center_1,center_2,init_height,final_hei
     
     Args:
         bases_plane (:obj:`str`): Defina o plano paralelo à base. Pode assumir :obj:`'xy','xz','zy'`.
-        radius (:obj:`float`): Defina o raio do cilíndro
+        radius (:obj:`float`): Defina o raio do cilíndro.
         center_1 (:obj:`float`): Coordenada do eixo correspondente à primeira letra do :obj:`bases_plane`.
         center_2 (:obj:`float`): Coordenada do eixo correspondente à segunda letra do :obj:`bases_plane`.
         init_height (:obj:`float`): Altura da base inferior do cilíndro.
         final_height (:obj:`float`): Altura da base superior do cilíndro.
-        identif_inicial (:obj:`str`): O mesmo :obj:`identif` do resto do código. O usuário deverá criar a identificação da primeira
-            das quatro Béziers geradas na função, as outras identificações são automáticas.
+        identif_inicial (:obj:`str`): O mesmo :obj:`identif` do resto do código. O usuário deverá criar apenas a identificação da primeira
+            das quatro Béziers geradas na função. Todas as outras identificações são definidas automaticamente.
         
     Exemplo:
         Para criar um cilíndro de raio 1 e altura 2 no plano :obj:`xz` caso alguma superfície já tenha sido criada e 
@@ -507,23 +516,12 @@ def previa_intersecçao(identif_inicial,identif_final):
     
     """
     Uma *mini simulação de Epsi*. Para poucos nós em cada direção será checado se os limites são coerentes ou não, 
-    ou seja, **se as funções convergiram para o determinado espaçamento de nós ou não**.
+    ou seja, **se as funções convergiram para o determinado espaçamento de nós ou não**. Cada ponto no gráfico significa uma intersecção entre o vetor e a superfície.
+    Se todos forem razoáveis, a superfície será bem entendida pelo solver.
     
     Args:
         identif_inicial (:obj:`str`): Determine o início do intervalo de superfícies a serem calculadas através da identificação :obj:`identif`.
         identif_final (:obj:`str`): Determine o final do intervalo (endpoint não incluido) de superfícies a serem calcuadas através da identificação :obj:`identif`.
-        
-    Note:
-        Como dito anteriormente, é recomendado fugir de superfícies mais complexas com graus (ou então numero de pontos em cada direção :obj:`[u,v]`) 
-        elevados e/ou com muitas variações em mais de duas direções :obj:`xyz`. Para enfatizar esse argumento, podemos trazer alguns números: imagine uma 
-        primeira superfície de 1ª ordem (2 pontos em cada direção) com variações constantes/lineares em todas direções (um quadrado ou retângulo). Agora, 
-        como segunda superfície, imagine outra superfície de 1ª ordem com variações não-constantes/não-lineares em todas direções, uma superfície mais 
-        alta de um lado do que de outro, ao mesmo tempo que é mais larga em um lado do que em outro e que esteja sendo 'torcida'. O cálculo de limites 
-        da Epsi da primeira demora cerca de **25%** do tempo quando comparada à segunda superfície, mesmo ambas tendo o mesmo grau. No primeiro caso, 
-        das 3 equações, apenas 2 dependerão de apenas 1 variável e a outra será uma constante. No segundo caso, todas as 3 equações dependem de 2 variáveis, 
-        o que se torna bastante custoso.
-        Porém, caso não seja possível fugir destas complicações, na hora de plotar sua superfície, chame esta função para verificar se os vetores de cada
-        plano estão reconhecendo a sua superfície como deveriam.
     
     """
     
@@ -579,7 +577,7 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
     
     """
     
-    Aqui, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é sólido (na Epsi, :obj:`1`) e onde
+    Nesta função, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é sólido (na Epsi, :obj:`1`) e onde
     não é sólido (na Epsi, :obj:`0`). Vamos setar o que é considerado entrada e saída, ou ambos ao mesmo tempo, **para todas as superfícies criadas**. 
     Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos definir qual o melhor plano para calcular os limites.
     
@@ -588,23 +586,30 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
     Args:
         tipo (:obj:`str`): Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido.
         
-            +-------------------------+------------------------------------+
-            | Tipo                    | Sete  :obj:`tipo` como             | 
-            +=========================+====================================+
-            | Entrada Pura            | :obj:`'entrada+saída e/ou entrada'`|
-            +-------------------------+------------------------------------+
-            | Saída Pura              | :obj:`'entrada+saída e/ou saída'`  |
-            +-------------------------+------------------------------------+
-            | Entrada/Saída Pura      | Tanto faz                          |
-            +-------------------------+------------------------------------+
-            | Entrada/Saída + Entrada | :obj:`'entrada+saída e/ou entrada'`|
-            +-------------------------+------------------------------------+
-            | Entrada/Saída + Saída   | :obj:`'entrada+saída e/ou saída'`  |  
-            +-------------------------+------------------------------------+
-            
+                            +-------------------------+------------------------------------+
+                            | Tipo                    | Sete  :obj:`tipo` como             | 
+                            +=========================+====================================+
+                            | Entrada Pura            | :obj:`'entrada+saída e/ou entrada'`|
+                            +-------------------------+------------------------------------+
+                            | Saída Pura              | :obj:`'entrada+saída e/ou saída'`  |
+                            +-------------------------+------------------------------------+
+                            | Entrada/Saída Pura      | Tanto faz                          |
+                            +-------------------------+------------------------------------+
+                            | Entrada/Saída + Entrada | :obj:`'entrada+saída e/ou entrada'`|
+                            +-------------------------+------------------------------------+
+                            | Entrada/Saída + Saída   | :obj:`'entrada+saída e/ou saída'`  |  
+                            +-------------------------+------------------------------------+
+
+    Args: 
+        plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Caso o plano xy seja o melhor, setar :obj:`plano='xy'`. Pode assumir apenas :obj:`'xz','xy','zy'`.
+        identif(:obj:`str`): Repita o argumento :obj:`identif` da superfície em questão.
+        simetria(:obj:`str`, optional): Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`.
+            Caso utilize este termo, projete apenas metade das superfícies caso elas cruzem o eixo de simetria. Caso contrário, o método não resulta em ganhos significativos.
+        raf0(:obj:`str`, optional): Não há necessidade alguma de manipulação por parte do usuário. 
+    
     **Exemplo:**
         .. figure:: ex_entradasaidasaida.png
-           :scale: 60%
+           :scale: 70%
            :align: center
            
         Podemos notar 2 supefícies na figura, uma verde (:obj:`identif='0'`) e outra roxa (:obj:`identif='1'`). 
@@ -621,15 +626,15 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
             **entra-se no sólido**. 
             
             2. O sólido roxo deve ser dividido em 2 partes e é considerado *Entrada/Saída + Saída*. A primeira parte é a superior, logo acima da superfície verde.
-            Toda esta parte será interceptada pelos vetores duas vezes e **por isso é considerada Entrada/Saída**. A segunda parte é a inferior, que 'compartilha'
+            Toda esta parte será interceptada pelos vetores duas vezes e **por isso é considerada entrada/saída**. A segunda parte é a inferior, que 'compartilha'
             altura com a superfície verde. Esta parte será interceptada pelos vetores apenas uma vez e em todas elas o sólido já terá acabado, por isso é considerada
-            também como *Saída*.
+            também como **saída**.
         
     Warning:
         Caso construída uma superfície que possua segmentos com possíveis entradas/saídas simultâneas (superfície roxa), certificar que a superfície seja construída 
         no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plano.
     
-    Note:
+    Warning:
         Caso a superfície identificada com :obj:`identif` seja *entrada*, a partir do momento em que a Epsi encontrar a superfície até o fim da 
         Epsi será setado como 1. Caso seja *saída*, 
         a partir do momento em que a Epsi encontrar a superfície até o fim da Epsi será setado como 0. 
@@ -639,12 +644,9 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
         é necessário marcar como 0 algo que já está setado como 0 (a matriz Epsi é setada inicialmente apemas com 0, com dimensões nx, ny e nz). Seguindo a lógica, 
         o usuário agora então chamaria as entradas. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido. 
         Ou seja, o sólido *não foi representado corretamente.*
-
-    Args: 
-        plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Caso o plano xy seja o melhor, setar :obj:`plano='xy'`. Pode assumir apenas :obj:`'xz','xy','zy'`.
-        
-    Note:
-        **Mas, como assim 'plano'?**
+    
+    Warning:
+        **Explicando 'plano' mais uma vez:**
         
         Para cada combinação de coordenada (xy, xz ou zy), imagine um vetor saíndo de cada nó existente.
         Como por exemplo, falaremos do plano xy. De cada posição x e de cada posição y possível, sairá um vetor em direção à z.
@@ -654,18 +656,8 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
         Imagine outro exemplo, onde o usuário construiu um quadrado no plano xy (ou seja, paralelo ao plano xy), com alguma altura constante qualquer.
         Esse quadrado não possui dimensão alguma para qualquer plano a não ser o plano xy.
         Em outras palavras, o plano zy e o plano zx nunca cruzarão este quadrado, logo a Epsi não será construída corretamente pois não haverá limite algum para isso.
-        E isso é perfeitamente demonstrado pela :obj:`previa_intersecçao`. Inclusive, o retorno desta função explicita onde há interceptação dos vetores com a superfície, 
+        E isso é perfeitamente demonstrado pela a função :obj:`previa_interseccao()`. Inclusive, o retorno desta função explicita onde há interceptação dos vetores com a superfície, 
         tornando mais clara a escolha deste argumento.
-        
-    Args:
-        identif(:obj:`str`): Repita o argumento :obj:`identif` da superfície em questão.
-        simetria(:obj:`str`, optional): Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`.
-        
-    Warning:
-        Caso utilize a simetria, projete apenas metade das superfícies caso elas cruzem o eixo de simetria. Caso contrário, o método não resulta em ganhos significativos. 
-
-    Args:
-       raf0(:obj:`str`, optional): Não há necessidade alguma de manipulação por parte do usuário. 
     """   
     dx_gen,dy_gen,dz_gen=dx,dy,dz
     nx_gen,ny_gen,nz_gen=nx,ny,nz
