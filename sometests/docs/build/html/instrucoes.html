@@ -213,13 +213,15 @@ para que assim os cálculos se tornem baratos e viáveis. <strong>Caso um objeto
 superfície muito torcida), a convergência das equações não é garantida - por enquanto.</p>
 <a class="reference internal image-reference" href="_images/ex_supcomplexa.png"><img alt="_images/ex_supcomplexa.png" class="align-right" src="_images/ex_supcomplexa.png" style="width: 279.2px; height: 266.40000000000003px;" /></a>
 <p>A superfície ao lado possui seguintes equações:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>x(𝑢,𝑣)=4.0𝑢²−2.0𝑢+𝑣²(3.0𝑢2−6.0𝑢+3.0)+𝑣(−6.0𝑢²+12.0𝑢−6.0)+3.0
-y(𝑢,𝑣)=2.0𝑢²+𝑣²(2.0𝑢2+1.0)+𝑣(4.0−4.0𝑢²)
-z(𝑢,𝑣)=−3.0𝑢²+4.0𝑢+𝑣²(−11.0𝑢²+14.0𝑢−7.0)+𝑣(18.0𝑢²−20.0𝑢+10.0)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>x(𝑢,𝑣) = 4𝑢²−2𝑢+𝑣²(3𝑢2−6𝑢+3)+𝑣(−6𝑢²+12𝑢−6)+3
+
+y(𝑢,𝑣) = 2𝑢²+𝑣²(2𝑢²+1)+𝑣(4−4𝑢²)
+
+z(𝑢,𝑣) = −3𝑢²+4𝑢+𝑣²(−11𝑢²+14𝑢−7)+𝑣(18𝑢²−20𝑢+10)
 </pre></div>
 </div>
-<p>Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. Maiores dúvida sobre
-convergência consultar a função <code class="xref py py-obj docutils literal notranslate"><span class="pre">previa_interseccao()</span></code>.</p>
+<p>Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. Sobre
+convergência, consultar a função <code class="xref py py-obj docutils literal notranslate"><span class="pre">previa_interseccao()</span></code>.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -511,7 +513,8 @@ em qualquer direção.</p>
 <p class="admonition-title">Warning</p>
 <p>Deverá ser obrigatoriamente chamada entre a função <a class="reference internal" href="#creating_solid.cria_matriz_pontos" title="creating_solid.cria_matriz_pontos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cria_matriz_pontos()</span></code></a> e a função <a class="reference internal" href="#creating_solid.gen_bezi" title="creating_solid.gen_bezi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi()</span></code></a>.</p>
 </div>
-<p>Exemplo:</p>
+<dl>
+<dt>Exemplo:</dt><dd><p>Para “empurrar” 1.5 unidades para trás e “puxar” 0.5 unidades para o lado:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prepara_matriz_pontos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
@@ -528,6 +531,8 @@ em qualquer direção.</p>
 <span class="n">gen_bezi</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">capô</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

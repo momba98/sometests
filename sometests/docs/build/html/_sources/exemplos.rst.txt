@@ -5,6 +5,12 @@ Exemplos
 Para que seja possível rodar os exemplos demonstrados na página,
 **copie as linhas de código e cole nos locais indicados no** ``Notebook``.
 
+O usuário encontrará células comentadas com a indicação de onde colar. Essa
+indicação representa o capítulo do ``Notebook``, como demonstra a figura:
+
+.. image:: ex_coleaqui.png
+   :align: center
+
 Caso queira apenas obter os arquivos necessários para visualização no
 ParaView (arquivo .xdmf lido com a opção XMDF Reader) e simulação numérica através
 do ``incompact3d`` (arquivos Epsi), **faça o download disponível**.
@@ -17,10 +23,10 @@ do ``incompact3d`` (arquivos Epsi), **faça o download disponível**.
 
    *Versão 3D do polêmico carro americano recriada em Epsi;*
 
+Demanda do dr. FS: :download:`projeto Cyber em apenas 2D <downloads/cyber_2d.zip>`.
+
 Faça o :download:`download dos arquivos  <downloads/cyber.zip>` ou
 **copie e cole onde é explicitado no** ``Notebook``:
-
-Demanda do dr. FS: :download:`projeto Cyber em apenas 2D <downloads/cyber_2d.zip>`.
 
    **1.1. Domínio** ::
 
@@ -650,91 +656,9 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         cria_matriz_pontos(desvio=True)
         gen_bezi('22','h1l1c,saida')
 
-        R=3.78-3.31
+        gen_bezi_cylinder('xy',3.78-3.31,3.78,0.46,0,1,'23')
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78-R,0.46,0]
-        armz_pt['P01']=[3.78-R,0.46,1]
-        armz_pt['P10']=[3.78-R*cos,0.46+R*sin,0]
-        armz_pt['P11']=[3.78-R*cos,0.46+R*sin,1]
-        armz_pt['P20']=[3.78,0.46+R,0]
-        armz_pt['P21']=[3.78,0.46+R,1]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi('23','rs,entrada')
-
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78,0.46+R,0]
-        armz_pt['P01']=[3.78,0.46+R,1]
-        armz_pt['P10']=[3.78+R*cos,0.46+R*sin,0]
-        armz_pt['P11']=[3.78+R*cos,0.46+R*sin,1]
-        armz_pt['P20']=[3.78+R,0.46,0]
-        armz_pt['P21']=[3.78+R,0.46,1]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi('24','rs,saida')
-
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78-R,0.46,0]
-        armz_pt['P01']=[3.78-R,0.46,1]
-        armz_pt['P10']=[3.78-R*cos,0.46-R*sin,0]
-        armz_pt['P11']=[3.78-R*cos,0.46-R*sin,1]
-        armz_pt['P20']=[3.78,0.46-R,0]
-        armz_pt['P21']=[3.78,0.46-R,1]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi('25','ri,entrada')
-
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78,0.46-R,0]
-        armz_pt['P01']=[3.78,0.46-R,1]
-        armz_pt['P10']=[3.78+R*cos,0.46-R*sin,0]
-        armz_pt['P11']=[3.78+R*cos,0.46-R*sin,1]
-        armz_pt['P20']=[3.78+R,0.46,0]
-        armz_pt['P21']=[3.78+R,0.46,1]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi('26','ri,saida')
-
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78-R,0.46,0]
-        armz_pt['P01']=[3.78-R,0.46,1]
-        armz_pt['P10']=[3.78-R*cos,0.46+R*sin,0]
-        armz_pt['P11']=[3.78-R*cos,0.46+R*sin,1]
-        armz_pt['P20']=[3.78,0.46+R,0]
-        armz_pt['P21']=[3.78,0.46+R,1]
-        cria_matriz_pontos(desvio=True)
-        transladar('x',-2.63)
-        gen_bezi('27','rs,entrada')
-
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78,0.46+R,0]
-        armz_pt['P01']=[3.78,0.46+R,1]
-        armz_pt['P10']=[3.78+R*cos,0.46+R*sin,0]
-        armz_pt['P11']=[3.78+R*cos,0.46+R*sin,1]
-        armz_pt['P20']=[3.78+R,0.46,0]
-        armz_pt['P21']=[3.78+R,0.46,1]
-        cria_matriz_pontos(desvio=True)
-        transladar('x',-2.63)
-        gen_bezi('28','rs,saida')
-
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78-R,0.46,0]
-        armz_pt['P01']=[3.78-R,0.46,1]
-        armz_pt['P10']=[3.78-R*cos,0.46-R*sin,0]
-        armz_pt['P11']=[3.78-R*cos,0.46-R*sin,1]
-        armz_pt['P20']=[3.78,0.46-R,0]
-        armz_pt['P21']=[3.78,0.46-R,1]
-        cria_matriz_pontos(desvio=True)
-        transladar('x',-2.63)
-        gen_bezi('29','ri,entrada')
-
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[3.78,0.46-R,0]
-        armz_pt['P01']=[3.78,0.46-R,1]
-        armz_pt['P10']=[3.78+R*cos,0.46-R*sin,0]
-        armz_pt['P11']=[3.78+R*cos,0.46-R*sin,1]
-        armz_pt['P20']=[3.78+R,0.46,0]
-        armz_pt['P21']=[3.78+R,0.46,1]
-        cria_matriz_pontos(desvio=True)
-        transladar('x',-2.63)
-        gen_bezi('30','ri,saida')
+        gen_bezi_cylinder('xy',3.78-3.31,3.78-2.63,0.46,0,1,'27')
 
 
    **1.3.3. Geração da Epsi** ::
@@ -748,10 +672,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         gen_epsi('entrada+saída e/ou saída','zy','20')
         gen_epsi('entrada+saída e/ou saída','zy','21')
         gen_epsi('entrada+saída e/ou saída','zy','22')
-        gen_epsi('entrada+saída e/ou entrada','zy','27')
-        gen_epsi('entrada+saída e/ou entrada','zy','29')
-        gen_epsi('entrada+saída e/ou saída','zy','28')
-        gen_epsi('entrada+saída e/ou saída','zy','30')
+        gen_epsi_cylinder('xy','sólido','zy','27')
         gen_epsi('entrada+saída e/ou entrada','zy','19')
         gen_epsi('entrada+saída e/ou entrada','zy','18')
         gen_epsi('entrada+saída e/ou entrada','zy','4')
@@ -761,10 +682,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         gen_epsi('entrada+saída e/ou saída','zy','17')
         gen_epsi('entrada+saída e/ou saída','zy','16')
         gen_epsi('entrada+saída e/ou saída','zy','15')
-        gen_epsi('entrada+saída e/ou entrada','zy','23')
-        gen_epsi('entrada+saída e/ou entrada','zy','25')
-        gen_epsi('entrada+saída e/ou saída','zy','24')
-        gen_epsi('entrada+saída e/ou saída','zy','26')
+        gen_epsi_cylinder('xy','sólido','zy','23')
         gen_epsi('entrada+saída e/ou entrada','zy','14')
         gen_epsi('entrada+saída e/ou entrada','zy','13')
         gen_epsi('entrada+saída e/ou saída','zy','8')

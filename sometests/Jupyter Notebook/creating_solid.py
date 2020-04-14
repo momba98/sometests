@@ -179,22 +179,23 @@ def transladar(direcao,quantidade):
     Warning: 
         Deverá ser obrigatoriamente chamada entre a função :obj:`cria_matriz_pontos()` e a função :obj:`gen_bezi()`.
         
-    Exemplo::
+    Exemplo:
+        Para "empurrar" 1.5 unidades para trás e "puxar" 0.5 unidades para o lado::
         
-        prepara_matriz_pontos(2,2)
-            
-        armz_pt['P00'] = [x,y,z] 
-        armz_pt['P01'] = [x,y,z] 
-        armz_pt['P10'] = [x,y,z]
-        armz_pt['P11'] = [x,y,z]
-        
-        cria_matriz_pontos()
-        
-        transladar('y',1.5)
+            prepara_matriz_pontos(2,2)
 
-        transladar('x',-0.5)
+            armz_pt['P00'] = [x,y,z] 
+            armz_pt['P01'] = [x,y,z] 
+            armz_pt['P10'] = [x,y,z]
+            armz_pt['P11'] = [x,y,z]
 
-        gen_bezi('0',capô)
+            cria_matriz_pontos()
+
+            transladar('y',1.5)
+
+            transladar('x',-0.5)
+
+            gen_bezi('0',capô)
 
     """
     
@@ -249,12 +250,14 @@ def gen_bezi(identif, nome, show_equation=False):
                          
     A superfície ao lado possui seguintes equações::
     
-        x(𝑢,𝑣)=4.0𝑢²−2.0𝑢+𝑣²(3.0𝑢2−6.0𝑢+3.0)+𝑣(−6.0𝑢²+12.0𝑢−6.0)+3.0 
-        y(𝑢,𝑣)=2.0𝑢²+𝑣²(2.0𝑢2+1.0)+𝑣(4.0−4.0𝑢²) 
-        z(𝑢,𝑣)=−3.0𝑢²+4.0𝑢+𝑣²(−11.0𝑢²+14.0𝑢−7.0)+𝑣(18.0𝑢²−20.0𝑢+10.0)
+        x(𝑢,𝑣) = 4𝑢²−2𝑢+𝑣²(3𝑢2−6𝑢+3)+𝑣(−6𝑢²+12𝑢−6)+3
         
-    Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. Maiores dúvida sobre 
-    convergência consultar a função :obj:`previa_interseccao()`.
+        y(𝑢,𝑣) = 2𝑢²+𝑣²(2𝑢²+1)+𝑣(4−4𝑢²) 
+        
+        z(𝑢,𝑣) = −3𝑢²+4𝑢+𝑣²(−11𝑢²+14𝑢−7)+𝑣(18𝑢²−20𝑢+10)
+        
+    Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. Sobre 
+    convergência, consultar a função :obj:`previa_interseccao()`.
     
     """
     
@@ -485,7 +488,7 @@ def plota_superficie(identif_inicial,identif_final, pontos=False, alpha=0.3):
     
     global fig,ax
     
-    fig = plt.figure(figsize=(9,9))
+    fig = plt.figure(figsize=(11,9))
     ax = fig.add_subplot(1, 1, 1, projection='3d', proj_type='ortho')
     
     ax.set_xlabel('x'),ax.set_ylabel('y'),ax.set_zlabel('z'),ax.set_xlim(0,max([lx,ly,lz])),ax.set_ylim(0,max([lx,ly,lz])),ax.set_zlim(0,max([lx,ly,lz])),
@@ -502,7 +505,12 @@ def plota_superficie(identif_inicial,identif_final, pontos=False, alpha=0.3):
         ax.plot([lx,lx],[ly,ly],[0,z],'k--',linewidth=0.5,alpha=0.7)
     
     for plot in np.arange(identif_inicial,identif_final,1):
-        ax.plot_surface(armz_eq[f'x{plot}'][3],armz_eq[f'y{plot}'][3],armz_eq[f'z{plot}'][3],color='c',antialiased=True,shade=True,alpha=alpha) #cmap='Wistia'
+        surf = ax.plot_surface(armz_eq[f'x{plot}'][3],armz_eq[f'y{plot}'][3],armz_eq[f'z{plot}'][3],antialiased=True,shade=True,alpha=alpha,label=armz_eq[f'x{plot}'][0])
+        surf._facecolors2d=surf._facecolors3d
+        surf._edgecolors2d=surf._edgecolors3d
+        fig.tight_layout()
+        fig.subplots_adjust(right=0.8)
+        ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize=10)
         if pontos == True:
             ax.scatter(armz_eq[f'x{plot}'][8],armz_eq[f'y{plot}'][8],armz_eq[f'z{plot}'][8],s=200)
             for i in range(0,armz_eq[f'x{plot}'][6],1):
