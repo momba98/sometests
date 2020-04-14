@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Funções e respectivas instruções" href="instrucoes.html" /> 
+    <link rel="prev" title="Funções e Respectivas Instruções" href="instrucoes.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,7 +81,8 @@
             
               <p class="caption"><span class="caption-text">Conteúdos:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="instrucoes.html">Funções e respectivas instruções</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier (ainda em construção)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instrucoes.html">Funções e Respectivas Instruções</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Exemplos</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cybertruck">1. Cybertruck</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#esfinge">2. Esfinge</a></li>
@@ -167,6 +168,7 @@ do <code class="docutils literal notranslate"><span class="pre">incompact3d</spa
 </div>
 <p>Faça o <a class="reference download internal" download="" href="_downloads/418e1060bd9cb50876e9353fdece08e3/cyber.zip"><code class="xref download docutils literal notranslate"><span class="pre">download</span> <span class="pre">dos</span> <span class="pre">arquivos</span></code></a> ou
 <strong>copie e cole onde é explicitado no</strong> <code class="docutils literal notranslate"><span class="pre">Notebook</span></code>:</p>
+<p>Demanda do dr. FS: <a class="reference download internal" download="" href="_downloads/1368db6cdf7fbef649af15bbd8c1eb29/cyber_2d.zip"><code class="xref download docutils literal notranslate"><span class="pre">projeto</span> <span class="pre">Cyber</span> <span class="pre">em</span> <span class="pre">apenas</span> <span class="pre">2D</span></code></a>.</p>
 <blockquote>
 <div><p><strong>1.1. Domínio</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lx</span><span class="p">,</span><span class="n">ly</span><span class="p">,</span><span class="n">lz</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span>
@@ -174,7 +176,7 @@ do <code class="docutils literal notranslate"><span class="pre">incompact3d</spa
 </pre></div>
 </div>
 <p><strong>1.3.1. Geração de Pontos de Controle</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prepara_matriz_pontos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prepara_matriz_pontos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#from prepara_matriz_pontos to gen_bezi: creating a surface</span>
 <span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mf">2.40</span><span class="p">,</span><span class="mf">0.89</span><span class="p">,</span><span class="mf">1.9</span><span class="p">]</span>
 <span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mf">2.40</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.9</span><span class="p">]</span>
 <span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mf">5.9</span><span class="p">,</span><span class="mf">0.57</span><span class="p">,</span><span class="mf">1.4</span><span class="p">]</span>
@@ -927,7 +929,7 @@ do <code class="docutils literal notranslate"><span class="pre">incompact3d</spa
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="instrucoes.html" class="btn btn-neutral float-left" title="Funções e respectivas instruções" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="instrucoes.html" class="btn btn-neutral float-left" title="Funções e Respectivas Instruções" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -20,6 +20,8 @@ do ``incompact3d`` (arquivos Epsi), **faça o download disponível**.
 Faça o :download:`download dos arquivos  <downloads/cyber.zip>` ou
 **copie e cole onde é explicitado no** ``Notebook``:
 
+Demanda do dr. FS: :download:`projeto Cyber em apenas 2D <downloads/cyber_2d.zip>`.
+
    **1.1. Domínio** ::
 
         lx,ly,lz=10,3,3
@@ -28,7 +30,7 @@ Faça o :download:`download dos arquivos  <downloads/cyber.zip>` ou
 
    **1.3.1. Geração de Pontos de Controle** ::
 
-        prepara_matriz_pontos(2,2)
+        prepara_matriz_pontos(2,2) #from prepara_matriz_pontos to gen_bezi: creating a surface
         armz_pt['P00']=[2.40,0.89,1.9]
         armz_pt['P01']=[2.40,1.5,1.9]
         armz_pt['P10']=[5.9,0.57,1.4]
