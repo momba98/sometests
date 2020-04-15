@@ -23,7 +23,7 @@ do ``incompact3d`` (arquivos Epsi), **faça o download disponível**.
 
    *Versão 3D do polêmico carro americano recriada em Epsi;*
 
-Demanda do dr. FS: :download:`projeto Cyber em apenas 2D <downloads/cyber_2d.zip>`.
+Demanda do Dr. FS: :download:`projeto Cyber em apenas 2D <downloads/cyber_2d.zip>`.
 
 Faça o :download:`download dos arquivos  <downloads/cyber.zip>` ou
 **copie e cole onde é explicitado no** ``Notebook``:
