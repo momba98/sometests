@@ -22,23 +22,25 @@ from IPython.display import display
 import infos as s
 import inputs as i
 
-armz_pt=s.armz_pt
-npsu=s.npsu
-npsv=s.npsv
+point_storage=s.point_storage
+number_points_u=s.number_points_u
+number_points_v=s.number_points_v
 u=s.u
 v=s.v
-mu=s.mu
-mv=s.mv
-mpx=s.mpx
-mpy=s.mpy
-mpz=s.mpz
+u_plot=s.u_plot
+v_plot=s.v_plot
+u_matrix=s.u_matrix
+v_matrix=s.v_matrix
+point_matrix_x=s.point_matrix_x
+point_matrix_y=s.point_matrix_y
+point_matrix_z=s.point_matrix_z
 lz=s.lz
 lx=s.lx
 ly=s.ly
-armz_eq=s.armz_eq
-nz_visualizacao,ny_visualizacao,nx_visualizacao=s.nz_visualizacao,s.ny_visualizacao,s.nx_visualizacao
-dz_visualizacao,dy_visualizacao,dx_visualizacao=s.dz_visualizacao,s.dy_visualizacao,s.dx_visualizacao
-contador=s.contador
+eq_storage=s.eq_storage
+visu_nz,visu_ny,visu_nx=s.visu_nz,s.visu_ny,s.visu_nx
+visu_dz,visu_dy,visu_dx=s.visu_dz,s.visu_dy,s.visu_dx
+count=s.count
 nraf=s.nraf
 nx_raf = s.nx_raf
 dx_raf = s.dx_raf
@@ -49,7 +51,7 @@ dz_raf = s.dz_raf
 epsi_3d_x_raf = s.epsi_3d_x_raf
 epsi_3d_y_raf = s.epsi_3d_y_raf
 epsi_3d_z_raf = s.epsi_3d_z_raf
-nome=s.nome
+name=s.name
 dx=s.dx
 dy=s.dy
 dz=s.dz
@@ -57,80 +59,81 @@ ny=s.ny
 nx=s.nx
 nz=s.nz
 epsi_3d=s.epsi_3d
-armz_nomenclt_epsi=s.armz_nomenclt_epsi
+format_storage=s.format_storage
 
-def prepara_matriz_pontos(pontos_u,pontos_v):
+def set_point_matrix(num_u_points,num_v_points):
     
     """
     
     Importante função em que o usuário determinará o número de pontos em cada direção :obj:`[u,v]`.
     
-    Caso fique em dúvida da nomenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com :obj:`print(armz_pt)`::
+    Caso fique em dúvida da namenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com :obj:`print(point_storage)`::
         
         #exemplo de como tirar a dúvida dos pontos que devem receber algum input
-        prepara_matriz_pontos(3,3)
-        print(armz_pt)
+        set_point_matrix(3,3)
+        print(point_storage)
     
     Basicamente, os pontos a serem determinados possuem 2 sub-índices: :obj:`i` e :obj:`j` → :obj:`Pij`.
     
-    Os sub-índices começarão em :obj:`0` e irão até :obj:`i-1` e/ou :obj:`j-1`.
+    Os sub-índices começarão em :obj:`0` e irão até :obj:`i-1` and/or :obj:`j-1`.
     
     Args:
-        pontos_u (:obj:`int`): Determine o número de pontos que a direção :obj:`u` terá.
-        pontos_v (:obj:`int`): Determine o número de pontos que a direção :obj:`v` terá.
+        num_u_points (:obj:`int`): Determine o número de pontos que a direção :obj:`u` terá.
+        num_v_points (:obj:`int`): Determine o número de pontos que a direção :obj:`v` terá.
     
     Exemplo:
-        Será explicitado quais pontos deverão ser setados de acordo com as entradas::
+        Será explicitado quais pontos deverão ser setados de acordo com as entrys::
         
-            prepara_matriz_pontos(3,2) #função é chamada
+            set_point_matrix(3,2) #função é chamada
             
-            armz_pt['P00'] = [x,y,z] #declara-se as informações do ponto
-            armz_pt['P01'] = [x,y,z] #qualquer ponto de 3 coordenadas dentro do domínio
-            armz_pt['P10'] = [x,y,z]
-            armz_pt['P11'] = [x,y,z]
-            armz_pt['P20'] = [x,y,z]
-            armz_pt['P21'] = [x,y,z]
+            point_storage['P00'] = [x,y,z] #declara-se as informações do ponto
+            point_storage['P01'] = [x,y,z] #qualquer ponto de 3 coordenadas dentro do domínio
+            point_storage['P10'] = [x,y,z]
+            point_storage['P11'] = [x,y,z]
+            point_storage['P20'] = [x,y,z]
+            point_storage['P21'] = [x,y,z]
             
-        Note que o primeiro subíndice, :obj:`i`, começa em :obj:`0` e termina em :obj:`2`, que é o correspondente a :obj:`pontos_u=3-pontos_v=1`.
+        Note que o primeiro subíndice, :obj:`i`, começa em :obj:`0` e termina em :obj:`2`, que é o correspondente a :obj:`num_u_points=3-num_v_points=1`.
         
-        O dicionário :obj:`armz_pt` faz parte da mecânica do código, não deve ser alterado. Auxilia na setagem e no armazenamento das informações.
+        O dicionário :obj:`point_storage` faz parte da mecânica do código, não deve ser alterado. Auxilia na setagem e no armazenamento das informações.
 
     """
         
-    armz_pt={}
+    point_storage={}
     
-    s.npsu=pontos_u
-    global npsv
-    s.npsv=pontos_v
+    global number_points_v, number_points_u, u_matrix, v_matrix, point_matrix_x, point_matrix_y, point_matrix_z
     
-    for i in range(0,s.npsu,1):
-        for j in range(0,s.npsv,1):
-            armz_pt[f'P{i}{j}'] = [0,0,0]
+    number_points_u=num_u_points
+    number_points_v=num_v_points
     
-    mut=np.array([s.u**0,s.u**1,s.u**2,s.u**3,s.u**4,s.u**5,s.u**6,s.u**7,s.u**8,s.u**9])
-    mvt=np.array(([s.v**0],[s.v**1],[s.v**2],[s.v**3],[s.v**4],[s.v**5],[s.v**6],[s.v**7],[s.v**8],[s.v**9]))
+    for i in range(0,number_points_u,1):
+        for j in range(0,number_points_v,1):
+            point_storage[f'P{i}{j}'] = [0,0,0]            
     
-    s.mu=mut[:s.npsu]
-    s.mv=mvt[:s.npsv]
-    s.mpx=np.empty((s.npsu,s.npsv))
-    s.mpy=np.empty((s.npsu,s.npsv))
-    s.mpz=np.empty((s.npsu,s.npsv))
+    mut=np.array([u**0,u**1,u**2,u**3,u**4,u**5,u**6,u**7,u**8,u**9])
+    mvt=np.array(([v**0],[v**1],[v**2],[v**3],[v**4],[v**5],[v**6],[v**7],[v**8],[v**9]))
+    
+    u_matrix=mut[:number_points_u]
+    v_matrix=mvt[:number_points_v]
+    point_matrix_x=np.empty((number_points_u,number_points_v))
+    point_matrix_y=np.empty((number_points_u,number_points_v))
+    point_matrix_z=np.empty((number_points_u,number_points_v))
 
 
-def cria_matriz_pontos(desvio=False):
+def create_point_matrix(deflection=False):
     
     """
     Auxílio na hora de setar os pontos necessários para as equações da função :obj:`gen_bezi()`.
     
     Args: 
-        desvio (:obj:`Bool`, optional): Sete como :obj:`True` caso queira que a superfície passe pelos pontos de controle 
+        deflection (:obj:`Bool`, optional): Sete como :obj:`True` caso queira que a superfície passe pelos pontos de controle 
             (pontos intermediários, os que normalmente dão a curvatura suave à superfície). Baseia-se num artifício
             matemático que *hackeia* a Bézier, forçando-a a fazer algo que normalmente não faria.
     Warning:
-        :obj:`desvio=True` **não demonstrará efeito em todos os casos!**
+        :obj:`deflection=True` **não demonstrará efeito em todos os casos!**
         
         O parâmetro pode ficar setado como True sem danificar o código, porém só efetivamente desviará a superfície 
-        caso :obj:`n_pontos_u=3` ao mesmo tempo que :obj:`n_pontos_v=2` ou vice-versa.
+        caso :obj:`n_num_u_points=3` ao mesmo tempo que :obj:`n_num_v_points=2` ou vice-versa.
         
         **O porquê da restrição:** 
         
@@ -139,86 +142,88 @@ def cria_matriz_pontos(desvio=False):
         :obj:`[u,v]` ou mais, torna-se *matematicamente complicado* descrever o desvio.
             
     """
-    for i in range(s.npsu):
-        for j in range(s.npsv):
-            s.mpx[i][j] = s.armz_pt[f'P{i}{j}'][0]
-            s.mpy[i][j] = s.armz_pt[f'P{i}{j}'][1]
-            s.mpz[i][j] = s.armz_pt[f'P{i}{j}'][2]
-            
-    s.mpx_sem_desvio, s.mpy_sem_desvio, s.mpz_sem_desvio= s.mpx.copy(), s.mpy.copy(), s.mpz.copy()
+    for i in range(number_points_u):
+        for j in range(number_points_v):
+            point_matrix_x[i][j] = point_storage[f'P{i}{j}'][0]
+            point_matrix_y[i][j] = point_storage[f'P{i}{j}'][1]
+            point_matrix_z[i][j] = point_storage[f'P{i}{j}'][2]
+        
+    global point_matrix_x_no_deflection, point_matrix_y_no_deflection, point_matrix_z_no_deflection
     
-    if desvio==True:
-        if s.npsu==3:
-            if s.npsv==2:
-                s.mpx[1][0] = s.mpx[1][0]*2 - (s.mpx[0][0]+s.mpx[2][0])/2
-                s.mpx[1][1] = s.mpx[1][1]*2 - (s.mpx[0][1]+s.mpx[2][1])/2
-                s.mpy[1][0] = s.mpy[1][0]*2 - (s.mpy[0][0]+s.mpy[2][0])/2
-                s.mpy[1][1] = s.mpy[1][1]*2 - (s.mpy[0][1]+s.mpy[2][1])/2
-                s.mpz[1][0] = s.mpz[1][0]*2 - (s.mpz[0][0]+s.mpz[2][0])/2
-                s.mpz[1][1] = s.mpz[1][1]*2 - (s.mpz[0][1]+s.mpz[2][1])/2
+    point_matrix_x_no_deflection, point_matrix_y_no_deflection, point_matrix_z_no_deflection= point_matrix_x.copy(), point_matrix_y.copy(), point_matrix_z.copy()
+    
+    if deflection==True:
+        if number_points_u==3:
+            if number_points_v==2:
+                point_matrix_x[1][0] = point_matrix_x[1][0]*2 - (point_matrix_x[0][0]+point_matrix_x[2][0])/2
+                point_matrix_x[1][1] = point_matrix_x[1][1]*2 - (point_matrix_x[0][1]+point_matrix_x[2][1])/2
+                point_matrix_y[1][0] = point_matrix_y[1][0]*2 - (point_matrix_y[0][0]+point_matrix_y[2][0])/2
+                point_matrix_y[1][1] = point_matrix_y[1][1]*2 - (point_matrix_y[0][1]+point_matrix_y[2][1])/2
+                point_matrix_z[1][0] = point_matrix_z[1][0]*2 - (point_matrix_z[0][0]+point_matrix_z[2][0])/2
+                point_matrix_z[1][1] = point_matrix_z[1][1]*2 - (point_matrix_z[0][1]+point_matrix_z[2][1])/2
 
-        if s.npsu==2:
-            if s.npsv==3:
-                s.mpx[0][1] = s.mpx[0][1]*2 - (s.mpx[0][0]+s.mpx[0][2])/2
-                s.mpx[1][1] = s.mpx[1][1]*2 - (s.mpx[1][0]+s.mpx[1][2])/2
-                s.mpy[0][1] = s.mpy[0][1]*2 - (s.mpy[0][0]+s.mpy[0][2])/2
-                s.mpy[1][1] = s.mpy[1][1]*2 - (s.mpy[1][0]+s.mpy[1][2])/2
-                s.mpz[0][1] = s.mpz[0][1]*2 - (s.mpz[0][0]+s.mpz[0][2])/2
-                s.mpz[1][1] = s.mpz[1][1]*2 - (s.mpz[1][0]+s.mpz[1][2])/2
+        if number_points_u==2:
+            if number_points_v==3:
+                point_matrix_x[0][1] = point_matrix_x[0][1]*2 - (point_matrix_x[0][0]+point_matrix_x[0][2])/2
+                point_matrix_x[1][1] = point_matrix_x[1][1]*2 - (point_matrix_x[1][0]+point_matrix_x[1][2])/2
+                point_matrix_y[0][1] = point_matrix_y[0][1]*2 - (point_matrix_y[0][0]+point_matrix_y[0][2])/2
+                point_matrix_y[1][1] = point_matrix_y[1][1]*2 - (point_matrix_y[1][0]+point_matrix_y[1][2])/2
+                point_matrix_z[0][1] = point_matrix_z[0][1]*2 - (point_matrix_z[0][0]+point_matrix_z[0][2])/2
+                point_matrix_z[1][1] = point_matrix_z[1][1]*2 - (point_matrix_z[1][0]+point_matrix_z[1][2])/2
                 
-def transladar(direcao,quantidade):
+def translate(direction,quantity):
     
     """
     Caso tenha se precipitado em relação à posição de sua superfície, translade seus pontos de forma eficiente 
     em qualquer direção. 
 
     Args:
-        direcao (:obj:`str`): Defina em qual direção a translação será feita. Deve assumir :obj:`'x', 'y', 'z'`.
-        quantidade (:obj:`int`): Assume quantas unidades de comprimento de domínio o usuário quer transladar sua superfície.
+        direction (:obj:`str`): Defina em qual direção a translação será feita. Deve assumir :obj:`'x', 'y', 'z'`.
+        quantity (:obj:`int`): Assume quantas unidades de comprimento de domínio o usuário quer translate sua superfície.
         
     Warning: 
-        Deverá ser obrigatoriamente chamada entre a função :obj:`cria_matriz_pontos()` e a função :obj:`gen_bezi()`.
+        Deverá ser obrigatoriamente chamada entre a função :obj:`create_point_matrix()` e a função :obj:`gen_bezi()`.
         
     Exemplo:
         Para "empurrar" 1.5 unidades para trás e "puxar" 0.5 unidades para o lado::
         
-            prepara_matriz_pontos(2,2)
+            set_point_matrix(2,2)
 
-            armz_pt['P00'] = [x,y,z] 
-            armz_pt['P01'] = [x,y,z] 
-            armz_pt['P10'] = [x,y,z]
-            armz_pt['P11'] = [x,y,z]
+            point_storage['P00'] = [x,y,z] 
+            point_storage['P01'] = [x,y,z] 
+            point_storage['P10'] = [x,y,z]
+            point_storage['P11'] = [x,y,z]
 
-            cria_matriz_pontos()
+            create_point_matrix()
 
-            transladar('y',1.5)
+            translate('y',1.5)
 
-            transladar('x',-0.5)
+            translate('x',-0.5)
 
             gen_bezi('0',capô)
 
     """
     
-    if direcao=='x':
-        for i in range(s.npsu):
-            for j in range(s.npsv):
-                s.mpx_sem_desvio[i][j] = s.mpx_sem_desvio[i][j]+quantidade
-                s.mpx[i][j] = s.mpx[i][j]+quantidade
+    if direction=='x':
+        for i in range(number_points_u):
+            for j in range(number_points_v):
+                point_matrix_x_no_deflection[i][j] = point_matrix_x_no_deflection[i][j]+quantity
+                point_matrix_x[i][j] = point_matrix_x[i][j]+quantity
     
-    if direcao=='y':
-        for i in range(s.npsu):
-            for j in range(s.npsv):
-                s.mpy_sem_desvio[i][j] = s.mpy_sem_desvio[i][j]+quantidade
-                s.mpy[i][j] = s.mpy[i][j]+quantidade
+    if direction=='y':
+        for i in range(number_points_u):
+            for j in range(number_points_v):
+                point_matrix_y_no_deflection[i][j] = point_matrix_y_no_deflection[i][j]+quantity
+                point_matrix_y[i][j] = point_matrix_y[i][j]+quantity
     
-    if direcao=='z':
-        for i in range(s.npsu):
-            for j in range(s.npsv):
-                s.mpz_sem_desvio[i][j] = s.mpz_sem_desvio[i][j]+quantidade
-                s.mpz[i][j] = s.mpz[i][j]+quantidade
+    if direction=='z':
+        for i in range(number_points_u):
+            for j in range(number_points_v):
+                point_matrix_z_no_deflection[i][j] = point_matrix_z_no_deflection[i][j]+quantity
+                point_matrix_z[i][j] = point_matrix_z[i][j]+quantity
 
                 
-def gen_bezi(identif, nome, show_equation=False):
+def gen_bezi(identif, name, show_equation=False):
     
     """
     
@@ -235,7 +240,7 @@ def gen_bezi(identif, nome, show_equation=False):
     
     Args:
         identif (:obj:`str`): Crie a *identificação* da sua superfície com :obj:`'n'`, onde :obj:`n=0,1,2,3...` (começar em '0' e somar '1' a cada nova superfície).
-        nome (:obj:`str`): Crie um nome para a superfície. Não há regras. 
+        name (:obj:`str`): Crie um name para a superfície. Não há regras. 
         show_equations (:obj:`Bool`, optional): Sete como :obj:`True` caso queira visualizar as equações governantes da superfície em questão.
         
     Warning:
@@ -257,36 +262,38 @@ def gen_bezi(identif, nome, show_equation=False):
         z(𝑢,𝑣) = −3𝑢²+4𝑢+𝑣²(−11𝑢²+14𝑢−7)+𝑣(18𝑢²−20𝑢+10)
         
     Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. Sobre 
-    convergência, consultar a função :obj:`previa_interseccao()`.
+    convergência, consultar a função :obj:`intersection_preview()`.
     
     """
     
-    for matriz_base,tipo,matriz_sem_desvio in [s.mpx,'x',s.mpx_sem_desvio],[s.mpy,'y',s.mpy_sem_desvio],[s.mpz,'z',s.mpz_sem_desvio]:
+    for matrix_base,direction,matrix_no_deflection in [point_matrix_x,'x',point_matrix_x_no_deflection],[point_matrix_y,'y',point_matrix_y_no_deflection],[point_matrix_z,'z',point_matrix_z_no_deflection]:
     
-        s.mm = np.empty((s.npsu,s.npsu), dtype=float)
+        global berst_matrix
+        
+        berst_matrix = np.empty((number_points_u,number_points_u), dtype=float)
 
-        berstein(s.npsu)
+        berstein(number_points_u)
 
-        mf_parcial=s.mu.dot(s.mm[::-1,:]).dot(matriz_base)
+        final_matrix_partial=u_matrix.dot(berst_matrix[::-1,:]).dot(matrix_base)
 
-        s.mm = np.empty((s.npsv,s.npsv), dtype=float)
+        berst_matrix = np.empty((number_points_v,number_points_v), dtype=float)
 
-        berstein(s.npsv)
+        berstein(number_points_v)
 
-        mf=mf_parcial.dot(s.mm[::-1,:].T).dot(s.mv)
+        final_matrix=final_matrix_partial.dot(berst_matrix[::-1,:].T).dot(v_matrix)
 
-        eq=lambdify([s.u,s.v],mf[0])
+        eq=lambdify([u,v],final_matrix[0])
 
-        matriz_plot=np.empty((s.u_plot.size,s.v_plot.size))
+        matrix_plot=np.empty((u_plot.size,v_plot.size))
 
-        for up in s.u_plot:
-            for vp in s.v_plot:
-                matriz_plot[int(up*(s.u_plot.size-1))][int(vp*(s.v_plot.size-1))]=eq(up,vp)
+        for up in u_plot:
+            for vp in v_plot:
+                matrix_plot[int(up*(u_plot.size-1))][int(vp*(v_plot.size-1))]=eq(up,vp)
 
-        s.armz_eq[f'{tipo}{identif}'] = [nome,mf,eq,matriz_plot,np.amin(matriz_plot),np.amax(matriz_plot),s.npsu,s.npsv,matriz_sem_desvio.copy()]
+        eq_storage[f'{direction}{identif}'] = [name,final_matrix,eq,matrix_plot,np.amin(matrix_plot),np.amax(matrix_plot),number_points_u,number_points_v,matrix_no_deflection.copy()]
         
         if show_equation==True:
-            print(f'Equação para {tipo}(u,v) do objeto #{identif}: '),display(mf[0]),print('\n')
+            print(f'{direction}(u,v) #{identif} surface parametric equation: '),display(final_matrix[0]),print('\n')
             
             
 def berstein(n_p):
@@ -298,42 +305,43 @@ def berstein(n_p):
         n_p(:obj:`int`): Não há necessidade alguma de manipulação por parte do usuário.
     
     """
-    
-    for i in range(n_p): #berstein poly
-        Bint = sp.expand((math.factorial(n_p-1) / (math.factorial(i)*math.factorial(n_p-1-i)))*s.u**i*(1-s.u)**(n_p-1-i))
-        coef = sp.Poly(Bint, s.u)
+        
+    for i in range(n_p): 
+        Bint = sp.expand((math.factorial(n_p-1) / (math.factorial(i)*math.factorial(n_p-1-i)))*u**i*(1-u)**(n_p-1-i))
+        coef = sp.Poly(Bint, u)
         aux = coef.coeffs()
         for c in range(i):
             aux.append(0)
         for j in range(n_p):
-            s.mm[i][j]=aux[j] #matriz chave do polinomio d
+            berst_matrix[i][j]=aux[j] 
                 
                 
-def gen_bezi_cylinder(bases_plane,radius,center_1,center_2,init_height,final_height,identif_inicial):
+def gen_bezi_cylinder(name, bases_plane,radius,center_1,center_2,init_height,final_height,init_identif):
     
     """
-    Uma função derivada de :obj:`gen_bezi()` que facilita a criação de cilíndros. De saída são geradas
-    4 Béziers diferentes que juntas formam um cilíndro. Caso esta função seja chamada, no momento de solução
+    Uma função derivada de :obj:`gen_bezi()` que facilita a criação de cilíndros. De exit são geradas
+    4 Béziers (seen as a quadrant) diferentes que juntas formam um cilíndro. Caso esta função seja chamada, no momento de solução
     da Epsi será necessário usar a função :obj:`gen_epsi_cylinder()`.
     
     Args:
-        bases_plane (:obj:`str`): Defina o plano paralelo à base. Pode assumir :obj:`'xy','xz','zy'`.
+        name (:obj:`str`): Set cylinder's name (a short one).
+        bases_plane (:obj:`str`): Defina o plane paralelo à base. Pode assumir :obj:`'xy','xz','zy'`.
         radius (:obj:`float`): Defina o raio do cilíndro.
-        center_1 (:obj:`float`): Coordenada do eixo correspondente à primeira letra do :obj:`bases_plane`.
-        center_2 (:obj:`float`): Coordenada do eixo correspondente à segunda letra do :obj:`bases_plane`.
+        center_1 (:obj:`float`): Coordenada do axis correspondente à primeira letra do :obj:`bases_plane`.
+        center_2 (:obj:`float`): Coordenada do axis correspondente à segunda letra do :obj:`bases_plane`.
         init_height (:obj:`float`): Altura da base inferior do cilíndro.
         final_height (:obj:`float`): Altura da base superior do cilíndro.
-        identif_inicial (:obj:`str`): O mesmo :obj:`identif` do resto do código. O usuário deverá criar apenas a identificação da primeira
+        init_identif (:obj:`str`): O mesmo :obj:`identif` do resto do código. O usuário deverá criar apenas a identificação da primeira
             das quatro Béziers geradas na função. Todas as outras identificações são definidas automaticamente.
         
     Exemplo:
-        Para criar um cilíndro de raio 1 e altura 2 no plano :obj:`xz` caso alguma superfície já tenha sido criada e 
+        Para criar um cilíndro de raio 1 e altura 2 no plane :obj:`xz` caso alguma superfície já tenha sido criada e 
         identificada com :obj:`identif='0'`::
         
             gen_bezi_cylinder(bases_plane='xz',radius=1,
                               center_1=3, center_2=3
                               init_height=2,final_height=4,
-                              identif_inicial='1')
+                              init_identif='1')
                               
     Warning:
         Como já descrito, são geradas 4 Béziers nesta função. Portanto, caso haja alguma geração de Bézier depois dessa em questão,
@@ -342,185 +350,185 @@ def gen_bezi_cylinder(bases_plane,radius,center_1,center_2,init_height,final_hei
 
     """
     
-    identif_inicial=int(identif_inicial)
+    init_identif=int(init_identif)
     cos=math.cos(math.radians(45))
     sin=math.sin(math.radians(45))
     
     if bases_plane=='xy':
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1-radius,center_2,init_height]
-        armz_pt['P01']=[center_1-radius,center_2,final_height]
-        armz_pt['P10']=[center_1-radius*cos,center_2+radius*sin,init_height]
-        armz_pt['P11']=[center_1-radius*cos,center_2+radius*sin,final_height]
-        armz_pt['P20']=[center_1,center_2+radius,init_height]
-        armz_pt['P21']=[center_1,center_2+radius,final_height]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial}','rs,entrada')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1-radius,center_2,init_height]
+        point_storage['P01']=[center_1-radius,center_2,final_height]
+        point_storage['P10']=[center_1-radius*cos,center_2+radius*sin,init_height]
+        point_storage['P11']=[center_1-radius*cos,center_2+radius*sin,final_height]
+        point_storage['P20']=[center_1,center_2+radius,init_height]
+        point_storage['P21']=[center_1,center_2+radius,final_height]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif}',"".join((name,' 2nd q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1,center_2+radius,init_height]
-        armz_pt['P01']=[center_1,center_2+radius,final_height]
-        armz_pt['P10']=[center_1+radius*cos,center_2+radius*sin,init_height]
-        armz_pt['P11']=[center_1+radius*cos,center_2+radius*sin,final_height]
-        armz_pt['P20']=[center_1+radius,center_2,init_height]
-        armz_pt['P21']=[center_1+radius,center_2,final_height]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+1}','rs,saida')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1,center_2+radius,init_height]
+        point_storage['P01']=[center_1,center_2+radius,final_height]
+        point_storage['P10']=[center_1+radius*cos,center_2+radius*sin,init_height]
+        point_storage['P11']=[center_1+radius*cos,center_2+radius*sin,final_height]
+        point_storage['P20']=[center_1+radius,center_2,init_height]
+        point_storage['P21']=[center_1+radius,center_2,final_height]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+1}',"".join((name,' 1st q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1-radius,center_2,init_height]
-        armz_pt['P01']=[center_1-radius,center_2,final_height]
-        armz_pt['P10']=[center_1-radius*cos,center_2-radius*sin,init_height]
-        armz_pt['P11']=[center_1-radius*cos,center_2-radius*sin,final_height]
-        armz_pt['P20']=[center_1,center_2-radius,init_height]
-        armz_pt['P21']=[center_1,center_2-radius,final_height]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+2}','ri,entrada')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1-radius,center_2,init_height]
+        point_storage['P01']=[center_1-radius,center_2,final_height]
+        point_storage['P10']=[center_1-radius*cos,center_2-radius*sin,init_height]
+        point_storage['P11']=[center_1-radius*cos,center_2-radius*sin,final_height]
+        point_storage['P20']=[center_1,center_2-radius,init_height]
+        point_storage['P21']=[center_1,center_2-radius,final_height]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+2}',"".join((name,' 3rd q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1,center_2-radius,init_height]
-        armz_pt['P01']=[center_1,center_2-radius,final_height]
-        armz_pt['P10']=[center_1+radius*cos,center_2-radius*sin,init_height]
-        armz_pt['P11']=[center_1+radius*cos,center_2-radius*sin,final_height]
-        armz_pt['P20']=[center_1+radius,center_2,init_height]
-        armz_pt['P21']=[center_1+radius,center_2,final_height]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+3}','ri,saida')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1,center_2-radius,init_height]
+        point_storage['P01']=[center_1,center_2-radius,final_height]
+        point_storage['P10']=[center_1+radius*cos,center_2-radius*sin,init_height]
+        point_storage['P11']=[center_1+radius*cos,center_2-radius*sin,final_height]
+        point_storage['P20']=[center_1+radius,center_2,init_height]
+        point_storage['P21']=[center_1+radius,center_2,final_height]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+3}',"".join((name,' 4th q')))
         
     if bases_plane=='xz':
     
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1-radius,init_height,center_2]
-        armz_pt['P01']=[center_1-radius,final_height,center_2]
-        armz_pt['P10']=[center_1-radius*cos,init_height,center_2+radius*sin]
-        armz_pt['P11']=[center_1-radius*cos,final_height,center_2+radius*sin]
-        armz_pt['P20']=[center_1,init_height,center_2+radius]
-        armz_pt['P21']=[center_1,final_height,center_2+radius]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial}','rs,entrada')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1-radius,init_height,center_2]
+        point_storage['P01']=[center_1-radius,final_height,center_2]
+        point_storage['P10']=[center_1-radius*cos,init_height,center_2+radius*sin]
+        point_storage['P11']=[center_1-radius*cos,final_height,center_2+radius*sin]
+        point_storage['P20']=[center_1,init_height,center_2+radius]
+        point_storage['P21']=[center_1,final_height,center_2+radius]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif}',"".join((name,' 2nd q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1,init_height,center_2+radius]
-        armz_pt['P01']=[center_1,final_height,center_2+radius]
-        armz_pt['P10']=[center_1+radius*cos,init_height,center_2+radius*sin]
-        armz_pt['P11']=[center_1+radius*cos,final_height,center_2+radius*sin]
-        armz_pt['P20']=[center_1+radius,init_height,center_2]
-        armz_pt['P21']=[center_1+radius,final_height,center_2]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+1}','rs,saida')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1,init_height,center_2+radius]
+        point_storage['P01']=[center_1,final_height,center_2+radius]
+        point_storage['P10']=[center_1+radius*cos,init_height,center_2+radius*sin]
+        point_storage['P11']=[center_1+radius*cos,final_height,center_2+radius*sin]
+        point_storage['P20']=[center_1+radius,init_height,center_2]
+        point_storage['P21']=[center_1+radius,final_height,center_2]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+1}',"".join((name,' 1st q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1-radius,init_height,center_2]
-        armz_pt['P01']=[center_1-radius,final_height,center_2]
-        armz_pt['P10']=[center_1-radius*cos,init_height,center_2-radius*sin]
-        armz_pt['P11']=[center_1-radius*cos,final_height,center_2-radius*sin]
-        armz_pt['P20']=[center_1,init_height,center_2-radius]
-        armz_pt['P21']=[center_1,final_height,center_2-radius]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+2}','ri,entrada')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1-radius,init_height,center_2]
+        point_storage['P01']=[center_1-radius,final_height,center_2]
+        point_storage['P10']=[center_1-radius*cos,init_height,center_2-radius*sin]
+        point_storage['P11']=[center_1-radius*cos,final_height,center_2-radius*sin]
+        point_storage['P20']=[center_1,init_height,center_2-radius]
+        point_storage['P21']=[center_1,final_height,center_2-radius]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+2}',"".join((name,' 3rd q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[center_1,init_height,center_2-radius]
-        armz_pt['P01']=[center_1,final_height,center_2-radius]
-        armz_pt['P10']=[center_1+radius*cos,init_height,center_2-radius*sin]
-        armz_pt['P11']=[center_1+radius*cos,final_height,center_2-radius*sin]
-        armz_pt['P20']=[center_1+radius,init_height,center_2]
-        armz_pt['P21']=[center_1+radius,final_height,center_2]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+3}','ri,saida')
+        set_point_matrix(3,2)
+        point_storage['P00']=[center_1,init_height,center_2-radius]
+        point_storage['P01']=[center_1,final_height,center_2-radius]
+        point_storage['P10']=[center_1+radius*cos,init_height,center_2-radius*sin]
+        point_storage['P11']=[center_1+radius*cos,final_height,center_2-radius*sin]
+        point_storage['P20']=[center_1+radius,init_height,center_2]
+        point_storage['P21']=[center_1+radius,final_height,center_2]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+3}',"".join((name,' 4th q')))
 
         
     if bases_plane=='zy':
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[init_height,center_2,center_1-radius]
-        armz_pt['P01']=[final_height,center_2,center_1-radius]
-        armz_pt['P10']=[init_height,center_2+radius*sin,center_1-radius*cos]
-        armz_pt['P11']=[final_height,center_2+radius*sin,center_1-radius*cos]
-        armz_pt['P20']=[init_height,center_2+radius,center_1]
-        armz_pt['P21']=[final_height,center_2+radius,center_1]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial}','rs,entrada')
+        set_point_matrix(3,2)
+        point_storage['P00']=[init_height,center_2,center_1-radius]
+        point_storage['P01']=[final_height,center_2,center_1-radius]
+        point_storage['P10']=[init_height,center_2+radius*sin,center_1-radius*cos]
+        point_storage['P11']=[final_height,center_2+radius*sin,center_1-radius*cos]
+        point_storage['P20']=[init_height,center_2+radius,center_1]
+        point_storage['P21']=[final_height,center_2+radius,center_1]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif}',"".join((name,' 2nd q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[init_height,center_2+radius,center_1]
-        armz_pt['P01']=[final_height,center_2+radius,center_1]
-        armz_pt['P10']=[init_height,center_2+radius*sin,center_1+radius*cos]
-        armz_pt['P11']=[final_height,center_2+radius*sin,center_1+radius*cos]
-        armz_pt['P20']=[init_height,center_2,center_1+radius]
-        armz_pt['P21']=[final_height,center_2,center_1+radius]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+1}','rs,saida')
+        set_point_matrix(3,2)
+        point_storage['P00']=[init_height,center_2+radius,center_1]
+        point_storage['P01']=[final_height,center_2+radius,center_1]
+        point_storage['P10']=[init_height,center_2+radius*sin,center_1+radius*cos]
+        point_storage['P11']=[final_height,center_2+radius*sin,center_1+radius*cos]
+        point_storage['P20']=[init_height,center_2,center_1+radius]
+        point_storage['P21']=[final_height,center_2,center_1+radius]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+1}',"".join((name,' 1st q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[init_height,center_2,center_1-radius]
-        armz_pt['P01']=[final_height,center_2,center_1-radius]
-        armz_pt['P10']=[init_height,center_2-radius*sin,center_1-radius*cos]
-        armz_pt['P11']=[final_height,center_2-radius*sin,center_1-radius*cos]
-        armz_pt['P20']=[init_height,center_2-radius,center_1]
-        armz_pt['P21']=[final_height,center_2-radius,center_1]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+2}','ri,entrada')
+        set_point_matrix(3,2)
+        point_storage['P00']=[init_height,center_2,center_1-radius]
+        point_storage['P01']=[final_height,center_2,center_1-radius]
+        point_storage['P10']=[init_height,center_2-radius*sin,center_1-radius*cos]
+        point_storage['P11']=[final_height,center_2-radius*sin,center_1-radius*cos]
+        point_storage['P20']=[init_height,center_2-radius,center_1]
+        point_storage['P21']=[final_height,center_2-radius,center_1]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+2}',"".join((name,' 3rd q')))
 
-        prepara_matriz_pontos(3,2)
-        armz_pt['P00']=[init_height,center_2-radius,center_1]
-        armz_pt['P01']=[final_height,center_2-radius,center_1]
-        armz_pt['P10']=[init_height,center_2-radius*sin,center_1+radius*cos]
-        armz_pt['P11']=[final_height,center_2-radius*sin,center_1+radius*cos]
-        armz_pt['P20']=[init_height,center_2,center_1+radius]
-        armz_pt['P21']=[final_height,center_2,center_1+radius]
-        cria_matriz_pontos(desvio=True)
-        gen_bezi(f'{identif_inicial+3}','ri,saida')
+        set_point_matrix(3,2)
+        point_storage['P00']=[init_height,center_2-radius,center_1]
+        point_storage['P01']=[final_height,center_2-radius,center_1]
+        point_storage['P10']=[init_height,center_2-radius*sin,center_1+radius*cos]
+        point_storage['P11']=[final_height,center_2-radius*sin,center_1+radius*cos]
+        point_storage['P20']=[init_height,center_2,center_1+radius]
+        point_storage['P21']=[final_height,center_2,center_1+radius]
+        create_point_matrix(deflection=True)
+        gen_bezi(f'{init_identif+3}',"".join((name,' 4th q')))
                 
-def plota_superficie(identif_inicial,identif_final, pontos=False, alpha=0.3):
+def surface_plot(init_identif,final_identif, points=False, alpha=0.3):
     
     """
     Args:
-        identif_inicial (:obj:`str`): Determine o início do intervalo de superfícies a serem plotadas através da identificação :obj:`identif`.
-        identif_final (:obj:`str`): Determine o final do intervalo (endpoint não incluido) de superfícies a serem plotadas através da identificação :obj:`identif`
-        pontos (:obj:`Bool`, optional): Caso queira visualizar os pontos que governam sua superfície, sete como :obj:`True`.
+        init_identif (:obj:`str`): Determine o início do intervalo de superfícies a serem plotadas através da identificação :obj:`identif`.
+        final_identif (:obj:`str`): Determine o final do intervalo (endpoint não incluido) de superfícies a serem plotadas através da identificação :obj:`identif`
+        points (:obj:`Bool`, optional): Caso queira visualizar os pontos que governam sua superfície, sete como :obj:`True`.
         alpha (:obj:`float`, optional): Controlador da opacidade da superfície em questão. Pode assumir qualquer valor entre :obj:`0` (transparente) e :obj:`1` (opaco).
 
     """
-    identif_inicial=int(identif_inicial)
-    identif_final=int(identif_final)
+    init_identif=int(init_identif)
+    final_identif=int(final_identif)
     
     global fig,ax
     
     fig = plt.figure(figsize=(11,9))
     ax = fig.add_subplot(1, 1, 1, projection='3d', proj_type='ortho')
     
-    ax.set_xlabel('x'),ax.set_ylabel('y'),ax.set_zlabel('z'),ax.set_xlim(0,max([lx,ly,lz])),ax.set_ylim(0,max([lx,ly,lz])),ax.set_zlim(0,max([lx,ly,lz])),
-    ax.view_init(25,-145),ax.set_title('Superfície/Pontos de controle',size=20)
+    ax.set_xlabel('x'),ax.set_ylabel('z'),ax.set_zlabel('y'),ax.set_xlim(0,max([lx,ly,lz])),ax.set_ylim(0,max([lx,ly,lz])),ax.set_zlim(0,max([lx,ly,lz])),
+    ax.view_init(25,-145),ax.set_title('Surface/Control Poimts',size=20)
     
-    for z in [0,lz]: #domínio
-        ax.plot([0,0],[0,ly],[z,z],   'k--',linewidth=0.5,alpha=0.7)
-        ax.plot([0,lx],[0,0],[z,z],   'k--',linewidth=0.5,alpha=0.7)
-        ax.plot([0,lx],[ly,ly],[z,z], 'k--',linewidth=0.5,alpha=0.7)
-        ax.plot([lx,lx],[ly,0],[z,z], 'k--',linewidth=0.5,alpha=0.7)
-        ax.plot([lx,lx],[0,0],[0,z],  'k--',linewidth=0.5,alpha=0.7)
-        ax.plot([0,0],[0,0],[0,z],    'k--',linewidth=0.5,alpha=0.7)
-        ax.plot([0,0],[ly,ly],[0,z],  'k--',linewidth=0.5,alpha=0.7)
-        ax.plot([lx,lx],[ly,ly],[0,z],'k--',linewidth=0.5,alpha=0.7)
+    for y in [0,ly]: #domínio
+        ax.plot([0,0],[0,lz],[y,y],   'k--',linewidth=0.5,alpha=0.7)
+        ax.plot([0,lx],[0,0],[y,y],   'k--',linewidth=0.5,alpha=0.7)
+        ax.plot([0,lx],[lz,lz],[y,y], 'k--',linewidth=0.5,alpha=0.7)
+        ax.plot([lx,lx],[lz,0],[y,y], 'k--',linewidth=0.5,alpha=0.7)
+        ax.plot([lx,lx],[0,0],[0,y],  'k--',linewidth=0.5,alpha=0.7)
+        ax.plot([0,0],[0,0],[0,y],    'k--',linewidth=0.5,alpha=0.7)
+        ax.plot([0,0],[lz,lz],[0,y],  'k--',linewidth=0.5,alpha=0.7)
+        ax.plot([lx,lx],[lz,lz],[0,y],'k--',linewidth=0.5,alpha=0.7)
     
-    for plot in np.arange(identif_inicial,identif_final,1):
-        surf = ax.plot_surface(armz_eq[f'x{plot}'][3],armz_eq[f'y{plot}'][3],armz_eq[f'z{plot}'][3],antialiased=True,shade=True,alpha=alpha,label=armz_eq[f'x{plot}'][0])
+    for plot in np.arange(init_identif,final_identif,1):
+        surf = ax.plot_surface(eq_storage[f'x{plot}'][3],eq_storage[f'z{plot}'][3],eq_storage[f'y{plot}'][3],antialiased=True,shade=True,alpha=alpha,label=eq_storage[f'x{plot}'][0])
         surf._facecolors2d=surf._facecolors3d
         surf._edgecolors2d=surf._edgecolors3d
         fig.tight_layout()
         fig.subplots_adjust(right=0.8)
         ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize=10)
-        if pontos == True:
-            ax.scatter(armz_eq[f'x{plot}'][8],armz_eq[f'y{plot}'][8],armz_eq[f'z{plot}'][8],s=200)
-            for i in range(0,armz_eq[f'x{plot}'][6],1):
-                for j in range(0,armz_eq[f'x{plot}'][7],1):
-                    ax.text(armz_eq[f'x{plot}'][8][i][j],armz_eq[f'y{plot}'][8][i][j],armz_eq[f'z{plot}'][8][i][j],f' P{i}{j}',size=12.5)
+        if points == True:
+            ax.scatter(eq_storage[f'x{plot}'][8],eq_storage[f'z{plot}'][8],eq_storage[f'y{plot}'][8],s=200)
+            for i in range(0,eq_storage[f'x{plot}'][6],1):
+                for j in range(0,eq_storage[f'x{plot}'][7],1):
+                    ax.text(eq_storage[f'x{plot}'][8][i][j],eq_storage[f'z{plot}'][8][i][j],eq_storage[f'y{plot}'][8][i][j],f' P{i}{j}',size=12.5)
     
     plt.show()    
 
 
-def previa_intersecçao(identif_inicial,identif_final):
+def intersection_preview(init_identif,final_identif):
     
     """
     Uma *mini simulação de Epsi*. Para poucos nós em cada direção será checado se os limites são coerentes ou não, 
@@ -528,91 +536,91 @@ def previa_intersecçao(identif_inicial,identif_final):
     Se todos forem razoáveis, a superfície será bem entendida pelo solver.
     
     Args:
-        identif_inicial (:obj:`str`): Determine o início do intervalo de superfícies a serem calculadas através da identificação :obj:`identif`.
-        identif_final (:obj:`str`): Determine o final do intervalo (endpoint não incluido) de superfícies a serem calcuadas através da identificação :obj:`identif`.
+        init_identif (:obj:`str`): Determine o início do intervalo de superfícies a serem calculadas através da identificação :obj:`identif`.
+        final_identif (:obj:`str`): Determine o final do intervalo (endpoint não incluido) de superfícies a serem calcuadas através da identificação :obj:`identif`.
     
     """
     
-    identif_inicial=int(identif_inicial)
-    identif_final=int(identif_final)
+    init_identif=int(init_identif)
+    final_identif=int(final_identif)
     
     fig = plt.figure(figsize=(9,9))
     ax = fig.add_subplot(1, 1, 1, projection='3d', proj_type='ortho')
     
-    ax.set_xlabel('x'),ax.set_ylabel('y'),ax.set_zlabel('z'),ax.set_xlim(0,max([lx,ly,lz])),ax.set_ylim(0,max([lx,ly,lz])),ax.set_zlim(0,max([lx,ly,lz])),
-    ax.view_init(25,-145),(),ax.set_title('Superfície/Intersecções',size=20)
+    ax.set_xlabel('x'),ax.set_ylabel('z'),ax.set_zlabel('y'),ax.set_xlim(0,max([lx,ly,lz])),ax.set_ylim(0,max([lx,ly,lz])),ax.set_zlim(0,max([lx,ly,lz])),
+    ax.view_init(25,-145),(),ax.set_title('Surface/Intersections',size=20)
     
-    for plot in np.arange(identif_inicial,identif_final,1):
-        ax.plot_surface(armz_eq[f'x{plot}'][3],armz_eq[f'y{plot}'][3],armz_eq[f'z{plot}'][3],color='c',antialiased=True,shade=True, alpha=0.4) #cmap='Wistia'
+    for plot in np.arange(init_identif,final_identif,1):
+        ax.plot_surface(eq_storage[f'x{plot}'][3],eq_storage[f'z{plot}'][3],eq_storage[f'y{plot}'][3],color='c',antialiased=True,shade=True, alpha=0.4) #cmap='Wistia'
         
-        for n1,n2,d1,d2,e1,e2,cor in [nz_visualizacao,ny_visualizacao,dz_visualizacao,dy_visualizacao,f'z{plot}',f'y{plot}','magenta'],[nx_visualizacao,ny_visualizacao,dx_visualizacao,dy_visualizacao,f'x{plot}',f'y{plot}','blue'],[nx_visualizacao,nz_visualizacao,dx_visualizacao,dz_visualizacao,f'x{plot}',f'z{plot}','aqua']:
+        for n1,n2,d1,d2,e1,e2,cor in [visu_ny,visu_nz,visu_dy,visu_dz,f'y{plot}',f'z{plot}','magenta'],[visu_nx,visu_nz,visu_dx,visu_dz,f'x{plot}',f'z{plot}','blue'],[visu_nx,visu_ny,visu_dx,visu_dy,f'x{plot}',f'y{plot}','aqua']:
             nobj=0
             for c1 in range(0,n1,1):
                 for c2 in range(0,n2,1):
                     try:
-                        sol = nonlinsolve([armz_eq[e1][1][0]-c1*d1,armz_eq[e2][1][0]-c2*d2],[u,v])
+                        sol = nonlinsolve([eq_storage[e1][1][0]-c1*d1,eq_storage[e2][1][0]-c2*d2],[u,v])
                         for a in range(0,len(sol.args)):
                             if sol.args[a][0].is_real == True:
                                 if 0<=sol.args[a][0]<=1:
                                     if sol.args[a][1].is_real == True:
                                         if 0<=sol.args[a][1]<=1:
                                             nobj+=1
-                                            ax.scatter(armz_eq[f'x{plot}'][2](float(sol.args[a][0]),float(sol.args[a][1])),
-                                                       armz_eq[f'y{plot}'][2](float(sol.args[a][0]),float(sol.args[a][1])),
-                                                       armz_eq[f'z{plot}'][2](float(sol.args[a][0]),float(sol.args[a][1])),s=100,color=cor)
+                                            ax.scatter(eq_storage[f'x{plot}'][2](float(sol.args[a][0]),float(sol.args[a][1])),
+                                                       eq_storage[f'z{plot}'][2](float(sol.args[a][0]),float(sol.args[a][1])),
+                                                       eq_storage[f'y{plot}'][2](float(sol.args[a][0]),float(sol.args[a][1])),s=100,color=cor)
                     except: 
                         pass
 
-            for cx in range(0,nx_visualizacao,1):
-                for cy in range(0,ny_visualizacao,1):
-                    ax.plot((cx*dx_visualizacao,cx*dx_visualizacao),(cy*dy_visualizacao,cy*dy_visualizacao),(0,lz),color='blue',linestyle='--', linewidth=1.2)
+            for cx in range(0,visu_nx,1):
+                for cz in range(0,visu_nz,1):
+                    ax.plot((cx*visu_dx,cx*visu_dx),(cz*visu_dz,cz*visu_dz),(0,ly),color='blue',linestyle='--', linewidth=1.2)
 
-            for cx in range(0,nx_visualizacao,1):
-                for cz in range(0,nz_visualizacao,1):
-                    ax.plot((cx*dx_visualizacao,cx*dx_visualizacao),(0,ly),(cz*dz_visualizacao,cz*dz_visualizacao),color='aqua',linestyle='--', linewidth=1.2)
+            for cx in range(0,visu_nx,1):
+                for cy in range(0,visu_ny,1):
+                    ax.plot((cx*visu_dx,cx*visu_dx),(0,lz),(cy*visu_dy,cy*visu_dy),color='aqua',linestyle='--', linewidth=1.2)
 
-            for cy in range(0,ny_visualizacao,1):
-                for cz in range(0,nz_visualizacao,1):
-                    ax.plot((0,lx),(cy*dy_visualizacao,cy*dy_visualizacao),(cz*dz_visualizacao,cz*dz_visualizacao),color='magenta',linestyle='--', linewidth=1.2)
+            for cz in range(0,visu_nz,1):
+                for cy in range(0,visu_ny,1):
+                    ax.plot((0,lx),(cz*visu_dz,cz*visu_dz),(cy*visu_dy,cy*visu_dy),color='magenta',linestyle='--', linewidth=1.2)
 
             if nobj>0:
-                print(f'Objeto #{plot}: plano {str(e1[0]+e2[0])} encontra {nobj} intersecçoes','\n')
+                print(f'Surface #{plot}: {str(e1[0]+e2[0])} plane got {nobj} intersections','\n')
             else:
-                print(f'Objeto #{plot}: plano {str(e1[0]+e2[0])} não encontra intersecçoes ou não convergiu','\n')
+                print(f'Surface #{plot}: {str(e1[0]+e2[0])} plane got no intersections ','\n')
 
 
-def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
+def gen_epsi(surface_type,plane,identif,symmetry='global',raf0='normal'):
     
     """
     
-    Nesta função, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é sólido (na Epsi, :obj:`1`) e onde
-    não é sólido (na Epsi, :obj:`0`). Vamos setar o que é considerado entrada e saída, ou ambos ao mesmo tempo, **para todas as superfícies criadas**. 
-    Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos definir qual o melhor plano para calcular os limites.
+    Nesta função, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é solid (na Epsi, :obj:`1`) e onde
+    não é solid (na Epsi, :obj:`0`). Vamos setar o que é considerado entry e exit, ou ambos ao mesmo tempo, **para todas as superfícies criadas**. 
+    Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos definir qual o melhor plane para calcular os limites.
     
     **Preste atenção. Se algo pode dar errado, é aqui.**
         
     Args:
-        tipo (:obj:`str`): Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido.
+        surface_type (:obj:`str`): Defina se a superfície em questão é considerada uma entry, uma exit ou ambos em relação ao solid.
         
                             +-------------------------+------------------------------------+
-                            | Tipo                    | Sete  :obj:`tipo` como             | 
+                            | surface_type            | Set :obj:`surface_type` as         | 
                             +=========================+====================================+
-                            | Entrada Pura            | :obj:`'entrada+saída e/ou entrada'`|
+                            | entry                   | :obj:`'entry+exit and/or entry'`   |
                             +-------------------------+------------------------------------+
-                            | Saída Pura              | :obj:`'entrada+saída e/ou saída'`  |
+                            | exit                    | :obj:`'entry+exit and/or exit'`    |
                             +-------------------------+------------------------------------+
-                            | Entrada/Saída Pura      | Tanto faz                          |
+                            | entry/exit              |  whatever                          |
                             +-------------------------+------------------------------------+
-                            | Entrada/Saída + Entrada | :obj:`'entrada+saída e/ou entrada'`|
+                            | entry/exit + entry      | :obj:`'entry+exit and/or entry'`   |
                             +-------------------------+------------------------------------+
-                            | Entrada/Saída + Saída   | :obj:`'entrada+saída e/ou saída'`  |  
+                            | entry/exit + exit       | :obj:`'entry+exit and/or exit'`    |  
                             +-------------------------+------------------------------------+
 
     Args: 
-        plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Caso o plano xy seja o melhor, setar :obj:`plano='xy'`. Pode assumir apenas :obj:`'xz','xy','zy'`.
+        plane (:obj:`str`): Escolha o melhor plane para resolver sua superfície. Caso o plane xy seja o melhor, setar :obj:`plane='xy'`. Pode assumir apenas :obj:`'xz','xy','zy'`.
         identif(:obj:`str`): Repita o argumento :obj:`identif` da superfície em questão.
-        simetria(:obj:`str`, optional): Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`.
-            Caso utilize este termo, projete apenas metade das superfícies caso elas cruzem o eixo de simetria. Caso contrário, o método não resulta em ganhos significativos.
+        symmetry(:obj:`str`, optional): Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir :obj:`'symmetry_x','symmetry_y',symmetry_z'`.
+            Caso utilize este termo, projete apenas metade das superfícies caso elas cruzem o axis de simetria. Caso contrário, o método não resulta em ganhos significativos.
         raf0(:obj:`str`, optional): Não há necessidade alguma de manipulação por parte do usuário. 
     
     **Exemplo:**
@@ -623,48 +631,48 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
         Podemos notar 2 supefícies na figura, uma verde (:obj:`identif='0'`) e outra roxa (:obj:`identif='1'`). 
         De acordo com esta situação, a invocação da função :obj:`gen_epsi()` pode se dar na seguinte forma::
             
-            gen_epsi('entrada+saída e/ou entrada','zy','0')
-            gen_epsi('entrada+saída e/ou saída','zy','1')
+            gen_epsi('entry+exit and/or entry','zy','0')
+            gen_epsi('entry+exit and/or exit','zy','1')
            
-        Podemos notar também um ponto que é o início de um vetor perpendicular ao plano 'zy'. Este vetor é a representação do que define o :obj:`tipo` de cada superfície.
+        Podemos notar também um ponto que é o início de um vetor perpendicular ao plane 'zy'. Este vetor é a representação do que define o :obj:`surface_type` de cada superfície.
         Toda vez que o vetor encontrar alguma superfícies, será definido um limite para a criação da Epsi.
         Devemos imaginar que para cada combinação de coordenada 'z' e 'y' (espaçamento definido por dz e dy) um vetor desses é originado. Portanto: 
         
-            1. O sólido verde é considerado *Entrada Pura* pois, no instante em que é interceptado pelos vetores, 
+            1. O sólido verde é considerado *entry Pura* pois, no instante em que é interceptado pelos vetores, 
             **entra-se no sólido**. 
             
-            2. O sólido roxo deve ser dividido em 2 partes e é considerado *Entrada/Saída + Saída*. A primeira parte é a superior, logo acima da superfície verde.
-            Toda esta parte será interceptada pelos vetores duas vezes e **por isso é considerada entrada/saída**. A segunda parte é a inferior, que 'compartilha'
+            2. O sólido roxo deve ser dividido em 2 partes e é considerado *entry/exit + exit*. A primeira parte é a superior, logo acima da superfície verde.
+            Toda esta parte será interceptada pelos vetores duas vezes e **por isso é considerada entry/exit**. A segunda parte é a inferior, que 'compartilha'
             altura com a superfície verde. Esta parte será interceptada pelos vetores apenas uma vez e em todas elas o sólido já terá acabado, por isso é considerada
-            também como **saída**.
+            também como **exit**.
         
     Warning:
-        Caso construída uma superfície que possua segmentos com possíveis entradas/saídas simultâneas (superfície roxa), certificar que a superfície seja construída 
-        no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plano.
+        Caso construída uma superfície que possua segmentos com possíveis entrys/exits simultâneas (superfície roxa), certificar que a superfície seja construída 
+        no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plane.
     
     Warning:
-        Caso a superfície identificada com :obj:`identif` seja *entrada*, a partir do momento em que a Epsi encontrar a superfície até o fim da 
-        Epsi será setado como 1. Caso seja *saída*, 
+        Caso a superfície identificada com :obj:`identif` seja *entry*, a partir do momento em que a Epsi encontrar a superfície até o fim da 
+        Epsi será setado como 1. Caso seja *exit*, 
         a partir do momento em que a Epsi encontrar a superfície até o fim da Epsi será setado como 0. 
         
         *É necessário perceber que a ordem com que essa 
-        função é chamada tem muita importância:* caso o usuário chame primeiro as saídas, o código vai entender que a partir do encontro da superfície 
+        função é chamada tem muita importância:* caso o usuário chame primeiro as exits, o código vai entender que a partir do encontro da superfície 
         é necessário marcar como 0 algo que já está setado como 0 (a matriz Epsi é setada inicialmente apemas com 0, com dimensões nx, ny e nz). Seguindo a lógica, 
-        o usuário agora então chamaria as entradas. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido. 
+        o usuário agora então chamaria as entrys. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido. 
         Ou seja, o sólido *não foi representado corretamente.*
     
     Warning:
-        **Explicando 'plano' mais uma vez:**
+        **Explicando 'plane' mais uma vez:**
         
         Para cada combinação de coordenada (xy, xz ou zy), imagine um vetor saíndo de cada nó existente.
-        Como por exemplo, falaremos do plano xy. De cada posição x e de cada posição y possível, sairá um vetor em direção à z.
+        Como por exemplo, falaremos do plane xy. De cada posição x e de cada posição y possível, sairá um vetor em direção à z.
         Toda vez que esse vetor cruzar uma superfície, será contabilizado um limite para a Epsi. O usuário já determinou que 
         tipo de limite será no argumento anterior.
-        *Logo, é de extrema importância que o usuário escolha o plano certo para resolver o seu sólido.*
-        Imagine outro exemplo, onde o usuário construiu um quadrado no plano xy (ou seja, paralelo ao plano xy), com alguma altura constante qualquer.
-        Esse quadrado não possui dimensão alguma para qualquer plano a não ser o plano xy.
-        Em outras palavras, o plano zy e o plano zx nunca cruzarão este quadrado, logo a Epsi não será construída corretamente pois não haverá limite algum para isso.
-        E isso é perfeitamente demonstrado pela a função :obj:`previa_interseccao()`. Inclusive, o retorno desta função explicita onde há interceptação dos vetores com a superfície, 
+        *Logo, é de extrema importância que o usuário escolha o plane certo para resolver o seu sólido.*
+        Imagine outro exemplo, onde o usuário construiu um quadrado no plane xy (ou seja, paralelo ao plane xy), com alguma altura constante qualquer.
+        Esse quadrado não possui dimensão alguma para qualquer plane a não ser o plane xy.
+        Em outras palavras, o plane zy e o plane zx nunca cruzarão este quadrado, logo a Epsi não será construída corretamente pois não haverá limite algum para isso.
+        E isso é perfeitamente demonstrado pela a função :obj:`intersection_preview()`. Inclusive, o retorno desta função explicita onde há interceptação dos vetores com a superfície, 
         tornando mais clara a escolha deste argumento.
     """   
     dx_gen,dy_gen,dz_gen=dx,dy,dz
@@ -686,7 +694,7 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
     
     max_z,max_y,max_x=0,0,0
         
-    for p,k in armz_eq.items():
+    for p,k in eq_storage.items():
         if p[0]=='z':
             if k[5]>max_z:
                 max_z=k[5]
@@ -699,22 +707,22 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
 
     max_x,max_y,max_z = int(max_x/dx_gen),int(max_y/dy_gen),int(max_z/dz_gen)    
     
-    if plano == 'zy':
-        eixo1, min_1, max_1, d1 = str(f'z{identif}'), math.ceil(armz_eq[f'z{identif}'][4]/dz_gen), int(armz_eq[f'z{identif}'][5]/dz_gen), dz_gen
-        eixo2, min_2, max_2, d2 = str(f'y{identif}'), math.ceil(armz_eq[f'y{identif}'][4]/dy_gen), int(armz_eq[f'y{identif}'][5]/dy_gen), dy_gen
-        eixo3, min_3, max_3, d3 = str(f'x{identif}'), math.ceil(armz_eq[f'x{identif}'][4]/dx_gen), max_x, dx_gen
+    if plane == 'zy':
+        axis1, min_1, max_1, d1 = str(f'z{identif}'), math.ceil(eq_storage[f'z{identif}'][4]/dz_gen), int(eq_storage[f'z{identif}'][5]/dz_gen), dz_gen
+        axis2, min_2, max_2, d2 = str(f'y{identif}'), math.ceil(eq_storage[f'y{identif}'][4]/dy_gen), int(eq_storage[f'y{identif}'][5]/dy_gen), dy_gen
+        axis3, min_3, max_3, d3 = str(f'x{identif}'), math.ceil(eq_storage[f'x{identif}'][4]/dx_gen), max_x, dx_gen
         
-    if plano == 'xz':
-        eixo1, min_1, max_1, d1 = str(f'x{identif}'), math.ceil(armz_eq[f'x{identif}'][4]/dx_gen), int(armz_eq[f'x{identif}'][5]/dx_gen), dx_gen
-        eixo2, min_2, max_2, d2 = str(f'z{identif}'), math.ceil(armz_eq[f'z{identif}'][4]/dz_gen), int(armz_eq[f'z{identif}'][5]/dz_gen), dz_gen
-        eixo3, min_3, max_3, d3 = str(f'y{identif}'), math.ceil(armz_eq[f'y{identif}'][4]/dy_gen), max_y, dy_gen
+    if plane == 'xz':
+        axis1, min_1, max_1, d1 = str(f'x{identif}'), math.ceil(eq_storage[f'x{identif}'][4]/dx_gen), int(eq_storage[f'x{identif}'][5]/dx_gen), dx_gen
+        axis2, min_2, max_2, d2 = str(f'z{identif}'), math.ceil(eq_storage[f'z{identif}'][4]/dz_gen), int(eq_storage[f'z{identif}'][5]/dz_gen), dz_gen
+        axis3, min_3, max_3, d3 = str(f'y{identif}'), math.ceil(eq_storage[f'y{identif}'][4]/dy_gen), max_y, dy_gen
         
-    if plano == 'xy':
-        eixo1, min_1, max_1, d1 = str(f'x{identif}'), math.ceil(armz_eq[f'x{identif}'][4]/dx_gen), int(armz_eq[f'x{identif}'][5]/dx_gen), dx_gen
-        eixo2, min_2, max_2, d2 = str(f'y{identif}'), math.ceil(armz_eq[f'y{identif}'][4]/dy_gen), int(armz_eq[f'y{identif}'][5]/dy_gen), dy_gen
-        eixo3, min_3, max_3, d3 = str(f'z{identif}'), math.ceil(armz_eq[f'z{identif}'][4]/dz_gen), max_z, dz_gen
+    if plane == 'xy':
+        axis1, min_1, max_1, d1 = str(f'x{identif}'), math.ceil(eq_storage[f'x{identif}'][4]/dx_gen), int(eq_storage[f'x{identif}'][5]/dx_gen), dx_gen
+        axis2, min_2, max_2, d2 = str(f'y{identif}'), math.ceil(eq_storage[f'y{identif}'][4]/dy_gen), int(eq_storage[f'y{identif}'][5]/dy_gen), dy_gen
+        axis3, min_3, max_3, d3 = str(f'z{identif}'), math.ceil(eq_storage[f'z{identif}'][4]/dz_gen), max_z, dz_gen
         
-    grau= max(armz_eq[f'z{identif}'][6],armz_eq[f'z{identif}'][7])
+    grau= max(eq_storage[f'z{identif}'][6],eq_storage[f'z{identif}'][7])
     
     bar = progressbar.ProgressBar(widgets=[f'#{identif} ({(max_2+1-min_2)*(max_1+1-min_1)} knot², order {grau}): ',
                                            progressbar.AnimatedMarker(),
@@ -727,110 +735,110 @@ def gen_epsi(tipo,plano,identif,simetria='global',raf0='normal'):
         for c2 in range(min_2,max_2+1,1):
             bar+=1
             try:
-                lista_args=[]
-                intersec = nonlinsolve([armz_eq[f'{eixo1}'][1][0]-c1*d1,armz_eq[f'{eixo2}'][1][0]-c2*d2],[u,v])
+                args_list=[]
+                intersec = nonlinsolve([eq_storage[f'{axis1}'][1][0]-c1*d1,eq_storage[f'{axis2}'][1][0]-c2*d2],[u,v])
                 for prmt in range(0,len(intersec.args)):
                     if intersec.args[prmt][0].is_real == True and 0<=round(intersec.args[prmt][0],5)<=1:
                         if intersec.args[prmt][1].is_real == True and 0<=round(intersec.args[prmt][1],5)<=1:
-                            lista_args+=intersec.args[prmt]
+                            args_list+=intersec.args[prmt]
 
                 for c3 in range(min_3,max_3+1,1):
-                    if tipo == 'entrada+saída e/ou saída':
-                        if len(lista_args)==4:
-                            if armz_eq[f'{eixo3}'][2](lista_args[0],lista_args[1])<=c3*d3<armz_eq[f'{eixo3}'][2](lista_args[2],lista_args[3]):
-                                    if plano == 'zy':
+                    if surface_type == 'entry+exit and/or exit':
+                        if len(args_list)==4:
+                            if eq_storage[f'{axis3}'][2](args_list[0],args_list[1])<=c3*d3<eq_storage[f'{axis3}'][2](args_list[2],args_list[3]):
+                                    if plane == 'zy':
                                         matrix_gen[c3][c2][c1] = 1
-                                    if plano == 'xz':
+                                    if plane == 'xz':
                                         matrix_gen[c1][c3][c2] = 1
-                                    if plano == 'xy':
+                                    if plane == 'xy':
                                         matrix_gen[c1][c2][c3] = 1
-                        if len(lista_args)==2:
-                            if c3*d3>armz_eq[f'{eixo3}'][2](lista_args[0],lista_args[1]):
-                                if plano == 'zy':
+                        if len(args_list)==2:
+                            if c3*d3>eq_storage[f'{axis3}'][2](args_list[0],args_list[1]):
+                                if plane == 'zy':
                                     matrix_gen[c3][c2][c1] = 0
-                                if plano == 'xz':
+                                if plane == 'xz':
                                     matrix_gen[c1][c3][c2] = 0
-                                if plano == 'xy':
+                                if plane == 'xy':
                                     matrix_gen[c1][c2][c3] = 0
 
-                    if tipo == 'entrada+saída e/ou entrada':
-                        if len(lista_args)==4:
-                            if armz_eq[f'{eixo3}'][2](lista_args[0],lista_args[1])<=c3*d3<armz_eq[f'{eixo3}'][2](lista_args[2],lista_args[3]):
-                                    if plano == 'zy':
+                    if surface_type == 'entry+exit and/or entry':
+                        if len(args_list)==4:
+                            if eq_storage[f'{axis3}'][2](args_list[0],args_list[1])<=c3*d3<eq_storage[f'{axis3}'][2](args_list[2],args_list[3]):
+                                    if plane == 'zy':
                                         matrix_gen[c3][c2][c1] = 1
-                                    if plano == 'xz':
+                                    if plane == 'xz':
                                         matrix_gen[c1][c3][c2] = 1
-                                    if plano == 'xy':
+                                    if plane == 'xy':
                                         matrix_gen[c1][c2][c3] = 1
-                        if len(lista_args)==2:
-                            if c3*d3>=armz_eq[f'{eixo3}'][2](lista_args[0],lista_args[1]):
-                                if plano == 'zy':
+                        if len(args_list)==2:
+                            if c3*d3>=eq_storage[f'{axis3}'][2](args_list[0],args_list[1]):
+                                if plane == 'zy':
                                     matrix_gen[c3][c2][c1] = 1
-                                if plano == 'xz':
+                                if plane == 'xz':
                                     matrix_gen[c1][c3][c2] = 1
-                                if plano == 'xy':
+                                if plane == 'xy':
                                     matrix_gen[c1][c2][c3] = 1
 
             except: 
                 pass
             
-    if simetria=='simetria_y':
+    if symmetry=='symmetry_y':
         if (ny_gen%2!=0) == True: #impar
-            lado_zerado=int(ny_gen/2)
-            lado_calculado=int(ny_gen/2)
+            zero_side=int(ny_gen/2)
+            processed_side=int(ny_gen/2)
             for cy in range(int(ny_gen/2),ny_gen-1):
-                lado_zerado+=1
-                lado_calculado-=1
-                matrix_gen[:,lado_zerado,:] = matrix_gen[:,lado_calculado,:]
+                zero_side+=1
+                processed_side-=1
+                matrix_gen[:,zero_side,:] = matrix_gen[:,processed_side,:]
                 
         if (ny_gen%2!=0) == False: #par
-            lado_zerado=int(ny_gen/2-1)
-            lado_calculado=int(ny_gen/2)
+            zero_side=int(ny_gen/2-1)
+            processed_side=int(ny_gen/2)
             for cy in range(int(ny_gen/2)-1,ny_gen-1):
-                lado_zerado+=1
-                lado_calculado-=1
-                matrix_gen[:,lado_zerado,:] = matrix_gen[:,lado_calculado,:]
+                zero_side+=1
+                processed_side-=1
+                matrix_gen[:,zero_side,:] = matrix_gen[:,processed_side,:]
             
-    if simetria=='simetria_x':
+    if symmetry=='symmetry_x':
         if (nx_gen%2!=0) == True:
-            lado_zerado=int(nx_gen/2)
-            lado_calculado=int(nx_gen/2)
+            zero_side=int(nx_gen/2)
+            processed_side=int(nx_gen/2)
             for cx in range(int(nx_gen/2),nx_gen-1):
-                lado_zerado+=1
-                lado_calculado-=1
-                matrix_gen[lado_zerado,:,:] = matrix_gen[lado_calculado,:,:]
+                zero_side+=1
+                processed_side-=1
+                matrix_gen[zero_side,:,:] = matrix_gen[processed_side,:,:]
 
         if (nx_gen%2!=0) == False:
-            lado_zerado=int(nx_gen/2-1)
-            lado_calculado=int(nx_gen/2)
+            zero_side=int(nx_gen/2-1)
+            processed_side=int(nx_gen/2)
             for cx in range(int(nx_gen/2)-1,nx_gen-1):
-                lado_zerado+=1
-                lado_calculado-=1
-                matrix_gen[lado_zerado,:,:] = matrix_gen[lado_calculado,:,:]
+                zero_side+=1
+                processed_side-=1
+                matrix_gen[zero_side,:,:] = matrix_gen[processed_side,:,:]
             
-    if simetria=='simetria_z':
+    if symmetry=='symmetry_z':
         if (nz_gen%2!=0) == True:
-            lado_zerado=int(nz_gen/2)
-            lado_calculado=int(nz_gen/2)
+            zero_side=int(nz_gen/2)
+            processed_side=int(nz_gen/2)
             for cz in range(int(nz_gen/2),nz_gen-1):
-                lado_zerado+=1
-                lado_calculado-=1
-                matrix_gen[:,:,lado_zerado] = matrix_gen[:,:,lado_calculado]
+                zero_side+=1
+                processed_side-=1
+                matrix_gen[:,:,zero_side] = matrix_gen[:,:,processed_side]
                 
         if (nz_gen%2!=0) == False:
-            lado_zerado=int(nz_gen/2-1)
-            lado_calculado=int(nz_gen/2)
+            zero_side=int(nz_gen/2-1)
+            processed_side=int(nz_gen/2)
             for cz in range(int(nz_gen/2)-1,nz_gen-1):
-                lado_zerado+=1
-                lado_calculado-=1
-                matrix_gen[:,:,lado_zerado] = matrix_gen[:,:,lado_calculado]
+                zero_side+=1
+                processed_side-=1
+                matrix_gen[:,:,zero_side] = matrix_gen[:,:,processed_side]
     
-    armz_nomenclt_epsi[f'{identif}'] = (tipo,plano,identif,simetria)
+    format_storage[f'{identif}'] = (surface_type,plane,identif,symmetry)
     
     bar.finish()
     
 
-def gen_epsi_cylinder(bases_plane,tipo,plano,identif_inicial,simetria='global',raf0='normal'):
+def gen_epsi_cylinder(bases_plane,surface_type,plane,init_identif,symmetry='global',raf0='normal'):
     
     """
     Uma função derivada de :obj:`gen_epsi()` que facilita a geração da Epsi de cilíndros criados com a função
@@ -838,103 +846,103 @@ def gen_epsi_cylinder(bases_plane,tipo,plano,identif_inicial,simetria='global',r
     
     Args:
         bases_plane (:obj:`str`): Pode assumir :obj:`'xy','xz','zy'`. Deverá ser igual ao definido para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
-        tipo (:obj:`str`): Defina se a superfície em questão é considerada um :obj:`'contorno'` (imagine posicionar um cilíndro dentro de
-            um cubo e subtraí-lo, como se fosse uma tubulação) ou um :obj:`'sólido'` (ideal para pneus, rodas, etc). A variável só pode assumir os dois termos destacados.
-        plano (:obj:`str`): Escolha o melhor plano para resolver sua superfície. Pode assumir apenas :obj:`'xz','xy','zy'`. Mais informações em :obj:`gen_epsi()`.
-        identif_inicial (:obj:`str`): O mesmo :obj:`identif` setado para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
-        simetria(:obj:`str`, optional): Pode assumir :obj:`'simetria_x','simetria_y',simetria_z'`. Mais informações em :obj:`gen_epsi()`.
+        surface_type (:obj:`str`): Defina se a superfície em questão é considerada um :obj:`'contour'` (imagine posicionar um cilíndro dentro de
+            um cubo e subtraí-lo, como se fosse uma tubulação) ou um :obj:`'solid'` (ideal para pneus, rodas, etc). A variável só pode assumir os dois termos destacados.
+        plane (:obj:`str`): Escolha o melhor plane para resolver sua superfície. Pode assumir apenas :obj:`'xz','xy','zy'`. Mais informações em :obj:`gen_epsi()`.
+        init_identif (:obj:`str`): O mesmo :obj:`identif` setado para o cilíndro em questão na função :obj:`gen_bezi_cylinder()`.
+        symmetry(:obj:`str`, optional): Pode assumir :obj:`'symmetry_x','symmetry_y',symmetry_z'`. Mais informações em :obj:`gen_epsi()`.
         raf0(:obj:`str`, optional): Não há necessidade alguma de manipulação por parte do usuário. 
         
 
     """
     
-    identif_inicial=int(identif_inicial)
+    init_identif=int(init_identif)
     
-    if tipo=='sólido':
+    if surface_type=='solid':
         if bases_plane=='xz':
-            if plano=='zy':
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+            if plane=='zy':
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}')    
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
                 
-            if plano=='xy':
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            if plane=='xy':
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}') 
             
         if bases_plane=='xy':
-            if plano=='xz':
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
-            if plano=='zy':
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+            if plane=='xz':
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}') 
+            if plane=='zy':
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}')    
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
                 
         if bases_plane=='zy':
-            if plano=='xz':
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
-            if plano=='xy':
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+            if plane=='xz':
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}') 
+            if plane=='xy':
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}')    
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
                 
         
-    if tipo=='contorno':
+    if surface_type=='contour':
         if bases_plane=='xz':
-            if plano=='zy':
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+            if plane=='zy':
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}')    
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
                 
-            if plano=='xy':
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
+            if plane=='xy':
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}') 
             
         if bases_plane=='xy':
-            if plano=='xz':
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
-            if plano=='zy':
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
+            if plane=='xz':
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}') 
+            if plane=='zy':
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}')    
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
                 
         if bases_plane=='zy':
-            if plano=='xz':
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}') 
-            if plano=='xy':
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial}', simetria=f'{simetria}') 
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+1}', simetria=f'{simetria}')    
-                gen_epsi('entrada+saída e/ou saída',f'{plano}',f'{identif_inicial+2}', simetria=f'{simetria}')
-                gen_epsi('entrada+saída e/ou entrada',f'{plano}',f'{identif_inicial+3}', simetria=f'{simetria}')    
+            if plane=='xz':
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}') 
+            if plane=='xy':
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif}', symmetry=f'{symmetry}') 
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+1}', symmetry=f'{symmetry}')    
+                gen_epsi('entry+exit and/or exit',f'{plane}',f'{init_identif+2}', symmetry=f'{symmetry}')
+                gen_epsi('entry+exit and/or entry',f'{plane}',f'{init_identif+3}', symmetry=f'{symmetry}')    
     
 
-def plot_epsi(direcao, grid=True ,integral=False, raf1='normal'):
+def epsi_plot(direction, grid=True, integral=False, raf1='normal'):
     
     """
     Confira se os limites estão corretos, camada por camada ou por amostragem, em qualquer direção.
     
     Args:
-        direcao (:obj:`str`): Poderá assumir os seguintes valores: :obj:`'x', 'y', 'z'`.
+        direction (:obj:`str`): Poderá assumir os seguintes valores: :obj:`'x', 'y', 'z'`.
         grid (:obj:`Bool`, optional): Caso houver número demasiado de nós (>250), setar como :obj:`False` auxiliará na visualização. 
         integral (:obj:`Bool`, optional): Se o usuário quiser conferir meticulosamente todas as camadas, sete como :obj:`True`.
         raf1 (:obj:`str`, optional): Se o usuário quiser conferir alguma Epsi Refinada, setar com :obj:`'x','y','z'`.
@@ -958,12 +966,12 @@ def plot_epsi(direcao, grid=True ,integral=False, raf1='normal'):
     except:
         pass
             
-    if direcao == 'z':
-        n1,d1,l2,nome_l2,l3,nome_l3,d2,d3,plano,n2,n3 = nz_show,dz_show,lx,'lx',ly,'ly',dx_show,dy_show,'xy',nx_show,ny_show
-    if direcao == 'x':
-        n1,d1,l2,nome_l2,l3,nome_l3,d2,d3,plano,n2,n3 = nx_show,dx_show,ly,'ly',lz,'lz',dy_show,dz_show,'zy',ny_show,nz_show
-    if direcao == 'y':
-        n1,d1,l2,nome_l2,l3,nome_l3,d2,d3,plano,n2,n3 = ny_show,dy_show,lx,'lx',lz,'lz',dx_show,dz_show,'xz',nx_show,nz_show
+    if direction == 'z':
+        n1,d1,l2,name_l2,l3,name_l3,d2,d3,plane,n2,n3 = nz_show,dz_show,lx,'lx',ly,'ly',dx_show,dy_show,'xy',nx_show,ny_show
+    if direction == 'x':
+        n1,d1,l2,name_l2,l3,name_l3,d2,d3,plane,n2,n3 = nx_show,dx_show,lz,'lz',ly,'ly',dz_show,dy_show,'zy',nz_show,ny_show
+    if direction == 'y':
+        n1,d1,l2,name_l2,l3,name_l3,d2,d3,plane,n2,n3 = ny_show,dy_show,lx,'lx',lz,'lz',dx_show,dz_show,'xz',nx_show,nz_show
     
     loop=np.arange(0,n1,1)
     
@@ -972,8 +980,8 @@ def plot_epsi(direcao, grid=True ,integral=False, raf1='normal'):
     
     for c1 in loop:
         fig_epsi, a2 = plt.subplots(figsize = (25/2,12/2))
-        fig_epsi.suptitle(f'Plano {plano}, posição {direcao} = {round(c1*d1,1)}', fontsize=25)
-        a2.set_xlabel(nome_l2, fontsize=15), a2.set_ylabel(nome_l3, fontsize=15)
+        fig_epsi.suptitle(f'{plane} plane, {direction} = {round(c1*d1,1)}', fontsize=25)
+        a2.set_xlabel(name_l2, fontsize=15), a2.set_ylabel(name_l3, fontsize=15)
         a2.set_xlim(0,l2), a2.set_ylim(0,l3)
         a2.set_xticks(np.arange(0, l2+d2/2, d2)), a2.set_xticks(np.arange(d2/2, l2, d2), minor=True)
         a2.set_yticks(np.arange(0, l3+d3/2, d3)), a2.set_yticks(np.arange(d3/2, l3, d3), minor=True)
@@ -994,11 +1002,11 @@ def plot_epsi(direcao, grid=True ,integral=False, raf1='normal'):
         if grid==True:
             a2.grid(which='minor', zorder=1), a2.grid(which='major', alpha=0.3, zorder=1)  
         
-        if direcao == 'z':
+        if direction == 'z':
             epsi_dependente = matrix_show[:,:,c1].T
-        if direcao == 'x':
-            epsi_dependente = matrix_show[c1,:,:].T
-        if direcao == 'y':
+        if direction == 'x':
+            epsi_dependente = matrix_show[c1,:,:]
+        if direction == 'y':
             epsi_dependente = matrix_show[:,c1,:].T
             
         a2.imshow(epsi_dependente, cmap = 'jet', origin='lower',extent=[-d2/2, l2+d2/2, -d3/2, l3+d3/2])
@@ -1009,19 +1017,20 @@ def plot_epsi(direcao, grid=True ,integral=False, raf1='normal'):
 def gen_output(names, raf2='normal'):
     
     """
-    Geraração do arquivo que torna possível a visualização no ParaView da Epsi.
+    Geração dos arquivos de saída. Tornam possível a visualização no ParaView da Epsi, bem como a resolução das equações
+    de Navier Stokes nas redondezas do sólido criado.
     
     Args:
-        names (:obj:`str`): Entre com o nome que será dado aos arquivos gerado pelo programa.
+        names (:obj:`str`): Entre com o name que será dado aos arquivos gerado pelo programa.
         raf2 (:obj:`str`): Não há necessidade alguma de manipulação por parte do usuário. 
     
     """
-    global contador
+    global count
     
     
     if raf2=='normal':
-        contador+=1
-        if contador==1:
+        count+=1
+        if count==1:
             if not os.path.exists(f'./{names}/'):
                 os.makedirs(f'./{names}/')
             os.chdir(f'./{names}/')
@@ -1043,7 +1052,7 @@ def gen_output(names, raf2='normal'):
     except:
         pass
         
-    name = ''.join((names,f'_(geracao_{contador})'))
+    name = ''.join((names,f'_(generation_{count})'))
     matrix_print.T.tofile(name)
     
     open(f'{name}.xdmf', 'w').close()
@@ -1102,23 +1111,23 @@ def gen_raf_epsi(nraf):
     nx_raf = nx*nraf
     dx_raf = lx/(nx_raf-1)
     epsi_3d_x_raf = np.zeros((nx_raf,ny,nz),dtype=np.float32)
-    for p,k in armz_nomenclt_epsi.items():
+    for p,k in format_storage.items():
         gen_epsi(k[0],k[1],k[2],k[3],raf0='x')
 
-    gen_output(f'{nome}_x_raf',raf2='x')
+    gen_output(f'{name}_x_raf',raf2='x')
 
     ny_raf = ny*nraf
     dy_raf = ly/(ny_raf-1)
     epsi_3d_y_raf = np.zeros((nx,ny_raf,nz),dtype=np.float32)
-    for p,k in armz_nomenclt_epsi.items():
+    for p,k in format_storage.items():
         gen_epsi(k[0],k[1],k[2],k[3],raf0='y')
 
-    gen_output(f'{nome}_y_raf',raf2='y')
+    gen_output(f'{name}_y_raf',raf2='y')
 
     nz_raf = nz*nraf
     dz_raf=lz/(nz_raf-1)
     epsi_3d_z_raf = np.zeros((nx,ny,nz_raf),dtype=np.float32)
-    for p,k in armz_nomenclt_epsi.items():
+    for p,k in format_storage.items():
         gen_epsi(k[0],k[1],k[2],k[3],raf0='z')
 
-    gen_output(f'{nome}_z_raf',raf2='z')
+    gen_output(f'{name}_z_raf',raf2='z')

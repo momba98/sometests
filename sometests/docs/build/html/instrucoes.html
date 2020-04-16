@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Exemplos" href="exemplos.html" />
+    <link rel="next" title="Examples" href="exemplos.html" />
     <link rel="prev" title="Abordagem de Bézier (ainda em construção)" href="bezier.html" /> 
 </head>
 
@@ -84,7 +84,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier (ainda em construção)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Funções e Respectivas Instruções</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exemplos.html">Exemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exemplos.html">Examples</a></li>
 </ul>
 
             
@@ -164,21 +164,21 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="creating_solid.cria_matriz_pontos">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">cria_matriz_pontos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">desvio</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.cria_matriz_pontos" title="Permalink to this definition">¶</a></dt>
+<dt id="creating_solid.create_point_matrix">
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">create_point_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">deflection</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.create_point_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Auxílio na hora de setar os pontos necessários para as equações da função <a class="reference internal" href="#creating_solid.gen_bezi" title="creating_solid.gen_bezi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>desvio</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Sete como <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> caso queira que a superfície passe pelos pontos de controle
+<dd class="field-odd"><p><strong>deflection</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Sete como <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> caso queira que a superfície passe pelos pontos de controle
 (pontos intermediários, os que normalmente dão a curvatura suave à superfície). Baseia-se num artifício
 matemático que <em>hackeia</em> a Bézier, forçando-a a fazer algo que normalmente não faria.</p>
 </dd>
 </dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">desvio=True</span></code> <strong>não demonstrará efeito em todos os casos!</strong></p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">deflection=True</span></code> <strong>não demonstrará efeito em todos os casos!</strong></p>
 <p>O parâmetro pode ficar setado como True sem danificar o código, porém só efetivamente desviará a superfície
-caso <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_pontos_u=3</span></code> ao mesmo tempo que <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_pontos_v=2</span></code> ou vice-versa.</p>
+caso <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_num_u_points=3</span></code> ao mesmo tempo que <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_num_v_points=2</span></code> ou vice-versa.</p>
 <p><strong>O porquê da restrição:</strong></p>
 <p>Como pode-se imaginar, não há necessidade de desviar a superfície para passar em pontos intermediários caso existam apenas 2
 pontos na direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">[u,v]</span></code> pois não há pontos intermediários. Também, caso a superfície tenha 3 pontos em cada direção
@@ -187,8 +187,24 @@ pontos na direção <code class="xref py py-obj docutils literal notranslate"><s
 </dd></dl>
 
 <dl class="py function">
+<dt id="creating_solid.epsi_plot">
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">epsi_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">direction</span></em>, <em class="sig-param"><span class="n">grid</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">integral</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raf1</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.epsi_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Confira se os limites estão corretos, camada por camada ou por amostragem, em qualquer direção.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Poderá assumir os seguintes valores: <code class="xref py py-obj docutils literal notranslate"><span class="pre">'x',</span> <span class="pre">'y',</span> <span class="pre">'z'</span></code>.</p></li>
+<li><p><strong>grid</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Caso houver número demasiado de nós (&gt;250), setar como <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code> auxiliará na visualização.</p></li>
+<li><p><strong>integral</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Se o usuário quiser conferir meticulosamente todas as camadas, sete como <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>raf1</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Se o usuário quiser conferir alguma Epsi Refinada, setar com <code class="xref py py-obj docutils literal notranslate"><span class="pre">'x','y','z'</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="creating_solid.gen_bezi">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_bezi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">nome</span></em>, <em class="sig-param"><span class="n">show_equation</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_bezi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_bezi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">show_equation</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_bezi" title="Permalink to this definition">¶</a></dt>
 <dd><p>As equações de Bézier são governadas pelos parâmetros <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> e <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code> e fornecem leis para curvas/superfícies.</p>
 <p>São definidas por pontos arbitrados pelo usuário, tendo um mínimo de 2 em cada direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">[u,v]</span></code> e sem algum máximo pré-determinado.</p>
 <p>Os pontos iniciais e finais determinam onde a curva começa e termina, obviamente. <em>São os únicos pontos por onde a Bézier (naturalmente) passará com certeza</em>.
@@ -200,7 +216,7 @@ para que assim os cálculos se tornem baratos e viáveis. <strong>Caso um objeto
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Crie a <em>identificação</em> da sua superfície com <code class="xref py py-obj docutils literal notranslate"><span class="pre">'n'</span></code>, onde <code class="xref py py-obj docutils literal notranslate"><span class="pre">n=0,1,2,3...</span></code> (começar em ‘0’ e somar ‘1’ a cada nova superfície).</p></li>
-<li><p><strong>nome</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Crie um nome para a superfície. Não há regras.</p></li>
+<li><p><strong>name</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Crie um name para a superfície. Não há regras.</p></li>
 <li><p><strong>show_equations</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Sete como <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> caso queira visualizar as equações governantes da superfície em questão.</p></li>
 </ul>
 </dd>
@@ -221,36 +237,37 @@ z(𝑢,𝑣) = −3𝑢²+4𝑢+𝑣²(−11𝑢²+14𝑢−7)+𝑣(18𝑢²−2
 </pre></div>
 </div>
 <p>Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. Sobre
-convergência, consultar a função <code class="xref py py-obj docutils literal notranslate"><span class="pre">previa_interseccao()</span></code>.</p>
+convergência, consultar a função <a class="reference internal" href="#creating_solid.intersection_preview" title="creating_solid.intersection_preview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersection_preview()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="creating_solid.gen_bezi_cylinder">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_bezi_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bases_plane</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">center_1</span></em>, <em class="sig-param"><span class="n">center_2</span></em>, <em class="sig-param"><span class="n">init_height</span></em>, <em class="sig-param"><span class="n">final_height</span></em>, <em class="sig-param"><span class="n">identif_inicial</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_bezi_cylinder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uma função derivada de <a class="reference internal" href="#creating_solid.gen_bezi" title="creating_solid.gen_bezi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi()</span></code></a> que facilita a criação de cilíndros. De saída são geradas
-4 Béziers diferentes que juntas formam um cilíndro. Caso esta função seja chamada, no momento de solução
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_bezi_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">bases_plane</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">center_1</span></em>, <em class="sig-param"><span class="n">center_2</span></em>, <em class="sig-param"><span class="n">init_height</span></em>, <em class="sig-param"><span class="n">final_height</span></em>, <em class="sig-param"><span class="n">init_identif</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_bezi_cylinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uma função derivada de <a class="reference internal" href="#creating_solid.gen_bezi" title="creating_solid.gen_bezi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi()</span></code></a> que facilita a criação de cilíndros. De exit são geradas
+4 Béziers (seen as a quadrant) diferentes que juntas formam um cilíndro. Caso esta função seja chamada, no momento de solução
 da Epsi será necessário usar a função <a class="reference internal" href="#creating_solid.gen_epsi_cylinder" title="creating_solid.gen_epsi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi_cylinder()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bases_plane</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina o plano paralelo à base. Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xy','xz','zy'</span></code>.</p></li>
+<li><p><strong>name</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Set cylinder’s name (a short one).</p></li>
+<li><p><strong>bases_plane</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina o plane paralelo à base. Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xy','xz','zy'</span></code>.</p></li>
 <li><p><strong>radius</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Defina o raio do cilíndro.</p></li>
-<li><p><strong>center_1</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Coordenada do eixo correspondente à primeira letra do <code class="xref py py-obj docutils literal notranslate"><span class="pre">bases_plane</span></code>.</p></li>
-<li><p><strong>center_2</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Coordenada do eixo correspondente à segunda letra do <code class="xref py py-obj docutils literal notranslate"><span class="pre">bases_plane</span></code>.</p></li>
+<li><p><strong>center_1</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Coordenada do axis correspondente à primeira letra do <code class="xref py py-obj docutils literal notranslate"><span class="pre">bases_plane</span></code>.</p></li>
+<li><p><strong>center_2</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Coordenada do axis correspondente à segunda letra do <code class="xref py py-obj docutils literal notranslate"><span class="pre">bases_plane</span></code>.</p></li>
 <li><p><strong>init_height</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Altura da base inferior do cilíndro.</p></li>
 <li><p><strong>final_height</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>) – Altura da base superior do cilíndro.</p></li>
-<li><p><strong>identif_inicial</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – O mesmo <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> do resto do código. O usuário deverá criar apenas a identificação da primeira
+<li><p><strong>init_identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – O mesmo <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> do resto do código. O usuário deverá criar apenas a identificação da primeira
 das quatro Béziers geradas na função. Todas as outras identificações são definidas automaticamente.</p></li>
 </ul>
 </dd>
 </dl>
 <dl>
-<dt>Exemplo:</dt><dd><p>Para criar um cilíndro de raio 1 e altura 2 no plano <code class="xref py py-obj docutils literal notranslate"><span class="pre">xz</span></code> caso alguma superfície já tenha sido criada e
+<dt>Exemplo:</dt><dd><p>Para criar um cilíndro de raio 1 e altura 2 no plane <code class="xref py py-obj docutils literal notranslate"><span class="pre">xz</span></code> caso alguma superfície já tenha sido criada e
 identificada com <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif='0'</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gen_bezi_cylinder</span><span class="p">(</span><span class="n">bases_plane</span><span class="o">=</span><span class="s1">&#39;xz&#39;</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                   <span class="n">center_1</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">center_2</span><span class="o">=</span><span class="mi">3</span>
                   <span class="n">init_height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                  <span class="n">identif_inicial</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+                  <span class="n">init_identif</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -265,48 +282,48 @@ o argumento <code class="xref py py-obj docutils literal notranslate"><span clas
 
 <dl class="py function">
 <dt id="creating_solid.gen_epsi">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tipo</span></em>, <em class="sig-param"><span class="n">plano</span></em>, <em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">simetria</span><span class="o">=</span><span class="default_value">'global'</span></em>, <em class="sig-param"><span class="n">raf0</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Nesta função, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é sólido (na Epsi, <code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code>) e onde
-não é sólido (na Epsi, <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code>). Vamos setar o que é considerado entrada e saída, ou ambos ao mesmo tempo, <strong>para todas as superfícies criadas</strong>.
-Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos definir qual o melhor plano para calcular os limites.</p>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">surface_type</span></em>, <em class="sig-param"><span class="n">plane</span></em>, <em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">symmetry</span><span class="o">=</span><span class="default_value">'global'</span></em>, <em class="sig-param"><span class="n">raf0</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Nesta função, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é solid (na Epsi, <code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code>) e onde
+não é solid (na Epsi, <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code>). Vamos setar o que é considerado entry e exit, ou ambos ao mesmo tempo, <strong>para todas as superfícies criadas</strong>.
+Vamos, também, tornar mais barata o cálculo de nossa Epsi com simetrias. Vamos definir qual o melhor plane para calcular os limites.</p>
 <p><strong>Preste atenção. Se algo pode dar errado, é aqui.</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tipo</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – <p>Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao sólido.</p>
+<li><p><strong>surface_type</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – <p>Defina se a superfície em questão é considerada uma entry, uma exit ou ambos em relação ao solid.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 41%" />
 <col style="width: 59%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Tipo</p></th>
-<th class="head"><p>Sete  <code class="xref py py-obj docutils literal notranslate"><span class="pre">tipo</span></code> como</p></th>
+<tr class="row-odd"><th class="head"><p>surface_type</p></th>
+<th class="head"><p>Set <code class="xref py py-obj docutils literal notranslate"><span class="pre">surface_type</span></code> as</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Entrada Pura</p></td>
-<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">entrada'</span></code></p></td>
+<tr class="row-even"><td><p>entry</p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">entry'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Saída Pura</p></td>
-<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">saída'</span></code></p></td>
+<tr class="row-odd"><td><p>exit</p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">exit'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>Entrada/Saída Pura</p></td>
-<td><p>Tanto faz</p></td>
+<tr class="row-even"><td><p>entry/exit</p></td>
+<td><p>whatever</p></td>
 </tr>
-<tr class="row-odd"><td><p>Entrada/Saída + Entrada</p></td>
-<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">entrada'</span></code></p></td>
+<tr class="row-odd"><td><p>entry/exit + entry</p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">entry'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>Entrada/Saída + Saída</p></td>
-<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entrada+saída</span> <span class="pre">e/ou</span> <span class="pre">saída'</span></code></p></td>
+<tr class="row-even"><td><p>entry/exit + exit</p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">exit'</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </p></li>
-<li><p><strong>plano</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Escolha o melhor plano para resolver sua superfície. Caso o plano xy seja o melhor, setar <code class="xref py py-obj docutils literal notranslate"><span class="pre">plano='xy'</span></code>. Pode assumir apenas <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xz','xy','zy'</span></code>.</p></li>
+<li><p><strong>plane</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Escolha o melhor plane para resolver sua superfície. Caso o plane xy seja o melhor, setar <code class="xref py py-obj docutils literal notranslate"><span class="pre">plane='xy'</span></code>. Pode assumir apenas <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xz','xy','zy'</span></code>.</p></li>
 <li><p><strong>identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Repita o argumento <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> da superfície em questão.</p></li>
-<li><p><strong>simetria</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'simetria_x','simetria_y',simetria_z'</span></code>.
-Caso utilize este termo, projete apenas metade das superfícies caso elas cruzem o eixo de simetria. Caso contrário, o método não resulta em ganhos significativos.</p></li>
+<li><p><strong>symmetry</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Defina alguma simetria de auxílio para barateamento do cálculo da Epsi. Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'symmetry_x','symmetry_y',symmetry_z'</span></code>.
+Caso utilize este termo, projete apenas metade das superfícies caso elas cruzem o axis de simetria. Caso contrário, o método não resulta em ganhos significativos.</p></li>
 <li><p><strong>raf0</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Não há necessidade alguma de manipulação por parte do usuário.</p></li>
 </ul>
 </dd>
@@ -317,69 +334,69 @@ Caso utilize este termo, projete apenas metade das superfícies caso elas cruzem
 </div>
 <p>Podemos notar 2 supefícies na figura, uma verde (<code class="xref py py-obj docutils literal notranslate"><span class="pre">identif='0'</span></code>) e outra roxa (<code class="xref py py-obj docutils literal notranslate"><span class="pre">identif='1'</span></code>).
 De acordo com esta situação, a invocação da função <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a> pode se dar na seguinte forma:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gen_epsi</span><span class="p">(</span><span class="s1">&#39;entrada+saída e/ou entrada&#39;</span><span class="p">,</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="n">gen_epsi</span><span class="p">(</span><span class="s1">&#39;entrada+saída e/ou saída&#39;</span><span class="p">,</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gen_epsi</span><span class="p">(</span><span class="s1">&#39;entry+exit and/or entry&#39;</span><span class="p">,</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+<span class="n">gen_epsi</span><span class="p">(</span><span class="s1">&#39;entry+exit and/or exit&#39;</span><span class="p">,</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Podemos notar também um ponto que é o início de um vetor perpendicular ao plano ‘zy’. Este vetor é a representação do que define o <code class="xref py py-obj docutils literal notranslate"><span class="pre">tipo</span></code> de cada superfície.
+<p>Podemos notar também um ponto que é o início de um vetor perpendicular ao plane ‘zy’. Este vetor é a representação do que define o <code class="xref py py-obj docutils literal notranslate"><span class="pre">surface_type</span></code> de cada superfície.
 Toda vez que o vetor encontrar alguma superfícies, será definido um limite para a criação da Epsi.
 Devemos imaginar que para cada combinação de coordenada ‘z’ e ‘y’ (espaçamento definido por dz e dy) um vetor desses é originado. Portanto:</p>
 <blockquote>
-<div><p>1. O sólido verde é considerado <em>Entrada Pura</em> pois, no instante em que é interceptado pelos vetores,
+<div><p>1. O sólido verde é considerado <em>entry Pura</em> pois, no instante em que é interceptado pelos vetores,
 <strong>entra-se no sólido</strong>.</p>
-<p>2. O sólido roxo deve ser dividido em 2 partes e é considerado <em>Entrada/Saída + Saída</em>. A primeira parte é a superior, logo acima da superfície verde.
-Toda esta parte será interceptada pelos vetores duas vezes e <strong>por isso é considerada entrada/saída</strong>. A segunda parte é a inferior, que ‘compartilha’
+<p>2. O sólido roxo deve ser dividido em 2 partes e é considerado <em>entry/exit + exit</em>. A primeira parte é a superior, logo acima da superfície verde.
+Toda esta parte será interceptada pelos vetores duas vezes e <strong>por isso é considerada entry/exit</strong>. A segunda parte é a inferior, que ‘compartilha’
 altura com a superfície verde. Esta parte será interceptada pelos vetores apenas uma vez e em todas elas o sólido já terá acabado, por isso é considerada
-também como <strong>saída</strong>.</p>
+também como <strong>exit</strong>.</p>
 </div></blockquote>
 </dd>
 </dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Caso construída uma superfície que possua segmentos com possíveis entradas/saídas simultâneas (superfície roxa), certificar que a superfície seja construída
-no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plano.</p>
+<p>Caso construída uma superfície que possua segmentos com possíveis entrys/exits simultâneas (superfície roxa), certificar que a superfície seja construída
+no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plane.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Caso a superfície identificada com <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> seja <em>entrada</em>, a partir do momento em que a Epsi encontrar a superfície até o fim da
-Epsi será setado como 1. Caso seja <em>saída</em>,
+<p>Caso a superfície identificada com <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> seja <em>entry</em>, a partir do momento em que a Epsi encontrar a superfície até o fim da
+Epsi será setado como 1. Caso seja <em>exit</em>,
 a partir do momento em que a Epsi encontrar a superfície até o fim da Epsi será setado como 0.</p>
 <p><em>É necessário perceber que a ordem com que essa
-função é chamada tem muita importância:</em> caso o usuário chame primeiro as saídas, o código vai entender que a partir do encontro da superfície
+função é chamada tem muita importância:</em> caso o usuário chame primeiro as exits, o código vai entender que a partir do encontro da superfície
 é necessário marcar como 0 algo que já está setado como 0 (a matriz Epsi é setada inicialmente apemas com 0, com dimensões nx, ny e nz). Seguindo a lógica,
-o usuário agora então chamaria as entradas. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido.
+o usuário agora então chamaria as entrys. A partir do encontro da superfície, tudo será setado com 1 até o fim da matriz e assim ficará definido.
 Ou seja, o sólido <em>não foi representado corretamente.</em></p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>Explicando ‘plano’ mais uma vez:</strong></p>
+<p><strong>Explicando ‘plane’ mais uma vez:</strong></p>
 <p>Para cada combinação de coordenada (xy, xz ou zy), imagine um vetor saíndo de cada nó existente.
-Como por exemplo, falaremos do plano xy. De cada posição x e de cada posição y possível, sairá um vetor em direção à z.
+Como por exemplo, falaremos do plane xy. De cada posição x e de cada posição y possível, sairá um vetor em direção à z.
 Toda vez que esse vetor cruzar uma superfície, será contabilizado um limite para a Epsi. O usuário já determinou que
 tipo de limite será no argumento anterior.
-<em>Logo, é de extrema importância que o usuário escolha o plano certo para resolver o seu sólido.</em>
-Imagine outro exemplo, onde o usuário construiu um quadrado no plano xy (ou seja, paralelo ao plano xy), com alguma altura constante qualquer.
-Esse quadrado não possui dimensão alguma para qualquer plano a não ser o plano xy.
-Em outras palavras, o plano zy e o plano zx nunca cruzarão este quadrado, logo a Epsi não será construída corretamente pois não haverá limite algum para isso.
-E isso é perfeitamente demonstrado pela a função <code class="xref py py-obj docutils literal notranslate"><span class="pre">previa_interseccao()</span></code>. Inclusive, o retorno desta função explicita onde há interceptação dos vetores com a superfície,
+<em>Logo, é de extrema importância que o usuário escolha o plane certo para resolver o seu sólido.</em>
+Imagine outro exemplo, onde o usuário construiu um quadrado no plane xy (ou seja, paralelo ao plane xy), com alguma altura constante qualquer.
+Esse quadrado não possui dimensão alguma para qualquer plane a não ser o plane xy.
+Em outras palavras, o plane zy e o plane zx nunca cruzarão este quadrado, logo a Epsi não será construída corretamente pois não haverá limite algum para isso.
+E isso é perfeitamente demonstrado pela a função <a class="reference internal" href="#creating_solid.intersection_preview" title="creating_solid.intersection_preview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersection_preview()</span></code></a>. Inclusive, o retorno desta função explicita onde há interceptação dos vetores com a superfície,
 tornando mais clara a escolha deste argumento.</p>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt id="creating_solid.gen_epsi_cylinder">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bases_plane</span></em>, <em class="sig-param"><span class="n">tipo</span></em>, <em class="sig-param"><span class="n">plano</span></em>, <em class="sig-param"><span class="n">identif_inicial</span></em>, <em class="sig-param"><span class="n">simetria</span><span class="o">=</span><span class="default_value">'global'</span></em>, <em class="sig-param"><span class="n">raf0</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_cylinder" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bases_plane</span></em>, <em class="sig-param"><span class="n">surface_type</span></em>, <em class="sig-param"><span class="n">plane</span></em>, <em class="sig-param"><span class="n">init_identif</span></em>, <em class="sig-param"><span class="n">symmetry</span><span class="o">=</span><span class="default_value">'global'</span></em>, <em class="sig-param"><span class="n">raf0</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_cylinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uma função derivada de <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a> que facilita a geração da Epsi de cilíndros criados com a função
 <a class="reference internal" href="#creating_solid.gen_bezi_cylinder" title="creating_solid.gen_bezi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi_cylinder()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>bases_plane</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xy','xz','zy'</span></code>. Deverá ser igual ao definido para o cilíndro em questão na função <a class="reference internal" href="#creating_solid.gen_bezi_cylinder" title="creating_solid.gen_bezi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi_cylinder()</span></code></a>.</p></li>
-<li><p><strong>tipo</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina se a superfície em questão é considerada um <code class="xref py py-obj docutils literal notranslate"><span class="pre">'contorno'</span></code> (imagine posicionar um cilíndro dentro de
-um cubo e subtraí-lo, como se fosse uma tubulação) ou um <code class="xref py py-obj docutils literal notranslate"><span class="pre">'sólido'</span></code> (ideal para pneus, rodas, etc). A variável só pode assumir os dois termos destacados.</p></li>
-<li><p><strong>plano</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Escolha o melhor plano para resolver sua superfície. Pode assumir apenas <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xz','xy','zy'</span></code>. Mais informações em <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a>.</p></li>
-<li><p><strong>identif_inicial</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – O mesmo <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> setado para o cilíndro em questão na função <a class="reference internal" href="#creating_solid.gen_bezi_cylinder" title="creating_solid.gen_bezi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi_cylinder()</span></code></a>.</p></li>
-<li><p><strong>simetria</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'simetria_x','simetria_y',simetria_z'</span></code>. Mais informações em <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a>.</p></li>
+<li><p><strong>surface_type</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina se a superfície em questão é considerada um <code class="xref py py-obj docutils literal notranslate"><span class="pre">'contour'</span></code> (imagine posicionar um cilíndro dentro de
+um cubo e subtraí-lo, como se fosse uma tubulação) ou um <code class="xref py py-obj docutils literal notranslate"><span class="pre">'solid'</span></code> (ideal para pneus, rodas, etc). A variável só pode assumir os dois termos destacados.</p></li>
+<li><p><strong>plane</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Escolha o melhor plane para resolver sua superfície. Pode assumir apenas <code class="xref py py-obj docutils literal notranslate"><span class="pre">'xz','xy','zy'</span></code>. Mais informações em <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a>.</p></li>
+<li><p><strong>init_identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – O mesmo <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code> setado para o cilíndro em questão na função <a class="reference internal" href="#creating_solid.gen_bezi_cylinder" title="creating_solid.gen_bezi_cylinder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi_cylinder()</span></code></a>.</p></li>
+<li><p><strong>symmetry</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Pode assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'symmetry_x','symmetry_y',symmetry_z'</span></code>. Mais informações em <a class="reference internal" href="#creating_solid.gen_epsi" title="creating_solid.gen_epsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_epsi()</span></code></a>.</p></li>
 <li><p><strong>raf0</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Não há necessidade alguma de manipulação por parte do usuário.</p></li>
 </ul>
 </dd>
@@ -389,11 +406,12 @@ um cubo e subtraí-lo, como se fosse uma tubulação) ou um <code class="xref py
 <dl class="py function">
 <dt id="creating_solid.gen_output">
 <code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_output</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">names</span></em>, <em class="sig-param"><span class="n">raf2</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_output" title="Permalink to this definition">¶</a></dt>
-<dd><p>Geraração do arquivo que torna possível a visualização no ParaView da Epsi.</p>
+<dd><p>Geração dos arquivos de saída. Tornam possível a visualização no ParaView da Epsi, bem como a resolução das equações
+de Navier Stokes nas redondezas do sólido criado.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>names</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Entre com o nome que será dado aos arquivos gerado pelo programa.</p></li>
+<li><p><strong>names</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Entre com o name que será dado aos arquivos gerado pelo programa.</p></li>
 <li><p><strong>raf2</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Não há necessidade alguma de manipulação por parte do usuário.</p></li>
 </ul>
 </dd>
@@ -412,30 +430,68 @@ um cubo e subtraí-lo, como se fosse uma tubulação) ou um <code class="xref py
 </dd></dl>
 
 <dl class="py function">
-<dt id="creating_solid.plot_epsi">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">plot_epsi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">direcao</span></em>, <em class="sig-param"><span class="n">grid</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">integral</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raf1</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.plot_epsi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Confira se os limites estão corretos, camada por camada ou por amostragem, em qualquer direção.</p>
+<dt id="creating_solid.intersection_preview">
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">intersection_preview</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init_identif</span></em>, <em class="sig-param"><span class="n">final_identif</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.intersection_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uma <em>mini simulação de Epsi</em>. Para poucos nós em cada direção será checado se os limites são coerentes ou não,
+ou seja, <strong>se as funções convergiram para o determinado espaçamento de nós ou não</strong>. Cada ponto no gráfico significa uma intersecção entre o vetor e a superfície.
+Se todos forem razoáveis, a superfície será bem entendida pelo solver.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>direcao</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Poderá assumir os seguintes valores: <code class="xref py py-obj docutils literal notranslate"><span class="pre">'x',</span> <span class="pre">'y',</span> <span class="pre">'z'</span></code>.</p></li>
-<li><p><strong>grid</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Caso houver número demasiado de nós (&gt;250), setar como <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code> auxiliará na visualização.</p></li>
-<li><p><strong>integral</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Se o usuário quiser conferir meticulosamente todas as camadas, sete como <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
-<li><p><strong>raf1</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Se o usuário quiser conferir alguma Epsi Refinada, setar com <code class="xref py py-obj docutils literal notranslate"><span class="pre">'x','y','z'</span></code>.</p></li>
+<li><p><strong>init_identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o início do intervalo de superfícies a serem calculadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code>.</p></li>
+<li><p><strong>final_identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o final do intervalo (endpoint não incluido) de superfícies a serem calcuadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="creating_solid.plota_superficie">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">plota_superficie</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif_inicial</span></em>, <em class="sig-param"><span class="n">identif_final</span></em>, <em class="sig-param"><span class="n">pontos</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0.3</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.plota_superficie" title="Permalink to this definition">¶</a></dt>
+<dt id="creating_solid.set_point_matrix">
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">set_point_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_u_points</span></em>, <em class="sig-param"><span class="n">num_v_points</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.set_point_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Importante função em que o usuário determinará o número de pontos em cada direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">[u,v]</span></code>.</p>
+<p>Caso fique em dúvida da namenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com <code class="xref py py-obj docutils literal notranslate"><span class="pre">print(point_storage)</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#exemplo de como tirar a dúvida dos pontos que devem receber algum input</span>
+<span class="n">set_point_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">point_storage</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Basicamente, os pontos a serem determinados possuem 2 sub-índices: <code class="xref py py-obj docutils literal notranslate"><span class="pre">i</span></code> e <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> → <code class="xref py py-obj docutils literal notranslate"><span class="pre">Pij</span></code>.</p>
+<p>Os sub-índices começarão em <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> e irão até <code class="xref py py-obj docutils literal notranslate"><span class="pre">i-1</span></code> and/or <code class="xref py py-obj docutils literal notranslate"><span class="pre">j-1</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_u_points</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Determine o número de pontos que a direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> terá.</p></li>
+<li><p><strong>num_v_points</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Determine o número de pontos que a direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code> terá.</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Exemplo:</dt><dd><p>Será explicitado quais pontos deverão ser setados de acordo com as entrys:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">set_point_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#função é chamada</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="c1">#declara-se as informações do ponto</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="c1">#qualquer ponto de 3 coordenadas dentro do domínio</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P20&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P21&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Note que o primeiro subíndice, <code class="xref py py-obj docutils literal notranslate"><span class="pre">i</span></code>, começa em <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> e termina em <code class="xref py py-obj docutils literal notranslate"><span class="pre">2</span></code>, que é o correspondente a <code class="xref py py-obj docutils literal notranslate"><span class="pre">num_u_points=3-num_v_points=1</span></code>.</p>
+<p>O dicionário <code class="xref py py-obj docutils literal notranslate"><span class="pre">point_storage</span></code> faz parte da mecânica do código, não deve ser alterado. Auxilia na setagem e no armazenamento das informações.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="creating_solid.surface_plot">
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">surface_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init_identif</span></em>, <em class="sig-param"><span class="n">final_identif</span></em>, <em class="sig-param"><span class="n">points</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0.3</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.surface_plot" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>identif_inicial</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o início do intervalo de superfícies a serem plotadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code>.</p></li>
-<li><p><strong>identif_final</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o final do intervalo (endpoint não incluido) de superfícies a serem plotadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code></p></li>
-<li><p><strong>pontos</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Caso queira visualizar os pontos que governam sua superfície, sete como <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>init_identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o início do intervalo de superfícies a serem plotadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code>.</p></li>
+<li><p><strong>final_identif</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o final do intervalo (endpoint não incluido) de superfícies a serem plotadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code></p></li>
+<li><p><strong>points</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Bool</span></code>, optional) – Caso queira visualizar os pontos que governam sua superfície, sete como <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 <li><p><strong>alpha</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, optional) – Controlador da opacidade da superfície em questão. Pode assumir qualquer valor entre <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> (transparente) e <code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code> (opaco).</p></li>
 </ul>
 </dd>
@@ -443,90 +499,36 @@ um cubo e subtraí-lo, como se fosse uma tubulação) ou um <code class="xref py
 </dd></dl>
 
 <dl class="py function">
-<dt id="creating_solid.prepara_matriz_pontos">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">prepara_matriz_pontos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pontos_u</span></em>, <em class="sig-param"><span class="n">pontos_v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.prepara_matriz_pontos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Importante função em que o usuário determinará o número de pontos em cada direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">[u,v]</span></code>.</p>
-<p>Caso fique em dúvida da nomenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com <code class="xref py py-obj docutils literal notranslate"><span class="pre">print(armz_pt)</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#exemplo de como tirar a dúvida dos pontos que devem receber algum input</span>
-<span class="n">prepara_matriz_pontos</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">armz_pt</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Basicamente, os pontos a serem determinados possuem 2 sub-índices: <code class="xref py py-obj docutils literal notranslate"><span class="pre">i</span></code> e <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> → <code class="xref py py-obj docutils literal notranslate"><span class="pre">Pij</span></code>.</p>
-<p>Os sub-índices começarão em <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> e irão até <code class="xref py py-obj docutils literal notranslate"><span class="pre">i-1</span></code> e/ou <code class="xref py py-obj docutils literal notranslate"><span class="pre">j-1</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pontos_u</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Determine o número de pontos que a direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> terá.</p></li>
-<li><p><strong>pontos_v</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Determine o número de pontos que a direção <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code> terá.</p></li>
-</ul>
-</dd>
-</dl>
-<dl>
-<dt>Exemplo:</dt><dd><p>Será explicitado quais pontos deverão ser setados de acordo com as entradas:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prepara_matriz_pontos</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#função é chamada</span>
-
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="c1">#declara-se as informações do ponto</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span> <span class="c1">#qualquer ponto de 3 coordenadas dentro do domínio</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P20&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P21&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Note que o primeiro subíndice, <code class="xref py py-obj docutils literal notranslate"><span class="pre">i</span></code>, começa em <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> e termina em <code class="xref py py-obj docutils literal notranslate"><span class="pre">2</span></code>, que é o correspondente a <code class="xref py py-obj docutils literal notranslate"><span class="pre">pontos_u=3-pontos_v=1</span></code>.</p>
-<p>O dicionário <code class="xref py py-obj docutils literal notranslate"><span class="pre">armz_pt</span></code> faz parte da mecânica do código, não deve ser alterado. Auxilia na setagem e no armazenamento das informações.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="creating_solid.previa_interseccao">
-<span id="creating_solid.previa_intersecçao"></span><code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">previa_intersecçao</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif_inicial</span></em>, <em class="sig-param"><span class="n">identif_final</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.previa_interseccao" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uma <em>mini simulação de Epsi</em>. Para poucos nós em cada direção será checado se os limites são coerentes ou não,
-ou seja, <strong>se as funções convergiram para o determinado espaçamento de nós ou não</strong>. Cada ponto no gráfico significa uma intersecção entre o vetor e a superfície.
-Se todos forem razoáveis, a superfície será bem entendida pelo solver.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>identif_inicial</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o início do intervalo de superfícies a serem calculadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code>.</p></li>
-<li><p><strong>identif_final</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Determine o final do intervalo (endpoint não incluido) de superfícies a serem calcuadas através da identificação <code class="xref py py-obj docutils literal notranslate"><span class="pre">identif</span></code>.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="creating_solid.transladar">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">transladar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">direcao</span></em>, <em class="sig-param"><span class="n">quantidade</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.transladar" title="Permalink to this definition">¶</a></dt>
+<dt id="creating_solid.translate">
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">translate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">direction</span></em>, <em class="sig-param"><span class="n">quantity</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.translate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Caso tenha se precipitado em relação à posição de sua superfície, translade seus pontos de forma eficiente
 em qualquer direção.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>direcao</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina em qual direção a translação será feita. Deve assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'x',</span> <span class="pre">'y',</span> <span class="pre">'z'</span></code>.</p></li>
-<li><p><strong>quantidade</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Assume quantas unidades de comprimento de domínio o usuário quer transladar sua superfície.</p></li>
+<li><p><strong>direction</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Defina em qual direção a translação será feita. Deve assumir <code class="xref py py-obj docutils literal notranslate"><span class="pre">'x',</span> <span class="pre">'y',</span> <span class="pre">'z'</span></code>.</p></li>
+<li><p><strong>quantity</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Assume quantas unidades de comprimento de domínio o usuário quer translate sua superfície.</p></li>
 </ul>
 </dd>
 </dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Deverá ser obrigatoriamente chamada entre a função <a class="reference internal" href="#creating_solid.cria_matriz_pontos" title="creating_solid.cria_matriz_pontos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cria_matriz_pontos()</span></code></a> e a função <a class="reference internal" href="#creating_solid.gen_bezi" title="creating_solid.gen_bezi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi()</span></code></a>.</p>
+<p>Deverá ser obrigatoriamente chamada entre a função <a class="reference internal" href="#creating_solid.create_point_matrix" title="creating_solid.create_point_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_point_matrix()</span></code></a> e a função <a class="reference internal" href="#creating_solid.gen_bezi" title="creating_solid.gen_bezi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezi()</span></code></a>.</p>
 </div>
 <dl>
 <dt>Exemplo:</dt><dd><p>Para “empurrar” 1.5 unidades para trás e “puxar” 0.5 unidades para o lado:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prepara_matriz_pontos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">set_point_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
-<span class="n">armz_pt</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">]</span>
 
-<span class="n">cria_matriz_pontos</span><span class="p">()</span>
+<span class="n">create_point_matrix</span><span class="p">()</span>
 
-<span class="n">transladar</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">translate</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="mf">1.5</span><span class="p">)</span>
 
-<span class="n">transladar</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">translate</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="n">gen_bezi</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">capô</span><span class="p">)</span>
 </pre></div>
@@ -545,7 +547,7 @@ em qualquer direção.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="exemplos.html" class="btn btn-neutral float-right" title="Exemplos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="exemplos.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bezier.html" class="btn btn-neutral float-left" title="Abordagem de Bézier (ainda em construção)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
