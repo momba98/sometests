@@ -30,166 +30,185 @@ Faça o :download:`download dos arquivos  <downloads/cyber.zip>` ou
 
    **1.1. Domain** ::
 
-        lx,ly,lz=10,3,3
-        nx,ny,nz=int(10*20),int(3*20),int(3*20)
+        lx,ly,lz=8,2,2
+        n=45
+        nx,ny,nz=lx*n,ly*n,lz*n
 
 
    **1.3.1. Control Points' Generation** ::
 
-        set_point_matrix(2,2) #from set_point_matrix to gen_bezi: creating a surface
-        point_storage['P00']=[2.40,1.9,0.89]
-        point_storage['P01']=[2.40,1.9,1.5]
-        point_storage['P10']=[5.9,1.4,0.57]
-        point_storage['P11']=[5.9,1.4,1.5]
+        c.eq_storage={}
+        c.list_storage = {}
+
+        set_point_matrix(2,2) #from set_point_matrix to gen_bezier: creating a surface
+        point_storage['P00']=[1.26,1,0.468]
+        point_storage['P01']=[1.26,1,0.789]
+        point_storage['P10']=[3.1,0.763,0.3]
+        point_storage['P11']=[3.1,0.763,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('0','high back')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('0','high back')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[5.9,1.4,0.57]
-        point_storage['P01']=[5.9,1.4,1.5]
-        point_storage['P10']=[5.75,0.5,0.625]
-        point_storage['P11']=[5.75,0.5,1.5]
+        point_storage['P00']=[3.1,0.763,0.3]
+        point_storage['P01']=[3.1,0.763,0.789]
+        point_storage['P10']=[3.02,0.263,0.328]
+        point_storage['P11']=[3.02,0.263,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('1','med back')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('1','med back')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[5.75,0.5,0.625]
-        point_storage['P01']=[5.75,0.5,1.5]
-        point_storage['P10']=[5.25,0.34,0.625]
-        point_storage['P11']=[5.25,0.34,1.5]
+        point_storage['P00']=[3.02,0.263,0.328]
+        point_storage['P01']=[3.02,0.263,0.789]
+        point_storage['P10']=[2.76,0.187,0.328]
+        point_storage['P11']=[2.76,0.187,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('2','low back')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('2','low back')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[5.25,0.34,0.625]
-        point_storage['P01']=[5.25,0.34,1.5]
-        point_storage['P10']=[0.25,0.34,0.625]
-        point_storage['P11']=[0.25,0.34,1.5]
+        point_storage['P00']=[2.76,0.187,0.328]
+        point_storage['P01']=[2.76,0.187,0.789]
+        point_storage['P10']=[0.131,0.187,0.328]
+        point_storage['P11']=[0.131,0.187,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('3','under')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('3','under')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[2.40,1.9,0.89]
-        point_storage['P01']=[2.40,1.9,1.5]
-        point_storage['P10']=[0.2,1.2,0.57]
-        point_storage['P11']=[0.2,1.2,1.5]
+        point_storage['P00']=[1.26,1,0.468]
+        point_storage['P01']=[1.26,1,0.789]
+        point_storage['P10']=[0.105,0.631,0.3]
+        point_storage['P11']=[0.105,0.631,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('4','high front')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('4','high front')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0.2,1.2,0.57]
-        point_storage['P01']=[0.2,1.2,0.87]
-        point_storage['P10']=[0,1.1,0.87]
-        point_storage['P11']=[0,1.1,0.87]
+        point_storage['P00']=[0.105,0.631,0.3]
+        point_storage['P01']=[0.105,0.631,0.457]
+        point_storage['P10']=[0,0.578,0.457]
+        point_storage['P11']=[0,0.578,0.457]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('5','high right triang')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('5','high right triang')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0.2,1.2,0.87]
-        point_storage['P01']=[0,1.1,0.87]
-        point_storage['P10']=[0.2,1.2,1.5]
-        point_storage['P11']=[0,1.1,1.5]
+        point_storage['P00']=[0.105,0.631,0.457]
+        point_storage['P01']=[0,0.578,0.457]
+        point_storage['P10']=[0.105,0.631,0.789]
+        point_storage['P11']=[0,0.578,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('6','front square')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('6','front square')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0.25,0.34,0.625]
-        point_storage['P01']=[0.25,0.34,0.825]
-        point_storage['P10']=[0.125,0.5,0.825]
-        point_storage['P11']=[0.125,0.5,0.825]
+        point_storage['P00']=[0.131,0.187,0.328]
+        point_storage['P01']=[0.131,0.187,0.434]
+        point_storage['P10']=[0.065,0.263,0.434]
+        point_storage['P11']=[0.065,0.263,0.434]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('7','low right triang', True)
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('7','low right triang')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0.125,0.5,0.825]
-        point_storage['P01']=[0.25,0.34,0.825]
-        point_storage['P10']=[0.125,0.5,1.5]
-        point_storage['P11']=[0.25,0.34,1.5]
+        point_storage['P00']=[0.065,0.263,0.434]
+        point_storage['P01']=[0.131,0.187,0.434]
+        point_storage['P10']=[0.065,0.263,0.789]
+        point_storage['P11']=[0.131,0.187,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('8','front square 2')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('8','front square 2')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0.2,1.2,0.57]
-        point_storage['P01']=[0,1.1,0.87]
-        point_storage['P10']=[0.25,0.34,0.625]
-        point_storage['P11']=[0.125,0.5,0.825]
+        point_storage['P00']=[0.105,0.631,0.3]
+        point_storage['P01']=[0,0.578,0.457]
+        point_storage['P10']=[0.131,0.187,0.328]
+        point_storage['P11']=[0.065,0.263,0.434]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('9','right front', True)
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('9','right front')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0,1.1,0.87]
-        point_storage['P01']=[0,1.1,1.5]
-        point_storage['P10']=[0.125,0.5,0.825]
-        point_storage['P11']=[0.125,0.5,1.5]
+        point_storage['P00']=[0,0.578,0.457]
+        point_storage['P01']=[0,0.578,0.789]
+        point_storage['P10']=[0.065,0.263,0.434]
+        point_storage['P11']=[0.065,0.263,0.789]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('10','mid front')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('10','mid front')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[2.40,1.9,0.89]
-        point_storage['P01']=[0.2,1.2,0.57]
-        point_storage['P10']=[5.9,1.4,0.57]
-        point_storage['P11']=[5.9,1.4,0.57]
+        point_storage['P00']=[1.26,1,0.468]
+        point_storage['P01']=[0.105,0.631,0.3]
+        point_storage['P10']=[3.1,0.763,0.3]
+        point_storage['P11']=[3.1,0.763,0.3]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('11','high lat')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('11','high lat')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0.25,0.34,0.625]
-        point_storage['P01']=[0.2,1.2,0.57]
-        point_storage['P10']=[5.75,0.5,0.625]
-        point_storage['P11']=[5.9,1.4,0.57]
+        point_storage['P00']=[0.131,0.187,0.328]
+        point_storage['P01']=[0.105,0.631,0.3]
+        point_storage['P10']=[3.02,0.263,0.328]
+        point_storage['P11']=[3.1,0.763,0.3]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('12','low lat')
+        translate('x',1)
+        translate('z',0.211)
+        gen_bezier('12','low lat')
 
         set_point_matrix(2,2)
-        point_storage['P00']=[0.25,0.34,0.625]
-        point_storage['P01']=[0.25,0.34,0.625]
-        point_storage['P10']=[5.75,0.5,0.625]
-        point_storage['P11']=[5.25,0.34,0.625]
+        point_storage['P00']=[0.131,0.187,0.328]
+        point_storage['P01']=[0.131,0.187,0.328]
+        point_storage['P10']=[3.02,0.263,0.328]
+        point_storage['P11']=[2.76,0.187,0.328]
         create_point_matrix()
-        translate('x',2)
-        gen_bezi('13','under lat')
+        translate('z',0.211)
+        translate('x',1)
+        gen_bezier('13','under lat')
 
-        gen_bezi_cylinder('back w','xy',0.5,4.81+2,0.5,0.625,1.025,'14')
+        gen_cylinder('14','back w','xy',0.263,2.53+1,0.263,0.328+0.211,0.539+0.211)
 
-        gen_bezi_cylinder('front w','xy',0.5,0.885+2,0.5,0.625,1.025,'18')
+        gen_cylinder('15','front w','xy',0.263,0.465+1,0.263,0.328+0.211,0.539+0.211)
 
    **1.3.3. Epsi's Generation** ::
 
         c.epsi_3d=np.zeros((c.nx,c.ny,c.nz),dtype=np.float32)
 
-        gen_epsi_cylinder('xz','solid','zy','18',symmetry='symmetry_z')
-        gen_epsi_cylinder('xz','solid','zy','14',symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','4', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','5', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','6', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','7', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','8', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','9', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','10', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','15', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','14', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','11', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','12', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','0', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','1', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','2', symmetry='symmetry_z')
+        gen_epsi_cylinder('14','solid',cyl_raf_path=True)
+        gen_epsi_cylinder('15','solid',cyl_raf_path=True)
+
+        gen_epsi_bezier('entry+exit and/or entry','zy','4',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or entry','zy','5',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or entry','zy','6',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or entry','zy','7',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or entry','zy','8',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or entry','zy','9',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or entry','zy','10',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or exit','zy','11',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or exit','zy','12',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or exit','zy','0',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or exit','zy','1',bez_raf_path=True)
+        gen_epsi_bezier('entry+exit and/or exit','zy','2',bez_raf_path=True)
+
+        gen_epsi_mirror('z',mirror_raf_path=True)
 
 
-2. Esfinge
-================
+2. Esfinge (not updated)
+========================
 
 .. figure:: esfinge.jpg
    :align: center
@@ -205,6 +224,9 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         nx,ny,nz=int(74*1),int(21.5*1),int(20*1)
 
    **1.3.1. Control Points' Generation** ::
+
+        c.eq_storage={}
+        c.list_storage = {}
 
         set_point_matrix(3,2)
         point_storage['P00']=[3,0,0]
@@ -280,7 +302,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[27.6,20.5,7]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('7','back neck,entry')
+        gen_bezier('7','back neck,entry')
 
         set_point_matrix(3,2)
         point_storage['P00']=[27.6,12,1]
@@ -291,7 +313,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P21']=[31,20.5,9.5]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('8','back neck 2, exit')
+        gen_bezier('8','back neck 2, exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[27.6,8.4,3.5]
@@ -300,7 +322,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[27.6,12,6]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('9','front neck, entry')
+        gen_bezier('9','front neck, entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[27.6,8.4,3.2]
@@ -309,7 +331,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[65,8.4,9.5]
         create_point_matrix()
         translate('z',0.5)
-        gen_bezi('10','back')
+        gen_bezier('10','back')
 
         set_point_matrix(2,2)
         point_storage['P00']=[65,8.4,3.2]
@@ -318,7 +340,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[70,3.2,9.5]
         create_point_matrix()
         translate('z',0.5)
-        gen_bezi('11','breech, exit')
+        gen_bezier('11','breech, exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[70,3.2,0]
@@ -327,7 +349,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[70,0,9.5]
         create_point_matrix()
         translate('z',0.5)
-        gen_bezi('12','breech 2, exit')
+        gen_bezier('12','breech 2, exit')
 
         set_point_matrix(3,2)
         point_storage['P00']=[53,0,0]
@@ -338,7 +360,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P21']=[55,3.20,3.20]
         create_point_matrix(True)
         translate('z',0.5)
-        gen_bezi('13','back paw, entry')
+        gen_bezier('13','back paw, entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[60,3.2,0]
@@ -347,7 +369,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[65,8.4,3.20]
         create_point_matrix()
         translate('z',0.5)
-        gen_bezi('14','knee, entry')
+        gen_bezier('14','knee, entry')
 
         set_point_matrix(3,2)
         point_storage['P00']=[27.6,12,1]
@@ -358,7 +380,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P21']=[34,8.4,9.5]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('15','back neck 3, exit')
+        gen_bezier('15','back neck 3, exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[23.5,19,9.5]
@@ -367,7 +389,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[26,20.5,7]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('16','side face, entry')
+        gen_bezier('16','side face, entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[22.5,12,7]
@@ -376,7 +398,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[25,19,5.5]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('17','side face 2, entry')
+        gen_bezier('17','side face 2, entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[23.5,19,7]
@@ -385,7 +407,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[26,20.5,7]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('18','side face 3, entry')
+        gen_bezier('18','side face 3, entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[22.5,12,9.5]
@@ -394,7 +416,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[22.5,8,9]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('19','beard, entry')
+        gen_bezier('19','beard, entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[23.5,12,9.5]
@@ -403,35 +425,35 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
         point_storage['P11']=[23,8,9]
         create_point_matrix(deflection=True)
         translate('z',0.5)
-        gen_bezi('20','beard, exit')
+        gen_bezier('20','beard, exit')
 
    **1.3.3. Epsi's Generation** ::
 
         c.epsi_3d=np.zeros((c.nx,c.ny,c.nz),dtype=np.float32)
 
-        gen_epsi('entry+exit and/or entry','zy','19', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','20', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','19', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or exit','zy','20', symmetry='symmetry_z')
 
-        gen_epsi('entry+exit and/or entry','zy','0', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','2', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','3', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','5', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','6', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','7', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','9', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','16', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','17', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','18', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','0', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','2', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','3', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','5', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','6', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','7', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','9', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','16', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','17', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','18', symmetry='symmetry_z')
 
-        gen_epsi('entry+exit and/or exit','zy','1', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','4', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','8', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','15', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or exit','zy','1', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or exit','zy','4', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or exit','zy','8', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or exit','zy','15', symmetry='symmetry_z')
 
-        gen_epsi('entry+exit and/or entry','zy','13', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or entry','zy','14', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','11', symmetry='symmetry_z')
-        gen_epsi('entry+exit and/or exit','zy','12', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','13', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or entry','zy','14', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or exit','zy','11', symmetry='symmetry_z')
+        gen_epsi_bezier('entry+exit and/or exit','zy','12', symmetry='symmetry_z')
 
 3. McQueen (not updated)
 ==========================
@@ -458,7 +480,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[0.25,0.16,0]
         point_storage['P11']=[0.25,0.16,1]
         create_point_matrix(deflection=True)
-        gen_bezi('0','cd,entry')
+        gen_bezier('0','cd,entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[0.25,0.16,0]
@@ -466,7 +488,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[0.13,0.46,0]
         point_storage['P11']=[0.13,0.46,1]
         create_point_matrix(deflection=True)
-        gen_bezi('1','de,entry')
+        gen_bezier('1','de,entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[0.13,0.46,0]
@@ -474,7 +496,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[0.16,0.69,0]
         point_storage['P11']=[0.16,0.69,1]
         create_point_matrix(deflection=True)
-        gen_bezi('2','ef,entry')
+        gen_bezier('2','ef,entry')
 
         set_point_matrix(3,2)
         point_storage['P00']=[0.16,0.69,0]
@@ -484,7 +506,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P20']=[1.06,1.10,0]
         point_storage['P21']=[1.06,1.10,1]
         create_point_matrix(deflection=True)
-        gen_bezi('3','fk1g,entry')
+        gen_bezier('3','fk1g,entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[1.88,1.10,0]
@@ -492,7 +514,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[2.21,1.52,0]
         point_storage['P11']=[2.21,1.52,1]
         create_point_matrix(deflection=True)
-        gen_bezi('4','hi,entry')
+        gen_bezier('4','hi,entry')
 
         set_point_matrix(3,2)
         point_storage['P00']=[2.21,1.52,0]
@@ -502,7 +524,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P20']=[4.12,1.3,0]
         point_storage['P21']=[4.12,1.3,1]
         create_point_matrix(deflection=True)
-        gen_bezi('5','ijk,exit')
+        gen_bezier('5','ijk,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[4.76,1.28,0]
@@ -510,7 +532,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[4.87,1.55,0]
         point_storage['P11']=[4.87,1.55,1]
         create_point_matrix(deflection=True)
-        gen_bezi('6','lm,entry')
+        gen_bezier('6','lm,entry')
 
         set_point_matrix(2,2)
         point_storage['P00']=[4.87,1.55,0]
@@ -518,7 +540,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[4.97,1.51,0]
         point_storage['P11']=[4.97,1.51,1]
         create_point_matrix(deflection=True)
-        gen_bezi('7','mn,exit')
+        gen_bezier('7','mn,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[4.97,1.51,0]
@@ -526,7 +548,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[4.73,0.87,0]
         point_storage['P11']=[4.73,0.87,1]
         create_point_matrix(deflection=True)
-        gen_bezi('8','no,exit')
+        gen_bezier('8','no,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[4.73,0.87,0]
@@ -534,7 +556,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[4.81,0.78,0]
         point_storage['P11']=[4.81,0.78,1]
         create_point_matrix(deflection=True)
-        gen_bezi('9','op,exit')
+        gen_bezier('9','op,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[4.81,0.78,0]
@@ -542,7 +564,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[4.79,0.63,0]
         point_storage['P11']=[4.79,0.63,1]
         create_point_matrix(deflection=True)
-        gen_bezi('10','pq,exit')
+        gen_bezier('10','pq,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[4.79,0.63,0]
@@ -550,7 +572,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[4.58,0.49,0]
         point_storage['P11']=[4.58,0.49,1]
         create_point_matrix(deflection=True)
-        gen_bezi('11','qr,exit')
+        gen_bezier('11','qr,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[4.58,0.49,0]
@@ -558,7 +580,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[4.58,0.38,0]
         point_storage['P11']=[4.58,0.38,1]
         create_point_matrix(deflection=True)
-        gen_bezi('12','rs,exit')
+        gen_bezier('12','rs,exit')
 
         R = 0.54
         cos=math.cos(math.radians(45))
@@ -570,7 +592,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[3.78+R,0.46,0]
         point_storage['P11']=[3.78+R,0.46,1]
         create_point_matrix(deflection=True)
-        gen_bezi('13','tu,entry')
+        gen_bezier('13','tu,entry')
 
 
         set_point_matrix(3,2)
@@ -581,7 +603,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P20']=[3.78,0.46+R,0]
         point_storage['P21']=[3.78,0.46+R,1]
         create_point_matrix(deflection=True)
-        gen_bezi('14','uvw,entry')
+        gen_bezier('14','uvw,entry')
 
         set_point_matrix(3,2)
         point_storage['P00']=[3.78,0.46+R,0]
@@ -591,7 +613,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P20']=[3.78-R,0.46,0]
         point_storage['P21']=[3.78-R,0.46,1]
         create_point_matrix(deflection=True)
-        gen_bezi('15','wza1,exit')
+        gen_bezier('15','wza1,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[3.78-R,0.46,0]
@@ -599,7 +621,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[3.78-R,0.3,0]
         point_storage['P11']=[3.78-R,0.3,1]
         create_point_matrix(deflection=True)
-        gen_bezi('16','a1k1,exit')
+        gen_bezier('16','a1k1,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[3.78-R,0.3,0]
@@ -607,7 +629,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[2.62,0.15,0]
         point_storage['P11']=[2.62,0.15,1]
         create_point_matrix(deflection=True)
-        gen_bezi('17','k1l1,exit')
+        gen_bezier('17','k1l1,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[1.15+R,0.15,0]
@@ -615,7 +637,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[1.15+R,0.46,0]
         point_storage['P11']=[1.15+R,0.46,1]
         create_point_matrix(deflection=True)
-        gen_bezi('18','b1c1,entry')
+        gen_bezier('18','b1c1,entry')
 
         set_point_matrix(3,2)
         point_storage['P00']=[1.15+R,0.46,0]
@@ -625,7 +647,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P20']=[1.15,0.46+R,0]
         point_storage['P21']=[1.15,0.46+R,1]
         create_point_matrix(deflection=True)
-        gen_bezi('19','c1d1e1,entry')
+        gen_bezier('19','c1d1e1,entry')
 
         set_point_matrix(3,2)
         point_storage['P00']=[1.15,0.46+R,0]
@@ -635,7 +657,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P20']=[1.15-R,0.46,0]
         point_storage['P21']=[1.15*R,0.46,1]
         create_point_matrix(deflection=True)
-        gen_bezi('20','e1f1g1,exit')
+        gen_bezier('20','e1f1g1,exit')
 
         set_point_matrix(2,2)
         point_storage['P00']=[1.15-R,0.46,0]
@@ -643,7 +665,7 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P10']=[1.15-R,0.22,0]
         point_storage['P11']=[1.15-R,0.22,1]
         create_point_matrix(deflection=True)
-        gen_bezi('21','g1h1,exit')
+        gen_bezier('21','g1h1,exit')
 
         set_point_matrix(3,2)
         point_storage['P00']=[1.15-R,0.22,0]
@@ -653,39 +675,39 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         point_storage['P20']=[0.5,0.1,0]
         point_storage['P21']=[0.5,0.1,1]
         create_point_matrix(deflection=True)
-        gen_bezi('22','h1l1c,exit')
+        gen_bezier('22','h1l1c,exit')
 
-        gen_bezi_cylinder('back w','xy',3.78-3.31,3.78,0.46,0,1,'23')
+        gen_cylinder('back w','xy',3.78-3.31,3.78,0.46,0,1,'23')
 
-        gen_bezi_cylinder('front w','xy',3.78-3.31,3.78-2.63,0.46,0,1,'27')
+        gen_cylinder('front w','xy',3.78-3.31,3.78-2.63,0.46,0,1,'27')
 
 
    **1.3.3. Epsi's Generation** ::
 
         c.epsi_3d=np.zeros((c.nx,c.ny,c.nz),dtype=np.float32)
 
-        gen_epsi('entry+exit and/or entry','zy','0')
-        gen_epsi('entry+exit and/or entry','zy','1')
-        gen_epsi('entry+exit and/or entry','zy','2')
-        gen_epsi('entry+exit and/or entry','zy','3')
-        gen_epsi('entry+exit and/or exit','zy','20')
-        gen_epsi('entry+exit and/or exit','zy','21')
-        gen_epsi('entry+exit and/or exit','zy','22')
+        gen_epsi_bezier('entry+exit and/or entry','zy','0')
+        gen_epsi_bezier('entry+exit and/or entry','zy','1')
+        gen_epsi_bezier('entry+exit and/or entry','zy','2')
+        gen_epsi_bezier('entry+exit and/or entry','zy','3')
+        gen_epsi_bezier('entry+exit and/or exit','zy','20')
+        gen_epsi_bezier('entry+exit and/or exit','zy','21')
+        gen_epsi_bezier('entry+exit and/or exit','zy','22')
         gen_epsi_cylinder('xy','solid','zy','27')
-        gen_epsi('entry+exit and/or entry','zy','19')
-        gen_epsi('entry+exit and/or entry','zy','18')
-        gen_epsi('entry+exit and/or entry','zy','4')
-        gen_epsi('entry+exit and/or exit','zy','5')
-        gen_epsi('entry+exit and/or entry','zy','6')
-        gen_epsi('entry+exit and/or exit','zy','7')
-        gen_epsi('entry+exit and/or exit','zy','17')
-        gen_epsi('entry+exit and/or exit','zy','16')
-        gen_epsi('entry+exit and/or exit','zy','15')
+        gen_epsi_bezier('entry+exit and/or entry','zy','19')
+        gen_epsi_bezier('entry+exit and/or entry','zy','18')
+        gen_epsi_bezier('entry+exit and/or entry','zy','4')
+        gen_epsi_bezier('entry+exit and/or exit','zy','5')
+        gen_epsi_bezier('entry+exit and/or entry','zy','6')
+        gen_epsi_bezier('entry+exit and/or exit','zy','7')
+        gen_epsi_bezier('entry+exit and/or exit','zy','17')
+        gen_epsi_bezier('entry+exit and/or exit','zy','16')
+        gen_epsi_bezier('entry+exit and/or exit','zy','15')
         gen_epsi_cylinder('xy','solid','zy','23')
-        gen_epsi('entry+exit and/or entry','zy','14')
-        gen_epsi('entry+exit and/or entry','zy','13')
-        gen_epsi('entry+exit and/or exit','zy','8')
-        gen_epsi('entry+exit and/or exit','zy','9')
-        gen_epsi('entry+exit and/or exit','zy','10')
-        gen_epsi('entry+exit and/or exit','zy','12')
-        gen_epsi('entry+exit and/or exit','zy','11')
+        gen_epsi_bezier('entry+exit and/or entry','zy','14')
+        gen_epsi_bezier('entry+exit and/or entry','zy','13')
+        gen_epsi_bezier('entry+exit and/or exit','zy','8')
+        gen_epsi_bezier('entry+exit and/or exit','zy','9')
+        gen_epsi_bezier('entry+exit and/or exit','zy','10')
+        gen_epsi_bezier('entry+exit and/or exit','zy','12')
+        gen_epsi_bezier('entry+exit and/or exit','zy','11')
