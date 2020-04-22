@@ -8,7 +8,7 @@ Para que seja possível rodar os exemplos demonstrados na página,
 O usuário encontrará células comentadas com a indicação de onde colar. Essa
 indicação representa o capítulo do ``Notebook``, como demonstra a figura:
 
-.. image:: ex_coleaqui.png
+.. image:: images/ex_coleaqui.png
    :align: center
 
 Caso queira apenas obter os arquivos necessários para visualização no
@@ -18,7 +18,7 @@ do ``incompact3d`` (arquivos Epsi), **faça o download disponível**.
 1. Cybertruck
 ====================
 
-.. figure:: cyber.jpg
+.. figure:: images/cyber.jpg
    :align: center
 
    *Polemic american car 3D's version rebuilt in Epsi Matrix;*
@@ -210,7 +210,7 @@ Faça o :download:`download dos arquivos  <downloads/cyber.zip>` ou
 2. Esfinge (not updated)
 ========================
 
-.. figure:: esfinge.jpg
+.. figure:: images/esfinge.jpg
    :align: center
 
    *Versão 3D do monumento egípcio recriada em Epsi;*
@@ -457,7 +457,7 @@ Faça o :download:`download dos arquivos  <downloads/sphinx.zip>` ou
 
 3. McQueen (not updated)
 ==========================
-.. figure:: marquinhos.jpg
+.. figure:: images/marquinhos.jpg
    :width: 400px
    :align: center
 
@@ -711,3 +711,11 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
         gen_epsi_bezier('entry+exit and/or exit','zy','10')
         gen_epsi_bezier('entry+exit and/or exit','zy','12')
         gen_epsi_bezier('entry+exit and/or exit','zy','11')
+
+4. Casco de Turbina
+==========================
+.. figure:: images/turbina.png
+   :width: 400px
+   :align: center
+
+   *O processo de dimensionamento e geração de epsi dessa turbina foi feita em menos de 5 minutos;*

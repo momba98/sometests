@@ -254,7 +254,7 @@ def gen_bezier(identif, name, show_equation=False):
     É importante frisar que, caso construída uma superfície muito complexa (com variações não lineares entre os pontos em mais de 2 direções :obj:`xyz`, uma
     superfície muito torcida), a convergência das equações não é garantida - por enquanto.
     
-    .. image:: ex_supcomplexa.png
+    .. image:: images/ex_supcomplexa.png
        :align: right
        :scale: 40%
                          
@@ -1032,7 +1032,7 @@ def gen_epsi_bezier(surface_type,plane,identif,bez_raf_path=False):
             calcula todos os refinamentos da malha, o que pode tomar um tempo desnecessário.
     
     **Exemplo:**
-        .. figure:: ex_entradasaidasaida.png
+        .. figure:: images/ex_entradasaidasaida.png
            :scale: 70%
            :align: center
            

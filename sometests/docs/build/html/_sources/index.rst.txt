@@ -1,7 +1,7 @@
 Documentação ``geo_bezier_3d``
 =========================================================
 
-.. figure:: esfinge.jpg
+.. figure:: images/esfinge.jpg
    :align: center
 
 Projetado para ser o mais robusto possível, ``geo_bezier_3d`` é capaz de entregar
