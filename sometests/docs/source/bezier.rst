@@ -44,10 +44,17 @@ que o usuário definiu:
 .. math::
    Order = Number \: of \: Points - 1
 
-A partir de agora, usaremos como exemplo uma curva de Bézier
+A partir de agora, usaremos como exemplo uma curva de Bézier 2D
 caso forem inputados 3 pontos para a criação.
 Portanto, teremos :obj:`x(t)` e :obj:`y(t)` de ordem 2.
 
+A formulação da totalidade da **curva** se da por
+
+.. math::
+   Bézier^{n}(t)=\sum_{i=0}^{n} b_{i}^{n}(t)*P_{i} \\
+   Bézier^{2}(t)=\sum_{i=0}^{2} b_{i}^{2}(t)*P_{i}
+
+Como dito anteriormente, uma curva de Bézier 2D possui 2 equações.
 Para obter tais equações, a seguinte operação matricial deverá ser realizada:
 
 .. math::
@@ -73,21 +80,29 @@ A mágica por trás da criação de curvas/superfícies através de pontos
 se encontra no *Polinômio de Berstein*:
 
 .. math::
-   B_{i}^{n}(x)={n \choose i}x^{i}(1-x)^{{n-i}}
+   b_{i}^{n}(t)={n \choose i}t^{i}(1-t)^{{n-i}}
 
 Dele, retiramos a matriz :obj:`M`, chave para obtenção das equações que governam o objeto.
 É composta pelos coeficientes dos termos desse polinômio e varia de acordo com
 o grau (ou então o número de pontos) da curva/superfície de Bézier.
 
-No exemplo anteriormente citado, a matriz :obj:`m` obtida é:
+No exemplo anteriormente citado, o Polinômio de Berstein se expressaria na forma
+
+.. math::
+   b_{0}^{2}(t)={2 \choose 0}t^{0}(1-t)^{{2-0}} = +1t^2 - 2t + 1 \\
+   b_{1}^{2}(t)={2 \choose 1}t^{1}(1-t)^{{2-1}} = -2t^2 + 2t + 0 \\
+   b_{2}^{2}(t)={2 \choose 2}t^{2}(1-t)^{{2-2}} = +1t^2 + 0t + 0
+
+
+Logo, a matriz :obj:`m` obtida é:
 
 .. math::
 
    M =
    \begin{bmatrix}
-   1 & -2 & 1 \\
+   1 & 0 & 0 \\
    -2 & 2 & 0 \\
-   1 & 0 & 0
+   1 & -2 & 1
    \end{bmatrix}
 
 Por último, se define a matriz :obj:`P` com os pontos fornecidos pelo usuário
@@ -108,7 +123,7 @@ onde, nesse exemplo,
    P_1=(x_1,y_1)=(3,1)\\
    P_2=(x_2,y_2)=(5,6)
 
-Definidas todas matrizes, é possível se obter as equações:
+Definidas todas matrizes, é possível se obter as equações da curva paramétrica:
 
 .. math::
 
@@ -118,9 +133,9 @@ Definidas todas matrizes, é possível se obter as equações:
    \end{bmatrix}
    *
    \begin{bmatrix}
-   1 & -2 & 1 \\
+   1 & 0 & 0 \\
    -2 & 2 & 0 \\
-   1 & 0 & 0
+   1 & -2 & 1
    \end{bmatrix}
    *
    \begin{bmatrix}
@@ -136,9 +151,9 @@ Definidas todas matrizes, é possível se obter as equações:
    \end{bmatrix}
    *
    \begin{bmatrix}
-   1 & -2 & 1 \\
+   1 & 0 & 0 \\
    -2 & 2 & 0 \\
-   1 & 0 & 0
+   1 & -2 & 1
    \end{bmatrix}
    *
    \begin{bmatrix}
@@ -165,9 +180,9 @@ como argumento :obj:`deflection` em diversas funções, mas não será comentada
 2. Interpolação
 ================
 
-Mas onde a interpolação anteriormente citada se encaixa nisso?
+Mas onde podemos visualizar/entender a interpolação anteriormente citada?
 
-A visualização facilitará a explicação posterior:
+A figura facilitará a explicação posterior:
 
 .. figure:: images/bez3.gif
    :align: center
@@ -196,10 +211,26 @@ complicará - e muito - a convergência das equações e o custo delas para o co
 Normalmente se usa Béziers de grau 2 até 4, no máximo.
 
 **As superfícies funcionam da mesma forma.** Devemos apenas fazer uma pequena
-diferença: criar curvas de Bézier de forma ortogonal.
+diferença: criar curvas de Bézier de forma ortogonal. A formulação se da por
+
+.. math::
+   Bézier^{n}(u,v)=\sum_{i=0}^{m} \sum_{j=0}^{n} b_{i}^{m}(u) b_{j}^{n}(v) *P_{i,j}
+
+Ou, na forma matricial, por
+
+.. math::
+   x(u,v)=U*M*P_x*M^T*V\\
+   y(u,v)=U*M*P_y*M^T*V\\
+   z(u,v)=U*M*P_z*M^T*V\\
+
+Onde U e V são as matrizes compostas pelos parâmetros u e v, bem como a matriz T.
+M é a matriz do Polinômio de Berstein de cada parâmetro e P é a matriz dos pontos.
 
 Podemos enxergar o parâmetro :obj:`u` como uma direção perpendicular ao parâmetro
 :obj:`v`.
+
+É possível perceber que cada parâmetro tem seu próprio Polinômio de Berstein, logo o número
+de pontos em cada um deles não precisa ser igual.
 
 Se a direção/parâmetro :obj:`u` tiver 2 pontos (o usuário é quem define), serão
 criadas 2 curvas de Bézier a partir desses pontos na direção de :obj:`v`. O mesmo
@@ -216,6 +247,36 @@ de grau 2 em :obj:`v` e 2 Béziers de grau 3 em :obj:`u`.
 
 Os valores intermediários entre eles são calculados através de interpolações
 entre esses parâmetros.
+
+A formulação matricial para :obj:`x(u,v)` ficaria
+
+.. math::
+   x(u,v)=
+   \begin{bmatrix}
+   u^0 & u^1 & u^2
+   \end{bmatrix}
+   *
+   \begin{bmatrix}
+   1 & 0 & 0 \\
+   -2 & 2 & 0 \\
+   1 & -2 & 1
+   \end{bmatrix}
+   *
+   \begin{bmatrix}
+   P_{x,0,0} & P_{x,0,1} \\
+   P_{x,1,0} & P_{x,1,1} \\
+   P_{x,2,0} & P_{x,2,1}
+   \end{bmatrix}
+   *
+   \begin{bmatrix}
+   1 & -1 \\
+   0 & 1
+   \end{bmatrix}
+   *
+   \begin{bmatrix}
+   v^0 \\
+   v^1
+   \end{bmatrix}
 
 3. Algumas Imagens Legais
 ==========================

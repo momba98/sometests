@@ -189,10 +189,15 @@ mas isso será ignorado por agora.</p>
 que o usuário definiu:</p>
 <div class="math notranslate nohighlight">
 \[Order = Number \: of \: Points - 1\]</div>
-<p>A partir de agora, usaremos como exemplo uma curva de Bézier
+<p>A partir de agora, usaremos como exemplo uma curva de Bézier 2D
 caso forem inputados 3 pontos para a criação.
 Portanto, teremos <code class="xref py py-obj docutils literal notranslate"><span class="pre">x(t)</span></code> e <code class="xref py py-obj docutils literal notranslate"><span class="pre">y(t)</span></code> de ordem 2.</p>
-<p>Para obter tais equações, a seguinte operação matricial deverá ser realizada:</p>
+<p>A formulação da totalidade da <strong>curva</strong> se da por</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Bézier^{n}(t)=\sum_{i=0}^{n} b_{i}^{n}(t)*P_{i} \\
+Bézier^{2}(t)=\sum_{i=0}^{2} b_{i}^{2}(t)*P_{i}\end{split}\]</div>
+<p>Como dito anteriormente, uma curva de Bézier 2D possui 2 equações.
+Para obter tais equações, a seguinte operação matricial deverá ser realizada:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}x(t)=T*M*P_x\\
 y(t)=T*M*P_y\end{split}\]</div>
@@ -208,17 +213,22 @@ y(t)=T*M*P_y\end{split}\]</div>
 <p>A mágica por trás da criação de curvas/superfícies através de pontos
 se encontra no <em>Polinômio de Berstein</em>:</p>
 <div class="math notranslate nohighlight">
-\[B_{i}^{n}(x)={n \choose i}x^{i}(1-x)^{{n-i}}\]</div>
+\[b_{i}^{n}(t)={n \choose i}t^{i}(1-t)^{{n-i}}\]</div>
 <p>Dele, retiramos a matriz <code class="xref py py-obj docutils literal notranslate"><span class="pre">M</span></code>, chave para obtenção das equações que governam o objeto.
 É composta pelos coeficientes dos termos desse polinômio e varia de acordo com
 o grau (ou então o número de pontos) da curva/superfície de Bézier.</p>
-<p>No exemplo anteriormente citado, a matriz <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> obtida é:</p>
+<p>No exemplo anteriormente citado, o Polinômio de Berstein se expressaria na forma</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}b_{0}^{2}(t)={2 \choose 0}t^{0}(1-t)^{{2-0}} = +1t^2 - 2t + 1 \\
+b_{1}^{2}(t)={2 \choose 1}t^{1}(1-t)^{{2-1}} = -2t^2 + 2t + 0 \\
+b_{2}^{2}(t)={2 \choose 2}t^{2}(1-t)^{{2-2}} = +1t^2 + 0t + 0\end{split}\]</div>
+<p>Logo, a matriz <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> obtida é:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}M =
 \begin{bmatrix}
-1 &amp; -2 &amp; 1 \\
+1 &amp; 0 &amp; 0 \\
 -2 &amp; 2 &amp; 0 \\
-1 &amp; 0 &amp; 0
+1 &amp; -2 &amp; 1
 \end{bmatrix}\end{split}\]</div>
 <p>Por último, se define a matriz <code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code> com os pontos fornecidos pelo usuário</p>
 <div class="math notranslate nohighlight">
@@ -233,7 +243,7 @@ P_2
 \[\begin{split}P_0=(x_0,y_0)=(0,2)\\
 P_1=(x_1,y_1)=(3,1)\\
 P_2=(x_2,y_2)=(5,6)\end{split}\]</div>
-<p>Definidas todas matrizes, é possível se obter as equações:</p>
+<p>Definidas todas matrizes, é possível se obter as equações da curva paramétrica:</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\begin{split}x(t)=
 \begin{bmatrix}
@@ -241,9 +251,9 @@ t^0 &amp; t^1 &amp; t^2
 \end{bmatrix}
 *
 \begin{bmatrix}
-1 &amp; -2 &amp; 1 \\
+1 &amp; 0 &amp; 0 \\
 -2 &amp; 2 &amp; 0 \\
-1 &amp; 0 &amp; 0
+1 &amp; -2 &amp; 1
 \end{bmatrix}
 *
 \begin{bmatrix}
@@ -257,9 +267,9 @@ t^0 &amp; t^1 &amp; t^2
 \end{bmatrix}
 *
 \begin{bmatrix}
-1 &amp; -2 &amp; 1 \\
+1 &amp; 0 &amp; 0 \\
 -2 &amp; 2 &amp; 0 \\
-1 &amp; 0 &amp; 0
+1 &amp; -2 &amp; 1
 \end{bmatrix}
 *
 \begin{bmatrix}
@@ -281,8 +291,8 @@ como argumento <code class="xref py py-obj docutils literal notranslate"><span c
 </div>
 <div class="section" id="interpolacao">
 <h2>2. Interpolação<a class="headerlink" href="#interpolacao" title="Permalink to this headline">¶</a></h2>
-<p>Mas onde a interpolação anteriormente citada se encaixa nisso?</p>
-<p>A visualização facilitará a explicação posterior:</p>
+<p>Mas onde podemos visualizar/entender a interpolação anteriormente citada?</p>
+<p>A figura facilitará a explicação posterior:</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="_images/bez3.gif"><img alt="_images/bez3.gif" src="_images/bez3.gif" style="width: 432.0px; height: 432.0px;" /></a>
 </div>
@@ -303,9 +313,20 @@ Podemos complicar muito mais, com ordens maiores e pontos interacalados. Isso
 complicará - e muito - a convergência das equações e o custo delas para o computador.
 Normalmente se usa Béziers de grau 2 até 4, no máximo.</p>
 <p><strong>As superfícies funcionam da mesma forma.</strong> Devemos apenas fazer uma pequena
-diferença: criar curvas de Bézier de forma ortogonal.</p>
+diferença: criar curvas de Bézier de forma ortogonal. A formulação se da por</p>
+<div class="math notranslate nohighlight">
+\[Bézier^{n}(u,v)=\sum_{i=0}^{m} \sum_{j=0}^{n} b_{i}^{m}(u) b_{j}^{n}(v) *P_{i,j}\]</div>
+<p>Ou, na forma matricial, por</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x(u,v)=U*M*P_x*M^T*V\\
+y(u,v)=U*M*P_y*M^T*V\\
+z(u,v)=U*M*P_z*M^T*V\\\end{split}\]</div>
+<p>Onde U e V são as matrizes compostas pelos parâmetros u e v, bem como a matriz T.
+M é a matriz do Polinômio de Berstein de cada parâmetro e P é a matriz dos pontos.</p>
 <p>Podemos enxergar o parâmetro <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> como uma direção perpendicular ao parâmetro
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code>.</p>
+<p>É possível perceber que cada parâmetro tem seu próprio Polinômio de Berstein, logo o número
+de pontos em cada um deles não precisa ser igual.</p>
 <p>Se a direção/parâmetro <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> tiver 2 pontos (o usuário é quem define), serão
 criadas 2 curvas de Bézier a partir desses pontos na direção de <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code>. O mesmo
 para <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code>.</p>
@@ -317,6 +338,34 @@ para <code class="xref py py-obj docutils literal notranslate"><span class="pre"
 de grau 2 em <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code> e 2 Béziers de grau 3 em <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code>.</p>
 <p>Os valores intermediários entre eles são calculados através de interpolações
 entre esses parâmetros.</p>
+<p>A formulação matricial para <code class="xref py py-obj docutils literal notranslate"><span class="pre">x(u,v)</span></code> ficaria</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x(u,v)=
+\begin{bmatrix}
+u^0 &amp; u^1 &amp; u^2
+\end{bmatrix}
+*
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 \\
+-2 &amp; 2 &amp; 0 \\
+1 &amp; -2 &amp; 1
+\end{bmatrix}
+*
+\begin{bmatrix}
+P_{x,0,0} &amp; P_{x,0,1} \\
+P_{x,1,0} &amp; P_{x,1,1} \\
+P_{x,2,0} &amp; P_{x,2,1}
+\end{bmatrix}
+*
+\begin{bmatrix}
+1 &amp; -1 \\
+0 &amp; 1
+\end{bmatrix}
+*
+\begin{bmatrix}
+v^0 \\
+v^1
+\end{bmatrix}\end{split}\]</div>
 </div>
 <div class="section" id="algumas-imagens-legais">
 <h2>3. Algumas Imagens Legais<a class="headerlink" href="#algumas-imagens-legais" title="Permalink to this headline">¶</a></h2>
