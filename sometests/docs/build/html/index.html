@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentação geo_bezier_3d &mdash; geo_bezier_3d v.0.2 documentation</title>
+  <title>geo_bezier_3d &mdash; geo_bezier_3d v.0.2 documentation</title>
   
 
   
@@ -130,7 +130,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Documentação <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code></li>
+      <li><code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code></li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,16 +149,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="documentacao-geo-bezier-3d">
-<h1>Documentação <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code><a class="headerlink" href="#documentacao-geo-bezier-3d" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="geo-bezier-3d">
+<h1><code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code><a class="headerlink" href="#geo-bezier-3d" title="Permalink to this headline">¶</a></h1>
 <div class="figure align-center">
 <img alt="_images/capa7.png" src="_images/capa7.png" />
 </div>
 <p>Projetado para ser o mais robusto possível, <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> é capaz de entregar
 resultados satisfatórios quando se trata de construção de sólidos para <a class="reference external" href="https://www.sciencedirect.com/topics/engineering/immersed-boundary-method">IBM</a>
-aplicada no código <a class="reference external" href="https://www.incompact3d.com/"><code class="docutils literal notranslate"><span class="pre">incompact3d</span></code></a>.</p>
-<p>Toda matemática utilizada para criação do conteúdo é descrita pela abordagem
-de Bézier. Há bastante material disponível na internet sobre o assunto,
+aplicada no código <a class="reference external" href="https://www.incompact3d.com/"><code class="docutils literal notranslate"><span class="pre">incompact3d</span></code></a>. A motivação do projeto se dá na
+dificuldade de representação de objetos complexos
+dentro do solver.
+Antes do <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code>, simular escoamentos ao redor de sólidos não triviais
+no <code class="docutils literal notranslate"><span class="pre">incompact3d</span></code> era uma tarefa trabalhosa ou impraticável.</p>
+<p>Toda facilidade/praticidade do código provém da matemática
+descrita pela abordagem de Bézier. Há bastante material disponível na internet
+sobre o assunto,
 mesmo assim há uma pequena parte <em>homemade</em> nesta página dedicada somente às Bézier.
 Além disso, neste <em>doc</em> o usuário será
 capaz de entender como as funções disponíveis no código funcionam e
@@ -188,6 +193,7 @@ usada como entrada no <code class="docutils literal notranslate"><span class="pr
 <li class="toctree-l2"><a class="reference internal" href="exemplos.html#esfinge-not-updated">2. Esfinge (not updated)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="exemplos.html#mcqueen-not-updated">3. McQueen (not updated)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="exemplos.html#casco-de-turbina">4. Casco de Turbina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exemplos.html#canal-sinuoso">5. Canal Sinuoso</a></li>
 </ul>
 </li>
 </ul>

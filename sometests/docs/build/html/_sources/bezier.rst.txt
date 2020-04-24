@@ -7,7 +7,8 @@ Abordagem de Bézier
 
 A abordagem de Bézier baseia-se na construção suave de superfícies ou curvas
 paramétricas através pontos de controle determinados pelo usuário. Basicamente,
-é uma interpolação entre vetores.
+é uma interpolação entre vetores. É um método extremamente simples que torna
+a criação de sólidos complexos fácil.
 Tem seu nome oriundo do engenheiro/matemático Pierre Bézier, muito embora
 tenha sido desenvolvida também por Paul de Casteljau.
 As curvas e superfícies de Bézier são usadas em muitas partes

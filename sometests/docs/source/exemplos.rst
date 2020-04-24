@@ -719,3 +719,12 @@ Faça o :download:`download dos arquivos  <downloads/mcqueen.zip>` ou
    :align: center
 
    *O processo de dimensionamento e geração de epsi dessa turbina foi feita em menos de 5 minutos;*
+
+
+5. Canal Sinuoso
+==========================
+.. figure:: images/canal_0.png
+  :width: 800px
+  :align: center
+
+  *Canal construído com cerca de 150 curvas de Bézier de 2ª ordem;*

@@ -1,4 +1,4 @@
-Documentação ``geo_bezier_3d``
+``geo_bezier_3d``
 =========================================================
 
 .. figure:: images/capa7.png
@@ -7,13 +7,18 @@ Documentação ``geo_bezier_3d``
 Projetado para ser o mais robusto possível, ``geo_bezier_3d`` é capaz de entregar
 resultados satisfatórios quando se trata de construção de sólidos para `IBM
 <https://www.sciencedirect.com/topics/engineering/immersed-boundary-method>`_
-aplicada no código |optparse.incompact3d|_.
+aplicada no código |optparse.incompact3d|_. A motivação do projeto se dá na
+dificuldade de representação de objetos complexos
+dentro do solver.
+Antes do ``geo_bezier_3d``, simular escoamentos ao redor de sólidos não triviais
+no ``incompact3d`` era uma tarefa trabalhosa ou impraticável.
 
 .. |optparse.incompact3d| replace:: ``incompact3d``
 .. _optparse.incompact3d: https://www.incompact3d.com/
 
-Toda matemática utilizada para criação do conteúdo é descrita pela abordagem
-de Bézier. Há bastante material disponível na internet sobre o assunto,
+Toda facilidade/praticidade do código provém da matemática
+descrita pela abordagem de Bézier. Há bastante material disponível na internet
+sobre o assunto,
 mesmo assim há uma pequena parte *homemade* nesta página dedicada somente às Bézier.
 Além disso, neste *doc* o usuário será
 capaz de entender como as funções disponíveis no código funcionam e
