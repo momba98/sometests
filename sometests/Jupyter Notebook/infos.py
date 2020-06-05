@@ -39,10 +39,10 @@ v_plot=np.arange(0,1+0.05,0.05)
 t_plot=np.arange(0,1+0.05,0.05)
 
 
-global eq_storage,format_storage,count,number_points_u,number_points_v,u_matrix,v_matrix,point_matrix_x,point_matrix_y,point_matrix_z,point_matrix_x_no_deflection,point_matrix_y_no_deflection,point_matrix_z_no_deflection,berst_matrix,point_storage,nx_raf,dx_raf,ny_raf,dy_raf,nz_raf,dz_raf,nraf
+global eq_storage,solid_storage,count,number_points_u,number_points_v,u_matrix,v_matrix,point_matrix_x,point_matrix_y,point_matrix_z,point_matrix_x_no_deflection,point_matrix_y_no_deflection,point_matrix_z_no_deflection,berst_matrix,point_storage,nx_raf,dx_raf,ny_raf,dy_raf,nz_raf,dz_raf,nraf
 
 eq_storage={}
-format_storage = {}
+solid_storage={}
 count,number_points_u,number_points_v=0,0,0
 u_matrix,v_matrix=[],[]
 point_matrix_x,point_matrix_y,point_matrix_z=np.empty((3,3)),np.empty((3,3)),np.empty((3,3))
@@ -63,5 +63,5 @@ epsi_3d_x_raf = np.zeros((nx_raf,ny,nz),dtype=np.float32)
 epsi_3d_y_raf = np.zeros((nx,ny_raf,nz),dtype=np.float32)
 epsi_3d_z_raf = np.zeros((nx,ny,nz_raf),dtype=np.float32)
 
-global radius_list, list_storage
+global list_storage
 list_storage={}
