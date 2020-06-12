@@ -1,0 +1,7 @@
+.. _instructions:
+
+Docstring
+================================
+
+.. automodule:: creating_solid
+    :members:

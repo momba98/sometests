@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Funções e Respectivas Instruções" href="instrucoes.html" />
-    <link rel="prev" title="geo_bezier_3d" href="index.html" /> 
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="How To" href="howto.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,14 +83,11 @@
             
               <p class="caption"><span class="caption-text">Conteúdos:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Abordagem de Bézier</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#formulacao">1. Formulação</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#interpolacao">2. Interpolação</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#algumas-imagens-legais">3. Algumas Imagens Legais</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="instrucoes.html">Funções e Respectivas Instruções</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exemplos.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How To</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Abordagem de Bézier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
 </ul>
 
             
@@ -156,23 +153,21 @@
            <div itemprop="articleBody">
             
   <div class="section" id="abordagem-de-bezier">
-<h1>Abordagem de Bézier<a class="headerlink" href="#abordagem-de-bezier" title="Permalink to this headline">¶</a></h1>
-<div class="figure align-center">
-<a class="reference internal image-reference" href="_images/bez.gif"><img alt="_images/bez.gif" src="_images/bez.gif" style="width: 480.0px; height: 480.0px;" /></a>
+<span id="bezier"></span><h1>Abordagem de Bézier<a class="headerlink" href="#abordagem-de-bezier" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-right">
+<a class="reference internal image-reference" href="_images/bez.gif"><img alt="_images/bez.gif" src="_images/bez.gif" style="width: 360.0px; height: 360.0px;" /></a>
 </div>
 <p>A abordagem de Bézier baseia-se na construção suave de superfícies ou curvas
 paramétricas através pontos de controle determinados pelo usuário. Basicamente,
 é uma interpolação entre vetores. É um método extremamente simples que torna
-a criação de sólidos complexos fácil.
-Tem seu nome oriundo do engenheiro/matemático Pierre Bézier, muito embora
-tenha sido desenvolvida também por Paul de Casteljau.
-As curvas e superfícies de Bézier são usadas em muitas partes
-do <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> e, portanto, terão suas teorias
+a criação de sólidos complexos fácil.</p>
+<p>Tem seu nome oriundo do engenheiro/matemático Pierre Bézier, muito embora
+tenha sido desenvolvida também por Paul de Casteljau.</p>
+<p>As curvas e superfícies de Bézier são usadas em muitas partes
+do <code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> e, portanto, terão suas teorias
 brevemente desenvolvidas nessa
 página. Dessa forma, o usuário terá maior facilidade em construir sólidos de
 maneira correta, sem desperdício computacional.</p>
-<div class="section" id="formulacao">
-<h2>1. Formulação<a class="headerlink" href="#formulacao" title="Permalink to this headline">¶</a></h2>
 <p><em>A matemática da abordagem de Bézier será desenvolvida através de matrizes,
 o que facilita tanto a compreensão quanto a demonstração.</em></p>
 <p>Uma <strong>curva de Bézier</strong>, se 2D, é definida por duas equações e um parâmetro:</p>
@@ -182,8 +177,8 @@ o que facilita tanto a compreensão quanto a demonstração.</em></p>
 parâmetros:</p>
 <div class="math notranslate nohighlight">
 \[x(u,v),\: y(u,v),\: z(u,v)\]</div>
-<p>Todos os três parâmetros <code class="xref py py-obj docutils literal notranslate"><span class="pre">t</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> e <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code> variam apenas no intervalo
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">[0,1]</span></code>.
+<p>Todos os três parâmetros <span class="math notranslate nohighlight">\({t}\)</span>, <span class="math notranslate nohighlight">\({u}\)</span> e <span class="math notranslate nohighlight">\({v}\)</span> variam apenas no intervalo
+<span class="math notranslate nohighlight">\({[0,1]}\)</span>
 Uma curva de Bézier pode ser 3D e uma superfície pode ser 2D,
 mas isso será ignorado por agora.</p>
 <p>O grau de qualquer uma dessas equações depende diretamente da quantidade de pontos
@@ -192,7 +187,7 @@ que o usuário definiu:</p>
 \[Order = Number \: of \: Points - 1\]</div>
 <p>A partir de agora, usaremos como exemplo uma curva de Bézier 2D
 caso forem inputados 3 pontos para a criação.
-Portanto, teremos <code class="xref py py-obj docutils literal notranslate"><span class="pre">x(t)</span></code> e <code class="xref py py-obj docutils literal notranslate"><span class="pre">y(t)</span></code> de ordem 2.</p>
+Portanto, teremos <span class="math notranslate nohighlight">\({x(t)}\)</span> e <span class="math notranslate nohighlight">\({y(t)}\)</span> de ordem 2.</p>
 <p>A formulação da totalidade da <strong>curva</strong> se da por</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}Bézier^{n}(t)=\sum_{i=0}^{n} b_{i}^{n}(t)*P_{i} \\
@@ -202,7 +197,7 @@ Para obter tais equações, a seguinte operação matricial deverá ser realizad
 <div class="math notranslate nohighlight">
 \[\begin{split}x(t)=T*M*P_x\\
 y(t)=T*M*P_y\end{split}\]</div>
-<p>Onde <code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code> é a matriz composta por</p>
+<p>Onde <span class="math notranslate nohighlight">\({T}\)</span> é a matriz composta por</p>
 <div class="math notranslate nohighlight">
 \[t^n\]</div>
 <p>onde</p>
@@ -215,7 +210,7 @@ y(t)=T*M*P_y\end{split}\]</div>
 se encontra no <em>Polinômio de Berstein</em>:</p>
 <div class="math notranslate nohighlight">
 \[b_{i}^{n}(t)={n \choose i}t^{i}(1-t)^{{n-i}}\]</div>
-<p>Dele, retiramos a matriz <code class="xref py py-obj docutils literal notranslate"><span class="pre">M</span></code>, chave para obtenção das equações que governam o objeto.
+<p>Dele, retiramos a matriz <span class="math notranslate nohighlight">\({M}\)</span>, chave para obtenção das equações que governam o objeto.
 É composta pelos coeficientes dos termos desse polinômio e varia de acordo com
 o grau (ou então o número de pontos) da curva/superfície de Bézier.</p>
 <p>No exemplo anteriormente citado, o Polinômio de Berstein se expressaria na forma</p>
@@ -223,7 +218,7 @@ o grau (ou então o número de pontos) da curva/superfície de Bézier.</p>
 \[\begin{split}b_{0}^{2}(t)={2 \choose 0}t^{0}(1-t)^{{2-0}} = +1t^2 - 2t + 1 \\
 b_{1}^{2}(t)={2 \choose 1}t^{1}(1-t)^{{2-1}} = -2t^2 + 2t + 0 \\
 b_{2}^{2}(t)={2 \choose 2}t^{2}(1-t)^{{2-2}} = +1t^2 + 0t + 0\end{split}\]</div>
-<p>Logo, a matriz <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> obtida é:</p>
+<p>Logo, a matriz <span class="math notranslate nohighlight">\({M}\)</span> obtida é:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}M =
 \begin{bmatrix}
@@ -231,7 +226,7 @@ b_{2}^{2}(t)={2 \choose 2}t^{2}(1-t)^{{2-2}} = +1t^2 + 0t + 0\end{split}\]</div>
 -2 &amp; 2 &amp; 0 \\
 1 &amp; -2 &amp; 1
 \end{bmatrix}\end{split}\]</div>
-<p>Por último, se define a matriz <code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code> com os pontos fornecidos pelo usuário</p>
+<p>Por último, se define a matriz <span class="math notranslate nohighlight">\({P}\)</span> com os pontos fornecidos pelo usuário</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}P =
 \begin{bmatrix}
@@ -288,24 +283,20 @@ ponto intermediário (este apenas dita a curvatura suave!). Essa é a principal
 característica da abordagem de Bézier. O mesmo ocorre nas superfícies.</p>
 <p>Na verdade, há uma maneira de <em>hackear</em> isso e fazer com que a curva/superfície
 encoste em seus pontos intermediários. Essa artimanha está implementado no código
-como argumento <code class="xref py py-obj docutils literal notranslate"><span class="pre">deflection</span></code> em diversas funções, mas não será comentada aqui.</p>
-</div>
-<div class="section" id="interpolacao">
-<h2>2. Interpolação<a class="headerlink" href="#interpolacao" title="Permalink to this headline">¶</a></h2>
-<p>Mas onde podemos visualizar/entender a interpolação anteriormente citada?</p>
+como argumento <code class="docutils literal notranslate"><span class="pre">deflection</span></code> em diversas funções, mas não será comentada aqui.</p>
+<p><strong>Mas onde podemos visualizar/entender a interpolação anteriormente citada?</strong></p>
 <p>A figura facilitará a explicação posterior:</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="_images/bez3.gif"><img alt="_images/bez3.gif" src="_images/bez3.gif" style="width: 432.0px; height: 432.0px;" /></a>
 </div>
-<p><em>É um gif satisatório. Mais adiante serão mostrados outros mais ainda.</em></p>
 <p>Novamente, <strong>perceba:</strong> foram plotados 2 vetores</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\overrightarrow{P_0 P_1} \\
 \overrightarrow{P_1 P_2}\end{split}\]</div>
-<p>O parâmetro <code class="xref py py-obj docutils literal notranslate"><span class="pre">t</span></code> pode ser entendido como um afastamento percentual do início desses
-vetores. Em outras palavras, quando <code class="xref py py-obj docutils literal notranslate"><span class="pre">t=0.1</span></code>, nos afastamos 10% da distância
+<p>O parâmetro <span class="math notranslate nohighlight">\({t}\)</span> pode ser entendido como um afastamento percentual do início desses
+vetores. Em outras palavras, quando <span class="math notranslate nohighlight">\({t=0.1}\)</span>, nos afastamos 10% da distância
 total do vetor do início próprio vetor. Nessa distância, criamos outros 2 pontos.</p>
-<p>Desses pontos criados, geramos outro vetor. Novamente, quando <code class="xref py py-obj docutils literal notranslate"><span class="pre">t=0.1</span></code>
+<p>Desses pontos criados, geramos outro vetor. Novamente, quando <span class="math notranslate nohighlight">\({t=0.1}\)</span>
 , estamos a 10% da distância total do vetor do início dele mesmo.
 Criamos mais um ponto. <strong>Esse ponto (vermelho),
 para o nosso exemplo, representa a curva.</strong></p>
@@ -314,7 +305,9 @@ Podemos complicar muito mais, com ordens maiores e pontos interacalados. Isso
 complicará - e muito - a convergência das equações e o custo delas para o computador.
 Normalmente se usa Béziers de grau 2 até 4, no máximo.</p>
 <p><strong>As superfícies funcionam da mesma forma.</strong> Devemos apenas fazer uma pequena
-diferença: criar curvas de Bézier de forma ortogonal. A formulação se da por</p>
+diferença: criar curvas de Bézier de forma ortogonal. O campo de interpolação
+criado por essas curvas ortogonais gerará uma superfície.</p>
+<p>A formulação se da por</p>
 <div class="math notranslate nohighlight">
 \[Bézier^{n}(u,v)=\sum_{i=0}^{m} \sum_{j=0}^{n} b_{i}^{m}(u) b_{j}^{n}(v) *P_{i,j}\]</div>
 <p>Ou, na forma matricial, por</p>
@@ -322,24 +315,19 @@ diferença: criar curvas de Bézier de forma ortogonal. A formulação se da por
 \[\begin{split}x(u,v)=U*M*P_x*M^T*V\\
 y(u,v)=U*M*P_y*M^T*V\\
 z(u,v)=U*M*P_z*M^T*V\\\end{split}\]</div>
-<p>Onde U e V são as matrizes compostas pelos parâmetros u e v, bem como a matriz T.
-M é a matriz do Polinômio de Berstein de cada parâmetro e P é a matriz dos pontos.</p>
-<p>Podemos enxergar o parâmetro <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> como uma direção perpendicular ao parâmetro
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code>.</p>
+<p>Onde <span class="math notranslate nohighlight">\({U}\)</span> e <span class="math notranslate nohighlight">\({V}\)</span> são as matrizes compostas pelos parâmetros <span class="math notranslate nohighlight">\({u}\)</span> e <span class="math notranslate nohighlight">\({v}\)</span>, bem como na matriz <span class="math notranslate nohighlight">\({T}\)</span>, anteriormente apresentada.
+<span class="math notranslate nohighlight">\({M}\)</span> é a matriz do Polinômio de Berstein de cada parâmetro e <span class="math notranslate nohighlight">\({P}\)</span> é a matriz dos pontos.</p>
+<div class="figure align-right" id="id1">
+<a class="reference internal image-reference" href="_images/bez4.png"><img alt="_images/bez4.png" src="_images/bez4.png" style="width: 457.2px; height: 309.0px;" /></a>
+<p class="caption"><span class="caption-text">3 pontos em <span class="math notranslate nohighlight">\({u}\)</span> e 2 pontos em <span class="math notranslate nohighlight">\({v}\)</span>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Podemos enxergar o parâmetro <span class="math notranslate nohighlight">\({u}\)</span> como uma direção perpendicular ao parâmetro
+<span class="math notranslate nohighlight">\({v}\)</span>.</p>
 <p>É possível perceber que cada parâmetro tem seu próprio Polinômio de Berstein, logo o número
 de pontos em cada um deles não precisa ser igual.</p>
-<p>Se a direção/parâmetro <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> tiver 2 pontos (o usuário é quem define), serão
-criadas 2 curvas de Bézier a partir desses pontos na direção de <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code>. O mesmo
-para <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code>.</p>
-<p>Analise a figura:</p>
-<div class="figure align-center">
-<a class="reference internal image-reference" href="_images/bez4.png"><img alt="_images/bez4.png" src="_images/bez4.png" style="width: 550.0px; height: 448.0px;" /></a>
-</div>
-<p>Temos 3 pontos na direção/parâmetro <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code> e 2 em <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code>. Logo, são 3 Béziers
-de grau 2 em <code class="xref py py-obj docutils literal notranslate"><span class="pre">v</span></code> e 2 Béziers de grau 3 em <code class="xref py py-obj docutils literal notranslate"><span class="pre">u</span></code>.</p>
-<p>Os valores intermediários entre eles são calculados através de interpolações
-entre esses parâmetros.</p>
-<p>A formulação matricial para <code class="xref py py-obj docutils literal notranslate"><span class="pre">x(u,v)</span></code> ficaria</p>
+<p>Se a direção/parâmetro <span class="math notranslate nohighlight">\({u}\)</span> tiver 3 pontos (o usuário é quem define), serão
+criadas 3 curvas de Bézier a partir desses pontos em <span class="math notranslate nohighlight">\({v}\)</span> na direção de <span class="math notranslate nohighlight">\({u}\)</span>.</p>
+<p>A formulação matricial para <span class="math notranslate nohighlight">\({x(u,v)}\)</span> ficaria</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}x(u,v)=
 \begin{bmatrix}
@@ -368,25 +356,6 @@ v^0 \\
 v^1
 \end{bmatrix}\end{split}\]</div>
 </div>
-<div class="section" id="algumas-imagens-legais">
-<h2>3. Algumas Imagens Legais<a class="headerlink" href="#algumas-imagens-legais" title="Permalink to this headline">¶</a></h2>
-<p>Todas imagens foram feitas no <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> ou através de um script do
-autor.</p>
-<div class="figure align-center" id="id1">
-<img alt="_images/bez6.png" src="_images/bez6.png" />
-<p class="caption"><span class="caption-text"><em>Superfície visualizada pelo Mayavi;</em></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-center">
-<img alt="_images/bez10.gif" src="_images/bez10.gif" />
-</div>
-<div class="figure align-center">
-<img alt="_images/bez20.gif" src="_images/bez20.gif" />
-</div>
-<div class="figure align-center">
-<img alt="_images/bez30.gif" src="_images/bez30.gif" />
-</div>
-</div>
-</div>
 
 
            </div>
@@ -396,10 +365,10 @@ autor.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="instrucoes.html" class="btn btn-neutral float-right" title="Funções e Respectivas Instruções" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="geo_bezier_3d" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="howto.html" class="btn btn-neutral float-left" title="How To" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

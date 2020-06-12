@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-O usuário recebe nessa página todas informações dos argumentos de todas as funções presentes no código:
+O usuário recebe nessa página todas informações dos argumentos de todas as funções presentes no código.
 
 """
 import matplotlib
@@ -72,7 +72,7 @@ solid_storage=s.solid_storage
 def gen_raf_information(nraf):
     
     """
-    Geração de informações para Epsi refinada, importante arquivo para o :obj:`Incompact3d`. O objetivo é obter maior precisão em cada dimensão por vez.
+    Geração de informações para :math:`{\epsilon}` refinada, importante arquivo para o :obj:`Incompact3d`. O objetivo é obter maior precisão em cada dimensão por vez.
     
     Args:
         nraf (:obj:`int`): Entre com o número de vezes que gostaria de multiplicar os nós (refinar a malha).
@@ -96,21 +96,23 @@ def set_point_matrix(num_u_points,num_v_points):
     
     """
     
-    Importante função em que o usuário determinará o número de pontos em cada direção :obj:`[u,v]`.
+    Determinar o número de pontos em cada direção :math:`{u}` e :math:`{v}` numa superfície de Bézier.
     
-    Caso fique em dúvida da namenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com :obj:`print(point_storage)`::
+    Caso fique em dúvida da nomenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com ``print(point_storage)``::
         
         #exemplo de como tirar a dúvida dos pontos que devem receber algum input
         set_point_matrix(3,3)
         print(point_storage)
     
-    Basicamente, os pontos a serem determinados possuem 2 sub-índices: :obj:`i` e :obj:`j` → :obj:`Pij`.
+    Os pontos a serem determinados possuem 2 sub-índices: :math:`{i}` e :math:`{j}` → :math:`{P_{ij}}`
     
-    Os sub-índices começarão em :obj:`0` e irão até :obj:`i-1` and/or :obj:`j-1`.
+    Onde :math:`{i}` corresponde à :math:`{u}`, :math:`{j}` corresponde à :math:`{v}`.
+    
+    Os sub-índices começarão em :math:`{0}` e irão até :math:`{i-1}` and/or :math:`{j-1}`
     
     Args:
-        num_u_points (:obj:`int`): Determine o número de pontos que a direção :obj:`u` terá.
-        num_v_points (:obj:`int`): Determine o número de pontos que a direção :obj:`v` terá.
+        num_u_points (:obj:`int`): Determine o número de pontos que a direção :math:`{u}` terá.
+        num_v_points (:obj:`int`): Determine o número de pontos que a direção :math:`{v}` terá.
     
     Exemplo:
         Será explicitado quais pontos deverão ser setados de acordo com as entrys::
@@ -124,7 +126,7 @@ def set_point_matrix(num_u_points,num_v_points):
             point_storage['P20'] = [x,y,z]
             point_storage['P21'] = [x,y,z]
             
-        O dicionário :obj:`point_storage` faz parte da mecânica do código, não deve ser alterado. Auxilia na setagem e no armazenamento das informações.
+        O dicionário ``point_storage`` faz parte da mecânica do código, não deve ser alterado. Auxilia na setagem e no armazenamento das informações.
 
     """
         
@@ -155,20 +157,21 @@ def create_point_matrix(deflection=False):
     Auxílio na hora de setar os pontos necessários para as equações da função :obj:`gen_bezier_surface()`.
     
     Args: 
-        deflection (:obj:`Bool`, optional): Sete como :obj:`True` caso queira que a superfície passe necessariamente pelos pontos de controle 
+        deflection (:obj:`Bool`, optional): Sete como ``True`` caso queira que a superfície passe necessariamente pelos pontos de controle 
             (pontos intermediários, os que normalmente dão a curvatura suave à superfície). Baseia-se num artifício
             matemático que *hackeia* a Bézier, forçando-a a fazer algo que normalmente não faria.
+            
     Warning:
-        :obj:`deflection=True` **não demonstrará efeito em todos os casos!**
+        ``deflection=True`` **não demonstrará efeito em todos os casos!**
         
         O parâmetro pode ficar setado como True sem danificar o código, porém só efetivamente desviará a superfície 
-        caso :obj:`n_num_u_points=3` ao mesmo tempo que :obj:`n_num_v_points=2` ou vice-versa.
+        caso ``num_u_points = 3`` ao mesmo tempo que ``num_v_points = 2`` ou vice-versa.
         
         **O porquê da restrição:** 
         
         Como pode-se imaginar, não há necessidade de desviar a superfície para passar em pontos intermediários caso existam apenas 2 
-        pontos na direção :obj:`[u,v]` pois não há pontos intermediários. Também, caso a superfície tenha 3 pontos em cada direção 
-        :obj:`[u,v]` ou mais, torna-se *matematicamente complicado* descrever o desvio.
+        pontos nas direççoes :math:`{u}` e :math:`{v}` pois não há pontos intermediários. Também, caso a superfície tenha 3 pontos em cada direção 
+        :math:`{u}` e :math:`{v}` ou mais, torna-se *matematicamente complicado* descrever o desvio.
             
     """
     for i in range(number_points_u):
@@ -207,29 +210,11 @@ def translate(direction,quantity):
     em qualquer direção. 
 
     Args:
-        direction (:obj:`str`): Defina em qual direção a translação será feita. Deve assumir :obj:`'x', 'y', 'z'`.
+        direction (:obj:`str`): Defina em qual direção a translação será feita. Deve assumir ``'x'``, ``'y'`` ou ``'z'``.
         quantity (:obj:`int`): Assume quantas unidades de comprimento de domínio o usuário quer translate sua superfície.
         
     Warning: 
-        Deverá ser obrigatoriamente chamada entre a função :obj:`create_point_matrix()` e a função :obj:`gen_bezier_surface()`.
-        
-    Exemplo:
-        Para "empurrar" 1.5 unidades para trás e "puxar" 0.5 unidades para o lado::
-        
-            set_point_matrix(2,2)
-
-            point_storage['P00'] = [x,y,z] 
-            point_storage['P01'] = [x,y,z] 
-            point_storage['P10'] = [x,y,z]
-            point_storage['P11'] = [x,y,z]
-
-            create_point_matrix()
-
-            translate('y',1.5)
-
-            translate('x',-0.5)
-
-            gen_bezier_surface('0',capô)
+        Deverá ser obrigatoriamente chamada entre a função ``create_point_matrix()`` e a função ``gen_bezier_surface()``.
 
     """
     
@@ -259,27 +244,12 @@ def rotate(plane,origin,angle):
     da criação de patterns circulares.
     
     Args:
-        plane (:obj:`str`): Defina em qual plano a rotação será feita. Deve assumir :obj:`'xy'`, :obj:`'xz'`, :obj:`'zy'`.
+        plane (:obj:`str`): Defina em qual plano a rotação será feita. Deve assumir ``'xy'``, ``'xz'`` ou ``'zy'``.
         origin (:obj:`list,float`): Defina o ponto que será o centro de rotação.
         angle (:obj:`int`): Assume quantos graus o usuário quer rotacionar sua superfície.
         
     Warning: 
-        Deverá ser obrigatoriamente chamada entre a função :obj:`create_point_matrix()` e a função :obj:`gen_bezier_surface()`.
-        
-    Exemplo::
-    
-        set_point_matrix(2,2)
-
-        point_storage['P00'] = [x,y,z] 
-        point_storage['P01'] = [x,y,z] 
-        point_storage['P10'] = [x,y,z]
-        point_storage['P11'] = [x,y,z]
-
-        create_point_matrix()
-        
-        rotate('xy',[3,3],30)
-        
-        gen_bezier_surface('0','nome_qualquer_para_a_superfície')
+        Deverá ser obrigatoriamente chamada entre a função ``create_point_matrix()`` e a função ``gen_bezier_surface()``.
 
     """
     
@@ -339,25 +309,25 @@ def gen_bezier_surface(identif, name, show_equation=False):
     
     """
     
-    As equações de Bézier são governadas pelos parâmetros :obj:`u` e :obj:`v` e fornecem leis para curvas/superfícies. 
+    As equações de Bézier são governadas pelos parâmetros :math:`{u}` e :math:`{v}` e fornecem leis para curvas/superfícies. 
     
-    São definidas por pontos arbitrados pelo usuário, tendo um mínimo de 2 em cada direção :obj:`[u,v]` e sem algum máximo pré-determinado.
+    São definidas por pontos arbitrados pelo usuário, tendo um mínimo de 2 em cada direção :math:`{u}` e :math:`{v}` e sem algum máximo pré-determinado.
     
-    Os pontos iniciais e finais determinam onde a curva começa e termina, obviamente. *São os únicos pontos por onde a Bézier (naturalmente) passará com certeza*. 
+    Os pontos iniciais e finais determinam onde a curva começa e termina. *São os únicos pontos por onde a Bézier (naturalmente) passará com certeza*. 
     Os pontos intermediários estão encarregados de fornecer à Bézier uma curvatura suave, sem canto vivo/descontinuidade, 
     portanto a curva/superfície nunca *encosta* neles (para burlar essa situação, veja a função :obj:`create_point_matrix()`).
     
-    O grau das equações é definido por :obj:`número de pontos definidos pelo usuário - 1`.
+    O grau das equações é definido por número de pontos definidos pelo usuário - 1.
     
     Args:
-        identif (:obj:`str`): Crie a *identificação* da sua superfície com :obj:`'n'`, onde :obj:`n=0,1,2,3...` (começar em '0' e somar '1' a cada nova superfície).
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}` (começar em ``'0'`` e somar ``'1'`` a cada nova superfície).
         name (:obj:`str`): Crie um name para a superfície. Não há regras. 
-        show_equations (:obj:`Bool`, optional): Sete como :obj:`True` caso queira visualizar as equações governantes da superfície em questão.
+        show_equations (:obj:`Bool`, optional): Sete como ``True`` caso queira visualizar as equações governantes da superfície em questão.
         
     Warning:
-        :obj:`identif()` **necessita atenção especial**: o usuário voltará a chamar o parâmetro por diversas vezes ao decorrer do código.
+        ``identif()`` **necessita atenção especial**: o usuário voltará a chamar o parâmetro por diversas vezes ao decorrer do código.
         
-    É importante frisar que, caso construída uma superfície muito complexa (com variações não lineares entre os pontos em mais de 2 direções :obj:`xyz`, uma
+    É importante frisar que, caso construída uma superfície muito complexa (com variações não lineares entre os pontos em mais de 2 direções :math:`{xyz}`, uma
     superfície muito torcida), a convergência das equações não é garantida.
     
     .. image:: images/ex_supcomplexa.png
@@ -372,7 +342,7 @@ def gen_bezier_surface(identif, name, show_equation=False):
         
         z(𝑢,𝑣) = −3𝑢²+4𝑢+𝑣²(−11𝑢²+14𝑢−7)+𝑣(18𝑢²−20𝑢+10)
         
-    Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. O usuário pode tentar a sorte, simplificar a superfície ou tentar outro tipo de solver na hora de gerar a matriz Epsi na função :obj:`gen_epsi_bezier_surface()`. $/epsi$ /epsi $\epsi$ \epsi.
+    Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. O usuário pode tentar a sorte, simplificar a superfície ou tentar outro tipo de solver na hora de gerar a matriz :math:`{\epsilon}` na função ``gen_epsi_bezier_surface()``.
     
     """
     
@@ -409,10 +379,10 @@ def gen_bezier_surface(identif, name, show_equation=False):
 def berstein(n_p):
     
     """
-    Matemática chave por trás das curvas/superfícies de Bézier, dentro da própria função :obj:`gen_bezier_surface()`. 
+    Matemática chave por trás das curvas/superfícies de Bézier, dentro da própria função ``gen_bezier_surface()``. 
     
     Args:
-        n_p(:obj:`int`): Não há necessidade alguma de manipulação por parte do usuário.
+        n_p (:obj:`int`): Não há necessidade alguma de manipulação por parte do usuário.
     
     """
         
@@ -426,7 +396,7 @@ def berstein(n_p):
             berst_matrix[i][j]=aux[j] 
                     
     
-def gen_extrude_profile(identif, name, direction, init_height, final_height, deflection=False, ext_raf_path=False):  
+def gen_extrude_profile(identif, name, direction, init_height, final_height, deflection=False):  
     
     """
     Criação de um perfil que será posteriormente extrudado. O input da função deve assumir a seguinte forma de um dicionário::
@@ -441,29 +411,28 @@ def gen_extrude_profile(identif, name, direction, init_height, final_height, def
         c.extrude_information={'1':['entry+exit and/or exit' ,'v',[[7,2],[2,4],[1,3],[3,2]]],
                                '0':['entry+exit and/or entry','v',[[7,2],[2,0],[1,1],[3,2]]]}
                                
-    A key do dicionário, :obj:`'#0 identif'`, é o identificador da curva criada. Também também carrega a função de determinar a ordem em que as curvas serãor resolvidas (*normalmente*
+    A key do dicionário, ``'#0 identif'``, é o identificador da curva criada. Também também carrega a função de determinar a ordem em que as curvas serãor resolvidas (*normalmente*
     o usuário vai querer resolver primeiro todas as entradas);
     
-    O primeiro termo da lista do dicionário, 'line type', determina que tipo de limite a curva em questão é - entrada ou saída. Deve assumir 'entry+exit and/or exit' ou 
-    'entry+exit and/or entry';
+    O primeiro termo da lista do dicionário, ``'line type'``, determina que tipo de limite a curva em questão é - entrada ou saída. Deve assumir ``'entry+exit and/or exit'`` ou 
+    ``'entry+exit and/or entry'``;
     
-    O segundo termo da lista do dicionário - 'direção da solução' - pode assumir 'v' ou 'h', que significam vertical e horizontal, respectivamente. Caso seja escolhido vertical,
+    O segundo termo da lista do dicionário - ``'direção da solução'`` - pode assumir ``'v'`` ou ``'h'``, que significam vertical e horizontal, respectivamente. Caso seja escolhido vertical,
     para cada nó no eixo vertical será disparado um vetor que interceptará as curvas. Caso essa curva seja entrada, a partir dessa intersecção o algorítmo interpretará como dentro do
     perfil de extrude. Caso essa curva seja saída, o algorítmo interpretará como fora do perfil de extrude.
     
-    O terceiro e último termo do dicionário é uma lista, '[pontos de controle]', contendo todos os pontos de controle de cada curva de Bézier que setará o perfil de extrude.
+    O terceiro e último termo do dicionário é uma lista, ``[pontos de controle]``, contendo todos os pontos de controle de cada curva de Bézier que setará o perfil de extrude.
     
     Note:
-        Nessa função, as curvas de Bézier podem ser solucionadas na direção do eixo horizontal (da esquerda para a direita) ou pelo eixo vertical (de baixo para cima). Essa configuração é definida pelo termo 'direção da solução', que pode assumir :obj:`'h'` ou :obj:`'v'`.
+        Nessa função, as curvas de Bézier podem ser solucionadas na direção do eixo horizontal (da esquerda para a direita) ou pelo eixo vertical (de baixo para cima). Essa configuração é definida pelo termo ``'direção da solução'``, que pode assumir ``'h'`` ou ``'v'``.
     
     Args:
-        identif(:obj:`str`): Crie a *identificação* da feature com :obj:`'n'`, onde :obj:`n=0,1,2,3...` (começar em '0' e somar '1' a cada nova superfície).
-        name(:obj:`str`): Crie um name para a feature. Não há regras. 
-        direction(:obj:`str`): Direção na qual o extrude ocorrerá. Deve assumir 'x', 'y' ou 'z'.
-        init_height(:obj:`float`): Início do extrude, relacionado à :obj:`direction`.
-        final_height(:obj:`float`): Final do extrude, relacionado à :obj:`direction`.
-        deflection(:obj:`Bool`, optional): Sete como :obj:`True` caso queira que a curva passe pelo ponto de controle intermediário (o que normalmente dá curvatura suave à curva). Baseia-se num artifício matemático que *hackeia* a Bézier, forçando-a a fazer algo que normalmente não faria. Funcional apenas para curvas com 3 pontos.
-        ext_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}` (começar em ``'0'`` e somar ``'1'`` a cada nova superfície).
+        name (:obj:`str`): Crie um name para a feature. Não há regras. 
+        direction (:obj:`str`): Direção na qual o extrude ocorrerá. Deve assumir ``'x'``, ``'y'`` ou ``'z'``.
+        init_height (:obj:`float`): Início do extrude, relacionado à ``direction``
+        final_height (:obj:`float`): Final do extrude, relacionado à ``direction``
+        deflection (:obj:`Bool`, optional): Sete como ``True`` caso queira que a curva passe pelo ponto de controle intermediário (o que normalmente dá curvatura suave à curva). Baseia-se num artifício matemático que *hackeia* a Bézier, forçando-a a fazer algo que normalmente não faria. **Funcional apenas para curvas com 3 pontos**.
                        
     """
     max_x,max_y,max_z=0,0,0
@@ -577,7 +546,7 @@ def gen_extrude_profile(identif, name, direction, init_height, final_height, def
 
     ax.set_xlabel(f'{l1n}', fontsize=12),ax.set_ylabel(f'{l2n}', fontsize=12)
     ax.set_xlim(0,l1),ax.set_ylim(0,l2)
-    ax.set_title(f'Extude Profile',size=16)
+    ax.set_title(f'Extrude Profile',size=16)
     ax.grid(True, alpha=0.5,zorder=1)
     ax.set_aspect('equal')
     
@@ -587,18 +556,18 @@ def gen_extrude_profile(identif, name, direction, init_height, final_height, def
 def gen_toroid(identif, name, bases_plane, external_radius, profile_circle_radius, center_1, center_2, init_height, tor_raf_path=False):
     
     """
-    Função facilitadora para criação de um toróide por meio da função obj:`gen_revolve_profile()`. Não necessita de informações (dicionário) de entrada.
+    Função facilitadora para criação de um toróide por meio da função ``gen_revolve_profile()``. Não necessita de informações (dicionário) de entrada.
     
     Args:
-        identif(:obj:`str`): Crie a *identificação* da feature com :obj:`'n'`, onde :obj:`n=0,1,2,3...`.
-        name(:obj:`str`): Crie um nome para a feature. Não há regras.
-        bases_plane(:obj:`str`): O plano transversal ao toróide, plano no qual o círculo central é paralelo.
-        external_radius(:obj:`float`): Raio total do toróide, o ponto mais externo.
-        profile_circle_radius(:obj:`float`):  Raio do perfil circular transversal do toróide.
-        center_1(:obj:`float`): 1ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual :obj:`bases_plane` foi definido.
-        center_2(:obj:`float`): 2ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual :obj:`bases_plane` foi definido.    
-        init_height(:obj:`float`): Início do toróide na direção perpendicular ao :obj:`bases_plane` definido.
-        tor_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}` (começar em ``'0'`` e somar ``'1'`` a cada nova superfície).
+        name (:obj:`str`): Crie um nome para a feature. Não há regras.
+        bases_plane (:obj:`str`): O plano transversal ao toróide, plano no qual o círculo central é paralelo. Deverá assumir ``'xy'``, ``'xz'`` ou ``'zy'``.
+        external_radius (:obj:`float`): Raio total do toróide, o ponto mais externo.
+        profile_circle_radius (:obj:`float`):  Raio do perfil circular transversal do toróide.
+        center_1 (:obj:`float`): 1ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual ``bases_plane`` foi definido.
+        center_2 (:obj:`float`): 2ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual ``bases_plane`` foi definido.    
+        init_height (:obj:`float`): Início do toróide na direção perpendicular ao ``bases_plane`` definido.
+        tor_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     
     """
     
@@ -634,30 +603,32 @@ def gen_toroid(identif, name, bases_plane, external_radius, profile_circle_radiu
     if bases_plane=='zy':
         dirct='x'
         
-    gen_revolve_profile(identif, name, dirct, center_1, center_2, init_height, rev_raf_path=tor_raf_path, toroid=True)
+    gen_revolve_profile(identif, name, dirct, center_1, center_2, init_height, rev_raf_path=tor_raf_path)
     
 
-def gen_revolve_profile(identif, name, direction, center_1, center_2, init_height, deflection=False, rev_raf_path=False, toroid=False):
+def gen_revolve_profile(identif, name, direction, center_1, center_2, init_height, deflection=False, rev_raf_path=False):
     
     """
-    Construa um perfil de revolve por meio de curvas de Bézier sempre no sentido positivo, sem idas e voltas (cada 'axis' so pode ter 1 'radius'). Primeiro ponto de ambos limites (superior e inferior) sempre deve ser 0. Perfil superior e perfil inferior devem terminar no mesmo ponto.
+    Construa um perfil de revolve por meio de curvas de Bézier sempre no sentido positivo, sem idas e voltas (cada coordenada :math:`{axis}` so pode ter 1 :math:`{radius}` correspondente). 
     
-    Para confirmar a efetividade da função, checar que dentro da área do perfil de revolve (área limitada pelo perfil superior e inferior), para toda linha vermelha '--' deve existir uma linha cinza '-'.
+    **Primeiro ponto de ambos limites (superior e inferior) sempre deve ser 0. Perfil superior e perfil inferior devem terminar no mesmo ponto.**
+    
+    Para confirmar a efetividade da função, checar que dentro da área do perfil de revolve (área limitada pelo perfil superior e inferior), para toda linha vermelha pontilhada deve existir uma linha cinza contínua.
     
     Note:
-        Nessa função, diferentemente da função :obj:`gen_extrude_profile()`, as curvas de Bézier serãos sempre solucionadas na direção do eixo vertical, de baixo para cima.
+        Nessa função, diferentemente da função ``gen_extrude_profile()``, as curvas de Bézier serãos sempre solucionadas na direção do eixo vertical, de baixo para cima.
     
     As informações de entrada para as curvas devem ser feitas da seguinte forma (em dicionário)::
         
         #forma geral
         
         c.inferior_revolve_info={
-                                 'n':  [[lista de p pontos]],
+                                 'n=0':  [[lista de p pontos]],
                                  'n+1':[[lista de p pontos]],
                                 }
 
         c.superior_revolve_info={
-                                 'n':  [[lista de p pontos]],
+                                 'n=0':  [[lista de p pontos]],
                                  'n+1':[[lista de p pontos]],
                                 }
         
@@ -676,24 +647,24 @@ def gen_revolve_profile(identif, name, direction, center_1, center_2, init_heigh
                                  '3':[[[5,5],[6,5]]]
                                 }
     
-    A key do dicionário, n, deve começar em 0 e aumentar 1 toda vez que uma nova curva for adicionada;
+    A key do dicionário, ``n``, deve começar em 0 e aumentar 1 toda vez que uma nova curva for adicionada;
     
-    O termo do próprio dicionário deve ser uma lista de p pontos, onde p pode assumir valores diferentes para cada curva (mínimo 2 e máximo (recomendado) 5);
+    O único termo do dicionário deve ser uma lista de :math:`{p}` pontos bidimensionais, onde :math:`{p}` pode assumir valores diferentes para cada curva (mínimo 2 e máximo (recomendado) 5);
     
     Args:
-        identif(:obj:`str`): Crie a *identificação* da feature com :obj:`'n'`, onde :obj:`n=0,1,2,3...`.
-        name(:obj:`str`): Crie um nome para a feature. Não há regras.
-        direction(:obj:`str`): Direção longitudinal do revolve.
-        center_1(:obj:`float`): 1ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual :obj:`direction` foi definido.
-        center_2(:obj:`float`): 2ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual :obj:`direction` foi definido.    
-        init_height(:obj:`float`): Início do revolve.
-        deflection(:obj:`Bool`, optional): Sete como :obj:`True` caso queira que a curva passe pelo ponto de controle intermediário (o que normalmente dá curvatura suave à curva). Baseia-se num artifício matemático que *hackeia* a Bézier, forçando-a a fazer algo que normalmente não faria. Funcional apenas para curvas com 3 pontos.
-        rev_raf_path(:obj:`Bool`, optional):Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
-        toroid(:obj:`Bool`, optional): Não há necessidade alguma de manipulação por parte do usuário.
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}` (começar em ``'0'`` e somar ``'1'`` a cada nova superfície).
+        name (:obj:`str`): Crie um nome para a feature. Não há regras.
+        direction (:obj:`str`): Direção longitudinal do revolve. Deve assumir ``'x'``, ``'y'`` ou ``'z'``.
+        center_1 (:obj:`float`): 1ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual ``direction`` foi definido.
+        center_2 (:obj:`float`): 2ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual ``direction`` foi definido.    
+        init_height (:obj:`float`): Início do revolve na direção longitudinal.
+        deflection (:obj:`Bool`, optional): Sete como ``True`` caso queira que a curva passe pelo ponto de controle intermediário (o que normalmente dá curvatura suave à curva). Baseia-se num artifício matemático que *hackeia* a Bézier, forçando-a a fazer algo que normalmente não faria. **Funcional apenas para curvas com 3 pontos**.
+        rev_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     
     """
     
-
+    #list_storage={}
+    
     fig = plt.figure(figsize=(7,7))
     
     if rev_raf_path==False:
@@ -803,31 +774,19 @@ def gen_revolve_profile(identif, name, direction, center_1, center_2, init_heigh
                 n1,d1=nz_gen,dz_gen
 
             radius_list=[]
-            old_radius=10203040
+            old_t=1000231
 
             for c1 in np.arange(0,n1,1):
                 for amount4 in range(1,number_beziers+1,1):
-                    sol = solveset(eq_storage[f'{profile_type}x{identif},Bezier{amount4}'][1][0] - c1*d1 , t, domain=S.Reals)                    
+                    sol = solveset(eq_storage[f'{profile_type}x{identif},Bezier{amount4}'][1][0] - c1*d1 , t, domain=S.Reals)
                     for i in range(0,len(sol.args),1):
-                        if 0<=round(sol.args[i],4)<=1.0:
+                        if 0<=round(sol.args[i],6)<=1.0:
                             raio=eq_storage[f'{profile_type}y{identif},Bezier{amount4}'][0](sol.args[i])
-
-                            if eq_storage[f'{profile_type}y{identif},Bezier{amount4}'][8] != np.ndarray:
-                                if amount4>1 and round(sol.args[i],4)!=0.00:
-                                    radius_list.append(raio)
-                                    old_radius=raio
-                                else:
-                                    radius_list.append(raio)
-                                    old_radius=raio
-
-                            elif eq_storage[f'{profile_type}y{identif},Bezier{amount4}'][8] == np.ndarray:
-                                if toroid==False:
-                                    if amount4>1 and round(sol.args[i],4)!=0.00:
-                                        if raio!=old_radius:
-                                            radius_list.append(raio)
-                                            old_radius=raio
-                                if toroid==True:
-                                    radius_list.append(raio)
+                            
+                            if old_t!=1:
+                                radius_list.append(raio)                
+                                    
+                            old_t=sol.args[i]
                                     
 
             list_storage[f'{profile_type}{identif}_{raf}'] = [radius_list.copy()]
@@ -934,12 +893,12 @@ def gen_sphere(identif,name,radius,cex,cey,cez):
     Crie uma esfera em qualquer posição do domínio.
     
     Args:
-        identif(:obj:`str`): Crie a *identificação* da feature com :obj:`'n'`, onde :obj:`n=0,1,2,3...` (começar em '0' e somar '1' a cada nova superfície).
-        name(:obj:`str`): Crie um nome para a feature. Não há regras.
-        radius(:obj:`float`): Raio da esfera.
-        cex(:obj:`float`): Coordenada x do centro.
-        cey(:obj:`float`): Coordenada y do centro.
-        cez(:obj:`float`): Coordenada z do centro.
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}` (começar em ``'0'`` e somar ``'1'`` a cada nova superfície).
+        name (:obj:`str`): Crie um nome para a feature. Não há regras.
+        radius (:obj:`float`): Raio da esfera.
+        cex (:obj:`float`): Coordenada :math:`{x}` do centro.
+        cey (:obj:`float`): Coordenada :math:`{y}` do centro.
+        cez (:obj:`float`): Coordenada :math:`{z}` do centro.
         
     """
     
@@ -955,19 +914,20 @@ def gen_sphere(identif,name,radius,cex,cey,cez):
     eq_storage[f's{identif}'] = [name,x.copy(),z.copy(),y.copy(),cex,cey,cez,radius,'sphere']
     
     
-def gen_quad_prism(identif,a,b,c,reference_point):
+def gen_quad_prism(identif,name,a,b,c,reference_point):
     """
     Crie um cubóide (prisma quadrangular) em qualquer posição do domínio.
     
     Args:
-        identif (:obj:`str`): Crie a *identificação* da feature com :obj:`'n'`, onde :obj:`n=0,1,2,3...`.
-        a (:obj:`float`): Aresta na direção de x.
-        b (:obj:`float`): Aresta na direção de y.
-        c (:obj:`float`): Aresta na direção de z.
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}` (começar em ``'0'`` e somar ``'1'`` a cada nova superfície).
+        a (:obj:`float`): Aresta na direção de :math:`{x}`.
+        b (:obj:`float`): Aresta na direção de :math:`{y}`.
+        c (:obj:`float`): Aresta na direção de :math:`{z}`.
         reference_point (:obj:`list, float`): Coordenadas do ponto de referência para posicionamento do cubóide. É o vértice mais próximo da origem do plano cartesiano.
     
     """
     # parametrização
+    
     phi = np.arange(1,10,2)*np.pi/4
     Phi, Theta = np.meshgrid(phi, phi)
 
@@ -990,17 +950,17 @@ def gen_quad_prism(identif,a,b,c,reference_point):
 def gen_cylinder(identif,name,bases_plane,radius,center_1,center_2,init_height,final_height):
     
     """
-    Crie um cilíndro ao longo de x, y ou z em qualquer ponto do domínio. Não há possibilidade de rotações.
+    Crie um cilíndro ao longo de :math:`{x}`, :math:`{y}` ou :math:`{z}` em qualquer ponto do domínio. Não há possibilidade de rotações.
     
     Args:
-        identif(:obj:`str`): Crie a *identificação* da feature com :obj:`'n'`, onde :obj:`n=0,1,2,3...`.
-        name(:obj:`str`): Crie um nome para a feature. Não há regras.
-        bases_plane(:obj:`str`): O plano transversal ao cilindro: onde a base ou o topo ficam (são paralelos).
-        radius(:obj:`float`): Raio da base/topo.
-        center1(:obj:`float`): 1ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual :obj:`bases_plane` foi definido.
-        center2(:obj:`float`): 2ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual :obj:`bases_plane` foi definido.
-        init_height(:obj:`float`): Início do cilindro. Deve ser menor do que :obj:`final_height`.
-        final_height(:obj:`float`): Final do cilindro. Deve ser maior do que :obj:`init_height`.
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}` (começar em ``'0'`` e somar ``'1'`` a cada nova superfície).
+        name (:obj:`str`): Crie um nome para a feature. Não há regras.
+        bases_plane (:obj:`str`): O plano transversal ao cilindro: onde a base ou o topo ficam (são paralelos). Deverá assumir ``'xy'``, ``'xz'`` ou ``'zy'``.
+        radius (:obj:`float`): Raio da base/topo.
+        center1 (:obj:`float`): 1ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual ``bases_plane`` foi definido.
+        center2 (:obj:`float`): 2ª coordenada do centro da base/topo. O eixo correspondende à coordenada dependerá de qual ``bases_plane`` foi definido.
+        init_height (:obj:`float`): Início do cilindro. Deve ser menor do que ``final_height``.
+        final_height (:obj:`float`): Final do cilindro. Deve ser maior do que ``init_height``.
     """
     
     axis = np.linspace(init_height, final_height, 30)
@@ -1021,20 +981,20 @@ def gen_cylinder(identif,name,bases_plane,radius,center_1,center_2,init_height,f
     eq_storage[f'c{identif}'] = [name,axis1.copy(),axis2.copy(),axis3.copy(),bases_plane,radius,center_1,center_2,init_height,final_height,'cylinder'] #type must be last
     
                 
-def surface_plot(engine, init_identif, final_identif, points=False, domain=True, grids=True, legend=True, alpha=0.3):
+def surface_plot (init_identif, final_identif, engine='matplotlib', points=False, domain=True, grids=True, legend=True, alpha=0.3):
     
     """
-    Visualize all the work done. 
+    Visualize as superfícies construídas desejadas. 
     
     Args:
-        engine (:obj:`str`): Choose which engine will render your solid, :obj:`'matplotlib'` or :obj:`'mayavi'`. Mayavi displays better, matplotlib displays more information.
-        init_identif (:obj:`str`): Determine o início do intervalo de superfícies a serem plotadas através da identificação :obj:`identif`.
-        final_identif (:obj:`str`): Determine o final do intervalo (endpoint não incluido) de superfícies a serem plotadas através da identificação :obj:`identif`
-        points (:obj:`Bool`, optional): Caso queira visualizar os pontos que governam sua superfície, sete como :obj:`True`. Válido apenas para :obj:`engine='matplotlib'`
-        domain (:obj:`Bool`, optional): Caso queira deixar de visualizar o domínio, sete como :obj:`False`. Válido apenas para :obj:`engine='matplotlib'`
-        grids (:obj:`Bool`, optional): Caso queira retirar o grid de background, sete como :obj:`False`. Válido apenas para :obj:`engine='matplotlib'`
-        legends (:obj:`Bool`, optional): Caso queira retirar as legendas das superfícies, sete como :obj:`False`. Válido apenas para :obj:`engine='matplotlib'`
-        alpha (:obj:`float`, optional): Controlador da opacidade da superfície em questão. Pode assumir qualquer valor entre :obj:`0` (transparente) e :obj:`1` (opaco). Válido apenas para :obj:`engine='matplotlib'`
+        init_identif (:obj:`str`): Determine o início do intervalo de superfícies a serem plotadas através da identificação ``identif``
+        final_identif (:obj:`str`): Determine o final do intervalo **(endpoint não incluso)** de superfícies a serem plotadas através da identificação ``identif``
+        engine (:obj:`str`, optional): Escolha qual pacote renderizador de plot, ``'matplotlib'`` ou ``'mayavi'``. Mayavi displays better, matplotlib displays more information.
+        points (:obj:`Bool`, optional): Caso queira visualizar os pontos que governam sua superfície, sete como ``True``. Válido apenas para ``engine='matplotlib'``
+        domain (:obj:`Bool`, optional): Caso queira deixar de visualizar o domínio, sete como ``False``. Válido apenas para ``engine='matplotlib'``
+        grids (:obj:`Bool`, optional): Caso queira retirar o grid de background, sete como ``False``. Válido apenas para ``engine='matplotlib'``
+        legends (:obj:`Bool`, optional): Caso queira retirar as legendas das superfícies, sete como ``False``. Válido apenas para ``engine='matplotlib'``
+        alpha (:obj:`float`, optional): Controlador da opacidade da superfície em questão. Pode assumir qualquer valor entre ``0`` (transparente) e ``1`` (opaco).
 
     """
     init_identif=int(init_identif)
@@ -1069,12 +1029,12 @@ def surface_plot(engine, init_identif, final_identif, points=False, domain=True,
                            colormap=colormaps[choice], opacity=alpha)
 
                 if p==f'superiorrc{plot}':
-                    surf=mlab.mesh(eq_storage[f'superiorrc{plot}'][1], eq_storage[f'superiorrc{plot}'][3], eq_storage[f'superiorrc{plot}'][2],
-                           colormap=colormaps[choice], opacity=alpha)
+                    surf=mlab.mesh(eq_storage[f'superiorrc{plot}'][1].astype(float), eq_storage[f'superiorrc{plot}'][3].astype(float),
+                                   eq_storage[f'superiorrc{plot}'][2].astype(float), colormap=colormaps[choice], opacity=alpha)
                     
                 if p==f'inferiorrc{plot}':
-                    surf=mlab.mesh(eq_storage[f'inferiorrc{plot}'][1], eq_storage[f'inferiorrc{plot}'][3], eq_storage[f'inferiorrc{plot}'][2],
-                           colormap=colormaps[choice], opacity=alpha)
+                    surf=mlab.mesh(eq_storage[f'inferiorrc{plot}'][1].astype(float), eq_storage[f'inferiorrc{plot}'][3].astype(float), 
+                                   eq_storage[f'inferiorrc{plot}'][2].astype(float),colormap=colormaps[choice], opacity=alpha)
         
         
         mlab.plot3d([0, lx], [0, 0], [0, 0], color=(1,0,0), tube_radius=None, figure=fig, opacity=0.225)
@@ -1193,26 +1153,22 @@ def surface_plot(engine, init_identif, final_identif, points=False, domain=True,
                         ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize=10)
 
                 if p==f'superiorrc{plot}':
-                    surf=ax.plot_surface(eq_storage[f'superiorrc{plot}'][1], eq_storage[f'superiorrc{plot}'][2], eq_storage[f'superiorrc{plot}'][3],
-                           alpha=alpha, label=eq_storage[f'inferiorrc{plot}'][0])
+                    surf=ax.plot_surface(eq_storage[f'superiorrc{plot}'][1].astype(float), eq_storage[f'superiorrc{plot}'][2].astype(float),
+                                         eq_storage[f'superiorrc{plot}'][3].astype(float), alpha=alpha)
                     
                     surf._facecolors2d=surf._facecolors3d
                     surf._edgecolors2d=surf._edgecolors3d
                     fig.tight_layout()
                     fig.subplots_adjust(right=0.8)
-                    if legend==True:
-                        ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize=10)
                 
                 if p==f'inferiorrc{plot}':
-                    surf=ax.plot_surface(eq_storage[f'inferiorrc{plot}'][1], eq_storage[f'inferiorrc{plot}'][2], eq_storage[f'inferiorrc{plot}'][3],
-                           alpha=alpha, label=eq_storage[f'inferiorrc{plot}'][0])
+                    surf=ax.plot_surface(eq_storage[f'inferiorrc{plot}'][1].astype(float), eq_storage[f'inferiorrc{plot}'][2].astype(float),
+                                         eq_storage[f'inferiorrc{plot}'][3].astype(float), alpha=alpha)
                     
                     surf._facecolors2d=surf._facecolors3d
                     surf._edgecolors2d=surf._edgecolors3d
                     fig.tight_layout()
                     fig.subplots_adjust(right=0.8)
-                    if legend==True:
-                        ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize=10)
 
         ax.invert_yaxis()
 
@@ -1221,11 +1177,11 @@ def surface_plot(engine, init_identif, final_identif, points=False, domain=True,
 def gen_epsi_extrude(identif,ext_raf_path=False):
     
     """
-    Geração da Epsi do Extrude criado anteriormente.
+    Geração da :math:`{\epsilon}` do Extrude criado anteriormente.
     
     Args:
-        identif(:obj:`str`): Repita o argumento :obj:`identif` do extrude em questão.
-        ext_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        identif (:obj:`str`): Repita o argumento ``identif`` do extrude em questão.
+        ext_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
         
     """
 
@@ -1403,10 +1359,10 @@ def gen_epsi_extrude(identif,ext_raf_path=False):
 def gen_epsi_revolve(identif):
     
     """
-    Geração da Epsi do Revolve criado anteriormente.
+    Geração da :math:`{\epsilon}` do Revolve criado anteriormente.
     
     Args:
-        identif(:obj:`str`): Repita o argumento :obj:`identif` do revolve em questão.
+        identif (:obj:`str`): Repita o argumento ``identif`` do revolve em questão.
     
     """
     
@@ -1417,7 +1373,6 @@ def gen_epsi_revolve(identif):
     
     for raf in loop_path:
         
-        print(raf)
         dx_gen,dy_gen,dz_gen=dx,dy,dz
         nx_gen,ny_gen,nz_gen=nx,ny,nz
         matrix_gen=epsi_3d
@@ -1499,63 +1454,63 @@ def gen_epsi_revolve(identif):
 
         bar.finish()
 
-def gen_epsi_bezier_surface(surface_type,plane,identif,solver='scipy',add_or_sub='add',interval=np.arange(-0.1,1+0.2,0.1),bez_raf_path=False):
+def gen_epsi_bezier_surface(surface_type,plane,identif,solver='scipy',add_or_sub='sub',interval=np.arange(-0.1,1+0.2,0.1),bez_raf_path=False):
     
     """
     
-    Nesta função, usamos as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é solid (na Epsi, :obj:`1`) e onde
-    não é solid (na Epsi, :obj:`0`). Vamos setar o que é considerado entry e exit, ou ambos ao mesmo tempo, **para todas as superfícies criadas**. 
+    Nesta função, usa-se as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é sólido (na :math:`{\epsilon}`, ``1``) e onde
+    não é sólido (na :math:`{\epsilon}`, ``0``). Também se seta o que é considerado entrada e saída, ou ambos.  
         
     Args:
-        surface_type (:obj:`str`): Defina se a superfície em questão é considerada uma entry, uma exit ou ambos em relação ao solid.
+        surface_type (:obj:`str`): Defina se a superfície em questão é considerada uma entrada, uma saída ou ambos em relação ao domínio.
         
-                            +-------------------------+------------------------------------+
-                            | surface_type            | Set :obj:`surface_type` as         | 
-                            +=========================+====================================+
-                            | entry                   | :obj:`'entry+exit and/or entry'`   |
-                            +-------------------------+------------------------------------+
-                            | exit                    | :obj:`'entry+exit and/or exit'`    |
-                            +-------------------------+------------------------------------+
-                            | entry/exit              |  whatever                          |
-                            +-------------------------+------------------------------------+
-                            | entry/exit + entry      | :obj:`'entry+exit and/or entry'`   |
-                            +-------------------------+------------------------------------+
-                            | entry/exit + exit       | :obj:`'entry+exit and/or exit'`    |  
-                            +-------------------------+------------------------------------+
+                            +-----------------------------------+---------------------------------+
+                            | tipo de limite da superfície      | Setar ``surface_type`` como     | 
+                            +===================================+=================================+
+                            | entrada                           | ``'entry+exit and/or entry'``   |
+                            +-----------------------------------+---------------------------------+
+                            | saída                             | ``'entry+exit and/or exit'``    |
+                            +-----------------------------------+---------------------------------+
+                            | entrada e saída simult.           |  ambos, tanto faz               |
+                            +-----------------------------------+---------------------------------+
+                            | entrada e saída simult. + entrada | ``'entry+exit and/or entry'``   |
+                            +-----------------------------------+---------------------------------+
+                            | entrada e saída simult. + saída   | ``'entry+exit and/or exit'``    |  
+                            +-----------------------------------+---------------------------------+
 
     Args: 
-        plane (:obj:`str`): Escolha o melhor plane para resolver sua superfície. Caso o plane xy seja o melhor, setar :obj:`plane='xy'`. Pode assumir apenas :obj:`'xz','xy','zy'`. Uma superfície plana e paralela a um plano não pode ser resolvida por esse plano pois não tem dimensão em relação ao plano.
-        identif (:obj:`str`): Repita o argumento :obj:`identif` da superfície em questão. 
-        solver (:obj:`str`, optional): Deve assumir 'scipy' or 'sympy'. Normalmente 'scipy' é mais eficiente e barato.
-        add_or_sub(:obj:`str`): Defina o mecanismo de criação da Epsi. Caso assuma :obj:`'add'`, o fluxo de informação da superfície para a Epsi será através de adição (ou subtração, caso seja uma :obj:`entry/exit and/or exit`), caso ideal para obtenção de intersecções (não esquecer de usar a função :obj:`normalize_epsi()` para correção). Caso assuma :obj:`'sub'`, o fluxo será através de substituição (metodologia padrão).
-        interval (:obj:`list, np.arange`, optional): Intervalo no qual o solver 'scipy' vai buscar as raízes. O padrão é o que apresenta melhores resultados.
-        bez_raf_path (:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        plane (:obj:`str`): Escolha o melhor plane para resolver sua superfície. Pode assumir apenas ``'xz'``, ``'xy'`` ou ``'zy'``. Uma superfície sem espessura em relação a um plano não pode ser resolvida por esse plano.
+        identif (:obj:`str`): Repita o argumento ``identif`` da superfície em questão. 
+        solver (:obj:`str`, optional): Deve assumir ``'scipy'`` or ``'sympy'``. Normalmente ``'scipy'`` é mais eficiente e barato.
+        add_or_sub(:obj:`str`): Defina o mecanismo de criação da :math:`{\epsilon}`. Caso assuma ``'add'``, o fluxo de informação da superfície para a :math:`{\epsilon}` será através de adição (ou subtração, caso seja uma ``entry/exit and/or exit``), caso ideal para obtenção de intersecções (não esquecer de usar a função ``normalize_epsi()`` para correção). Caso assuma ``'sub'``, o fluxo será através de substituição (metodologia padrão).
+        interval (:obj:`list, np.arange`, optional): Intervalo no qual o solver ``'scipy'`` vai buscar as raízes. O padrão é o que apresenta melhores resultados.
+        bez_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     
     **Exemplo:**
         .. figure:: images/ex_entradasaidasaida.png
            :scale: 70%
            :align: center
            
-        Podemos notar 2 supefícies na figura, uma verde (:obj:`identif='0'`) e outra roxa (:obj:`identif='1'`). 
-        De acordo com esta situação, a invocação da função :obj:`gen_epsi()` pode se dar na seguinte forma::
+        Podemos notar 2 supefícies na figura, uma verde, ``identif='0'``, e outra roxa ``identif='1'``. 
+        De acordo com esta situação, a invocação da função ``gen_epsi()`` pode se dar na seguinte forma::
             
             gen_epsi('entry+exit and/or entry','zy','0')
             gen_epsi('entry+exit and/or exit','zy','1')
            
-        Podemos notar também um ponto que é o início de um vetor perpendicular ao plane 'zy'. Este vetor é a representação do que define o :obj:`surface_type` de cada superfície.
-        Toda vez que o vetor encontrar alguma superfícies, será definido um limite para a criação da Epsi.
-        Devemos imaginar que para cada combinação de coordenada 'z' e 'y' (espaçamento definido por dz e dy) um vetor desses é originado. Portanto: 
+        Podemos notar também um ponto que é o início de um vetor perpendicular ao plane :math:`{zy}`. Este vetor é a representação do que define o ``surface_type`` de cada superfície.
+        Toda vez que o vetor encontrar alguma superfícies, será definido um limite para a criação da :math:`{\epsilon}`.
+        Devemos imaginar que para cada combinação de coordenada :math:`{z}` e :math:`{y}` (espaçamento definido por :math:`{dz}` e :math:`{dy}`) um vetor desses é originado. Portanto: 
         
-            1. O sólido verde é considerado *entry Pura* pois, no instante em que é interceptado pelos vetores, 
+            1. O sólido verde é considerado somente entrada pois, no instante em que é interceptado pelos vetores, 
             **entra-se no sólido**. 
             
-            2. O sólido roxo deve ser dividido em 2 partes e é considerado *entry/exit + exit*. A primeira parte é a superior, logo acima da superfície verde.
-            Toda esta parte será interceptada pelos vetores duas vezes e **por isso é considerada entry/exit**. A segunda parte é a inferior, que 'compartilha'
+            2. O sólido roxo deve ser dividido em 2 partes e é considerado entrada e sáida + saída. A primeira parte é a superior, logo acima da superfície verde.
+            Toda esta parte será interceptada pelos vetores duas vezes e **por isso é considerada entrada e saída**. A segunda parte é a inferior, que 'compartilha'
             altura com a superfície verde. Esta parte será interceptada pelos vetores apenas uma vez e em todas elas o sólido já terá acabado, por isso é considerada
-            como **exit**.
+            como **saída**.
         
     Warning:
-        Caso construída uma superfície que possua segmentos com possíveis entrys/exits simultâneas (superfície roxa), certificar que a superfície seja construída 
+        Caso construída uma superfície que possua segmentos com possíveis entradas e saídas simultâneas (superfície roxa), certificar que a superfície seja construída 
         no sentido positivo: os pontos iniciais devem ser mais próximos da origem do que os pontos finais, independente do plane.
         
     """   
@@ -1827,12 +1782,14 @@ def gen_epsi_bezier_surface(surface_type,plane,identif,solver='scipy',add_or_sub
 def gen_epsi_mirror(target, direction, mirror_raf_path=False):
     
     """
-    Espelhe o domínio inteiro ou apenas um sólido construído com :obj:`bounds_into_single_solid()`.
+    Espelhe o domínio inteiro ou apenas um sólido construído com ``bounds_into_single_solid()``.
+    
+    Após a criação de um espelhamento, normalizar a matriz :math:`{\epsilon}` com a função ``normalize_epsi``. Maiores informações em :ref:`howto`.
     
     Args:
-        target(:obj:`str`): Pode assumir 'whole_domain' (caso o mirror seja feito ao longo de todo domínio) ou a identificação do sólido criado com :obj:`bounds_into_single_solid()` (caso mirror seja feito em apenas uma parte do domínio).
-        direction(:obj:`str`): Direção na qual o mirror será efetuado. Deve assumir 'x', 'y' ou 'z'.
-        mirror_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        target (:obj:`str`): Pode assumir ``'whole_domain'`` (caso o mirror seja feito ao longo de todo domínio) ou a identificação do sólido criado com ``bounds_into_single_solid()`` (caso mirror seja feito em apenas uma parte do domínio).
+        direction (:obj:`str`): Direção na qual o mirror será efetuado. Deve assumir ``'x'``, ``'y'`` ou ``'z'``.
+        mirror_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     """
     
     if mirror_raf_path==True:
@@ -2008,13 +1965,13 @@ def gen_epsi_mirror(target, direction, mirror_raf_path=False):
 def gen_epsi_cylinder(identif, surface_type, add_or_sub='sub', cyl_raf_path=False):
     
     """
-    Geração da Epsi da esfera criada anteriormente.
+    Geração da :math:`{\epsilon}` da esfera criada anteriormente.
     
     Args:
-        identif(:obj:`str`): Repita o argumento :obj:`identif` do cilindro em questão.
-        surface_type(:obj:`str`): Defina se o cilindro será um objeto (adição de "material") ou um contorno (subtração de "material") . Deve assumir 'solid' ou 'contour'.
-        add_or_sub(:obj:`str`): Defina o mecanismo de criação da Epsi. Caso assuma :obj:`'add'`, o fluxo de informação da superfície para a Epsi será através de adição (ou subtração, caso seja um :obj:`contour`), caso ideal para obtenção de intersecções (não esquecer de usar a função :obj:`normalize_epsi()` para correção). Caso assuma :obj:`'sub'`, o fluxo será através de substituição (metodologia padrão).
-        cyl_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        identif (:obj:`str`): Repita o argumento ``identif`` do cilindro em questão.
+        surface_type (:obj:`str`): Defina se o cilindro será um objeto (adição de "material") ou um contorno (subtração de "material") . Deve assumir ``'solid'`` ou ``'contour'``.
+        add_or_sub (:obj:`str`): Defina o mecanismo de criação da :math:`{\epsilon}`. Caso assuma ``'add'``, o fluxo de informação da superfície para a :math:`{\epsilon}` será através de adição (ou subtração, caso seja um ``contour``), caso ideal para obtenção de intersecções (não esquecer de usar a função ``normalize_epsi()`` para correção). Caso assuma ``'sub'``, o fluxo será através de substituição (metodologia padrão).
+        cyl_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     
     """
     
@@ -2163,13 +2120,13 @@ def gen_epsi_cylinder(identif, surface_type, add_or_sub='sub', cyl_raf_path=Fals
 def gen_epsi_quad_prism(identif, surface_type, add_or_sub='sub', qp_raf_path=False):
     
     """
-    Geração da Epsi do prisma criado anteriormente.
+    Geração da :math:`{\epsilon}` do prisma criado anteriormente.
     
     Args:
-        identif(:obj:`str`): Repita o argumento :obj:`identif` do cubóide em questão.
-        surface_type(:obj:`str`): Defina se o cubóide será um objeto (adição de "material") ou um contorno (subtração de "material") . Deve assumir 'solid' ou 'contour'.
-        add_or_sub(:obj:`str`): Defina o mecanismo de criação da Epsi. Caso assuma :obj:`'add'`, o fluxo de informação da superfície para a Epsi será através de adição (ou subtração, caso seja um :obj:`contour`), caso ideal para obtenção de intersecções (não esquecer de usar a função :obj:`normalize_epsi()` para correção). Caso assuma :obj:`'sub'`, o fluxo será através de substituição (metodologia padrão).
-        qp_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        identif (:obj:`str`): Repita o argumento ``identif`` do cubóide em questão.
+        surface_type (:obj:`str`): Defina se o cubóide será um objeto (adição de "material") ou um contorno (subtração de "material") . Deve assumir ``'solid'`` ou ``'contour'``.
+        add_or_sub (:obj:`str`): Defina o mecanismo de criação da :math:`{\epsilon}`. Caso assuma ``'add'``, o fluxo de informação da superfície para a :math:`{\epsilon}` será através de adição (ou subtração, caso seja um ``contour``), caso ideal para obtenção de intersecções (não esquecer de usar a função ``normalize_epsi()`` para correção). Caso assuma ``'sub'``, o fluxo será através de substituição (metodologia padrão).
+        qp_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     
     """
     
@@ -2232,13 +2189,13 @@ def gen_epsi_quad_prism(identif, surface_type, add_or_sub='sub', qp_raf_path=Fal
 def gen_epsi_sphere(identif, surface_type, add_or_sub='sub', sph_raf_path=False):
     
     """
-    Geração da Epsi da esfera criada anteriormente.
+    Geração da :math:`{\epsilon}` da esfera criada anteriormente.
     
     Args:
-        identif(:obj:`str`): Repita o argumento :obj:`identif` da esfera em questão.
-        surface_type(:obj:`str`): Defina se a esfera será um objeto (adição de "material") ou um contorno (subtração de "material") . Deve assumir 'solid' ou 'contour'.
-        add_or_sub(:obj:`str`): Defina o mecanismo de criação da Epsi. Caso assuma :obj:`'add'`, o fluxo de informação da superfície para a Epsi será através de adição (ou subtração, caso seja um :obj:`contour`), caso ideal para obtenção de intersecções (não esquecer de usar a função :obj:`normalize_epsi()` para correção). Caso assuma :obj:`'sub'`, o fluxo será através de substituição (metodologia padrão).
-        sph_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        identif (:obj:`str`): Repita o argumento ``identif`` da esfera em questão.
+        surface_type (:obj:`str`): Defina se a esfera será um objeto (adição de "material") ou um contorno (subtração de "material") . Deve assumir ``'solid'`` ou ``'contour'``.
+        add_or_sub (:obj:`str`): Defina o mecanismo de criação da :math:`{\epsilon}`. Caso assuma ``'add'``, o fluxo de informação da superfície para a :math:`{\epsilon}` será através de adição (ou subtração, caso seja um ``contour``), caso ideal para obtenção de intersecções (não esquecer de usar a função ``normalize_epsi()`` para correção). Caso assuma ``'sub'``, o fluxo será através de substituição (metodologia padrão).
+        sph_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     
     """
     
@@ -2312,12 +2269,12 @@ def gen_epsi_sphere(identif, surface_type, add_or_sub='sub', sph_raf_path=False)
 def bounds_into_single_solid(identif_list, identif, solid_raf_path=False):
     
     """
-    Função que agrega diversas features em apenas um sólido. Se faz necessário na hora de realizar um mirror atrelado a um 'target'.
+    Função que agrega diversas features em apenas um sólido. Se faz necessário na hora de realizar um mirror atrelado a um ``'target'``.
     
     Args:
-        identif_list(:obj:`list,strs`): Lista dos identificadores das features que farão parte do sólido. Deve assumir [identif n,identif n+1,...].
-        identif(:obj:`str`): Crie a *identificação* da feature com :obj:`'n'`, onde :obj:`n=0,1,2,3...`.
-        solid_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        identif_list (:obj:`list,strs`): Lista dos identificadores das features que farão parte do sólido: ``['0','3','2']``, por exemplo.
+        identif (:obj:`str`): Crie a **identificação** da feature com :math:`{n}`, onde :math:`{n=0,1,2,3...}`.
+        solid_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     """
     
     
@@ -2676,12 +2633,11 @@ def epsi_plot(direction, grid=True, ticks='full', integral=False, raf='normal'):
     Confira se os limites estão corretos, camada por camada ou por amostragem, em qualquer direção.
     
     Args:
-        direction (:obj:`str`): Poderá assumir os seguintes valores: :obj:`'x', 'y', 'z'`.
-        grid (:obj:`Bool`, optional): Caso houver número demasiado de nós (>250), setar como :obj:`False` auxiliará na visualização. 
-        ticks(:obj:`str`, optional): Definição dos ticks da imagem (números que acompanham os eixos). Pode assumir :obj:`full` (ideal para poucos nós), :obj:`some` (ideal para número alto de nós), :obj:`none` 
-        (imagem limpa).
-        integral (:obj:`Bool`, optional): Se o usuário quiser conferir meticulosamente todas as camadas, sete como :obj:`True`.
-        raf (:obj:`str`, optional): Se o usuário quiser conferir alguma Epsi Refinada, setar com :obj:`'x','y','z'`.
+        direction (:obj:`str`): Poderá assumir os seguintes valores: ``'x'``, ``'y'`` ou ``'z'``.
+        grid (:obj:`Bool`, optional): Caso houver número demasiado de nós (>250), setar como ``False`` auxiliará na visualização. 
+        ticks(:obj:`str`, optional): Definição dos ticks da imagem (números que acompanham os eixos). Pode assumir ``full`` (ideal para poucos nós), ``some`` (ideal para número alto de nós), ``none`` (imagem limpa).
+        integral (:obj:`Bool`, optional): Se o usuário quiser conferir meticulosamente todas as camadas, sete como ``True``.
+        raf (:obj:`str`, optional): Se o usuário quiser conferir alguma :math:`{\epsilon}` refinada, setar com ``'x'``, ``'y'`` ou ``'z'``.
 
     """
     dx_show,dy_show,dz_show=dx,dy,dz
@@ -2763,12 +2719,12 @@ def epsi_plot(direction, grid=True, ticks='full', integral=False, raf='normal'):
 def normalize_epsi(intersection=False, target=2, epsi_raf_path=False):
     
     """
-    Ideal chamar essa função antes de gerar os arquivos de saída. Corrige qualquer valor inadequado da Epsi (menor do que 0 ou maior do que 1) que podem ser gerados ao decorrer do projeto.
+    Ideal chamar essa função antes de gerar os arquivos de saída. Corrige qualquer valor inadequado da :math:`{\epsilon}` (menor do que 0 ou maior do que 1) que podem ser gerados ao decorrer do projeto.
     
     Args:
-        intersection(:obj:`Bool`, optional):
-        target(:obj:`Bool`, optional):
-        epsi_raf_path(:obj:`Bool`, optional): Sete como :obj:`True` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
+        intersection (:obj:`Bool`, optional): Setar como ``True`` para validar intersecções entre superfícies. Maiores informações em :ref:`intersec`.
+        target (:obj:`Bool`, optional): Caso ``intersection=True``, setar nesse argumento qual valor será considerado o alvo para transformar as intersecções em sólidos independentes. Caso assuma ``2``, por exemplo, todos os valores na :math:`{\epsilon}` que forem menor do que 2 serão setados como 0, enquanto todos valores iguais ou superiores a 2 serão setados como 1.
+        epsi_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
         
     """
     
@@ -2804,12 +2760,12 @@ def normalize_epsi(intersection=False, target=2, epsi_raf_path=False):
 def gen_output(names, out_raf_path=False):
     
     """
-    Geração dos arquivos de saída. Tornam possível a visualização no ParaView da Epsi, bem como a resolução das equações
+    Geração dos arquivos de saída. Tornam possível a visualização no ParaView da :math:`{\epsilon}`, bem como a resolução das equações
     de Navier Stokes nas redondezas do sólido criado.
     
     Args:
         names (:obj:`str`): Entre com o name que será dado aos arquivos gerado pelo programa.
-        raf (:obj:`str`): Não há necessidade alguma de manipulação por parte do usuário. 
+        out_raf_path (:obj:`Bool`, optional): Sete como ``True`` para criar as informações para o refinamento de malha. Ideal para o final do projeto, no qual todas as features já estão definidas.
     
     """
     global count

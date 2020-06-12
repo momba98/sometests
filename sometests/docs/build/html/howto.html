@@ -1,0 +1,1481 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How To &mdash; geo_bezier_3d v.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Abordagem de Bézier" href="bezier.html" />
+    <link rel="prev" title="geo_bezier_3d" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> geo_bezier_3d
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Conteúdos:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How To</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#primeiros-passos">1. Primeiros Passos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dominio">1.1 Domínio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nomeacao">1.2 Nomeação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arquivos-auxiliares-e-bibliotecas">1.3 Arquivos Auxiliares e Bibliotecas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parametro-de-refinamento-de-malha">1.4 Parâmetro de Refinamento de Malha</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#features">2. Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#limpando-a-memoria">2.0 Limpando a Memória</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#superficie-de-bezier">2.1 Superfície de Bézier</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#transladar">2.1.1 Transladar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rotacionar">2.1.2 Rotacionar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deflexao">2.1.2 Deflexão</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#extrude">2.2 Extrude</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#revolve">2.3 Revolve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#toroide">2.4 Toróide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cilindro">2.5 Cilindro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#esfera">2.6 Esfera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prisma-quadrangular">2.7 Prisma Quadrangular</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#normalizacao-interseccoes">2.8 Normalização/Intersecções</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#espelhamento">2.9 Espelhamento</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#solido">2.9.1 Sólido</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">2.9.2 Domínio</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#refinamento-de-malha">3. Refinamento de Malha</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">geo_bezier_3d</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>How To</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/howto.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to">
+<span id="howto"></span><h1>How To<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h1>
+<p>Ideal para os iniciantes, essa página é um <strong>tutorial</strong> e apresenta o código e todas as suas
+funcionalidades, funções e particularidades. Para definições mais específicas
+sobre as funções, acessar a pagina <a class="reference internal" href="docstring.html#docstring"><span class="std std-ref">Docstring</span></a>.</p>
+<div class="section" id="primeiros-passos">
+<h2>1. Primeiros Passos<a class="headerlink" href="#primeiros-passos" title="Permalink to this headline">¶</a></h2>
+<p>Nada de construção de sólidos. Por agora, apenas setagem de parâmetros do domínio e
+criação de arquivos auxiliares. A ordem da criação das células importa.
+<strong>O usuário deve usar as mesmas variáveis descritas nos blocos de código para que
+o código funcione corretamente.</strong></p>
+<p><strong>Caso o usuário tenha o desejo de alterar o domínio, seu nome ou seu parâmetro de refinamento,
+a kernel do Jupyter deverá ser reiniciada.</strong></p>
+<div class="section" id="dominio">
+<h3>1.1 Domínio<a class="headerlink" href="#dominio" title="Permalink to this headline">¶</a></h3>
+<p>Inicialmente, o usuário deverá definir os parâmetros para seu domínio, determinando
+o comprimento nas 3 direções <span class="math notranslate nohighlight">\({lx}\)</span>, <span class="math notranslate nohighlight">\({ly}\)</span> e <span class="math notranslate nohighlight">\({lz}\)</span>, bem como o número de nós de malha
+<span class="math notranslate nohighlight">\({nx}\)</span>, <span class="math notranslate nohighlight">\({ny}\)</span> e <span class="math notranslate nohighlight">\({nz}\)</span>.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">lx</span><span class="p">,</span><span class="n">ly</span><span class="p">,</span><span class="n">lz</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="c1">#valores arbitrados</span>
+
+<span class="c1">#no incompact3d, x representa comprimento, z representa largura e y representa altura.</span>
+
+<span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">nz</span><span class="o">=</span><span class="mi">81</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">61</span> <span class="c1">#valores também arbitrados</span>
+</pre></div>
+</td></tr></table></div>
+<p>Dessa forma, o espaçamento entre nós pode ser calculado:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="p">,</span><span class="n">dz</span><span class="o">=</span><span class="n">lx</span><span class="o">/</span><span class="p">(</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">ly</span><span class="o">/</span><span class="p">(</span><span class="n">ny</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">lz</span><span class="o">/</span><span class="p">(</span><span class="n">nz</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="nomeacao">
+<h3>1.2 Nomeação<a class="headerlink" href="#nomeacao" title="Permalink to this headline">¶</a></h3>
+<p>Um nome deve ser dado ao projeto em início. Quando acabado, uma pasta com esse
+mesmo nome será criada no ambiente onde o código está rodando.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Give your project a name: &#39;</span><span class="p">))</span>
+
+<span class="c1">#ou</span>
+
+<span class="n">name</span><span class="o">=</span><span class="s1">&#39;nome_do_projeto&#39;</span> <span class="c1">#dessa forma, o risco de sobrescrever projetos é grande</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="arquivos-auxiliares-e-bibliotecas">
+<h3>1.3 Arquivos Auxiliares e Bibliotecas<a class="headerlink" href="#arquivos-auxiliares-e-bibliotecas" title="Permalink to this headline">¶</a></h3>
+<p>O usuário não precisa fazer nada além de rodar a célula para criação dos arquivos
+auxiliares:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;inputs.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;inputs.py&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_file</span><span class="p">:</span>
+    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;lx=</span><span class="si">{</span><span class="n">lx</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ly=</span><span class="si">{</span><span class="n">ly</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;lz=</span><span class="si">{</span><span class="n">lz</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nx=</span><span class="si">{</span><span class="n">nx</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ny=</span><span class="si">{</span><span class="n">ny</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nz=</span><span class="si">{</span><span class="n">nz</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dx=</span><span class="si">{</span><span class="n">dx</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dy=</span><span class="si">{</span><span class="n">dy</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dz=</span><span class="si">{</span><span class="n">dz</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;name=&#39;</span><span class="p">),</span><span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>O mesmo para bibliotecas:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">infos</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">inputs</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">creating_solid</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">inputs</span> <span class="k">as</span> <span class="nn">i</span>
+<span class="kn">import</span> <span class="nn">infos</span> <span class="k">as</span> <span class="nn">s</span>
+<span class="kn">import</span> <span class="nn">creating_solid</span> <span class="k">as</span> <span class="nn">c</span> <span class="c1">#guarde essa denominação</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="parametro-de-refinamento-de-malha">
+<h3>1.4 Parâmetro de Refinamento de Malha<a class="headerlink" href="#parametro-de-refinamento-de-malha" title="Permalink to this headline">¶</a></h3>
+<p>Por fim, setar o parâmetro de refinamento de malha, o <code class="docutils literal notranslate"><span class="pre">nraf</span></code>. O <code class="docutils literal notranslate"><span class="pre">incompact3d</span></code>
+precisa desse refinamento para entender melhor onde é sólido e onde não é. <code class="docutils literal notranslate"><span class="pre">nraf</span></code>
+multiplica <span class="math notranslate nohighlight">\({nx}\)</span>, <span class="math notranslate nohighlight">\({ny}\)</span> e <span class="math notranslate nohighlight">\({nz}\)</span> um de cada vez.</p>
+<p>A matriz onde todas as informaçõe geradas pelo <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> são armazenadas
+é denominada de <span class="math notranslate nohighlight">\({\epsilon}\)</span> (pronunciada como Epsi). Essa matriz é binária e representa
+um plano cartesiano tridimensional.</p>
+<p>Nela, <strong>onde existe sólido o índice é setado como 1 e onde o fluido escoa livremente
+é setado como 0.</strong> Essa é a metodologia do <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> para representar
+sólidos que interceptam um escoamento.</p>
+<p>No final do projeto, serão geradas 4 <span class="math notranslate nohighlight">\({\epsilon}\)</span> por conta do refinamento de malha:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\({\epsilon}\)</span> com dimensões <span class="math notranslate nohighlight">\({nx}\)</span> x <span class="math notranslate nohighlight">\({ny}\)</span> x <span class="math notranslate nohighlight">\({nz}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\({\epsilon_x}\)</span> com dimensões <span class="math notranslate nohighlight">\({nx_{raf}}\)</span> x <span class="math notranslate nohighlight">\({ny}\)</span> x <span class="math notranslate nohighlight">\({nz}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\({\epsilon_y}\)</span> com dimensões <span class="math notranslate nohighlight">\({nx}\)</span> x <span class="math notranslate nohighlight">\({ny_{raf}}\)</span> x <span class="math notranslate nohighlight">\({nz}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\({\epsilon_z}\)</span> com dimensões <span class="math notranslate nohighlight">\({nx}\)</span> x <span class="math notranslate nohighlight">\({ny}\)</span> x <span class="math notranslate nohighlight">\({nz_{raf}}\)</span></p></li>
+</ol>
+<p>O subíndice em <span class="math notranslate nohighlight">\({\epsilon}\)</span> indica a direção do refinamento de malha, enquanto
+o subíndice <span class="math notranslate nohighlight">\({raf}\)</span> indica a multiplicação do número de nós por <code class="docutils literal notranslate"><span class="pre">nraf</span></code>.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_raf_information</span><span class="p">(</span><span class="n">nraf</span><span class="o">=</span><span class="n">algum_valor</span><span class="p">)</span> <span class="c1">#nraf pode assumir qualquer valor inteiro maior que 1.</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="features">
+<span id="id1"></span><h2>2. Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>Partindo para a parte interessante do código, nessa seção serão explanadas todas as
+funções que auxiliam na criação de sólidos, superfícies e partes.</p>
+<p>Algumas funções usam superfícies possuem aplicação ampla: usam curvas/superfícies de Bézier (relativamente lentas).
+Outras usam a abordagem de <em>fancy indexing</em> do Python, tendo aplicação restrita mas compensando com rapidez.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A troca de informações entre as funções existentes no código se dá através do
+argumento comum <code class="docutils literal notranslate"><span class="pre">identif</span></code>. <strong>Esse argumento está presente em todas as funções a partir
+deste ponto e merece atenção especial para evitar sobrescrtitos.</strong></p>
+</div>
+<div class="section" id="limpando-a-memoria">
+<h3>2.0 Limpando a Memória<a class="headerlink" href="#limpando-a-memoria" title="Permalink to this headline">¶</a></h3>
+<p>Antes de tudo e para evitar possíveis confusões, é ideal zerar todos os parâmetros
+que envolvem a criação de sólidos:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#limpando os dicionários auxiliares</span>
+
+<span class="c1">#o c é a invocação do módulo creating_solid</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">eq_storage</span><span class="o">=</span><span class="p">{}</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">list_storage</span><span class="o">=</span><span class="p">{}</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">solid_storage</span><span class="o">=</span><span class="p">{}</span>
+
+<span class="c1">#limpar as matrizes que representam o sólido</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">epsi_3d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">nz</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">epsi_3d_x_raf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">nx_raf</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">nz</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">epsi_3d_y_raf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">ny_raf</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">nz</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">epsi_3d_z_raf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">nz_raf</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Caso o usuário tenha errado algum parâmetro, pode chamar essas linhas de
+código para resetar os parâmetros do script.</p>
+</div>
+<div class="section" id="superficie-de-bezier">
+<h3>2.1 Superfície de Bézier<a class="headerlink" href="#superficie-de-bezier" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Na documentação, há uma área especial para as superfícies/curvas de Bézier:
+<a class="reference internal" href="bezier.html#bezier"><span class="std std-ref">Abordagem de Bézier</span></a>. Caso o usuário tenha dúvidas de como funcionam, é melhor dar
+uma pausa nesta página e voltar após breve entendimento.</p>
+</div>
+<p>As superfícies de Bézier são o trunfo do <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code>. Permitem criar
+superfícies complexas que são dificilmente representadas por equações bem conhecidas.
+Pórem, o usuário deve ter cuidado. Muita complexidade pode complicar o solver do script
+e a superfície pode ser representada de modo falho.</p>
+<p>Para criar uma superfície de Bézier com 3 pontos na direção de <span class="math notranslate nohighlight">\({u}\)</span> e 2 na direção de <span class="math notranslate nohighlight">\({v}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">set_point_matrix</span><span class="p">(</span><span class="n">num_u_points</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">num_v_points</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#prepara a matriz dos pontos a serem recebidos</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span> <span class="c1">#setar os pontos como lista, [x,y,z]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P20&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P21&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">create_point_matrix</span><span class="p">()</span> <span class="c1">#definição final da matriz dos pontos</span>
+
+<span class="n">gen_bezier_surface</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;superficie_3u_2v&#39;</span><span class="p">)</span> <span class="c1">#calculo matricial de Bézier</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>Sempre que o usuário for criar uma superfície de Bézier, esse processo será repetido.</strong></p>
+<p>Essa superfície, denominada de <em>superficie_3u_2v</em>, recebeu a identificação única
+correspondente ao valor de 0, como demonstra o primeiro argumento de <code class="docutils literal notranslate"><span class="pre">gen_bezier_surface()</span></code>,
+na linha 14.</p>
+<p>Para visualizar a superfície criada, o usuário deve executar a seguinte célula:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">surface_plot</span><span class="p">(</span><span class="n">init_identif</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">final_identif</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="c1">#informar à função qual superfície é desejada no plot. No caso, &#39;0&#39;.</span>
+</pre></div>
+</td></tr></table></div>
+<p>E obterá o plot:</p>
+<div class="figure align-center" id="id12">
+<a class="reference internal image-reference" href="_images/bezier_surf1.png"><img alt="_images/bezier_surf1.png" src="_images/bezier_surf1.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">A visualização da superfície auxilia no entendimento do papel dos pontos governantes.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para continuar com o exemplo, mais uma superfície será criada. Dessa vez, serão 2 pontos
+na direção de <span class="math notranslate nohighlight">\({u}\)</span> e 3 pontos na direção de <span class="math notranslate nohighlight">\({v}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">set_point_matrix</span><span class="p">(</span><span class="n">num_u_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">num_v_points</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1">#prepara a matriz dos pontos a serem recebidos</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span> <span class="c1">#setar os pontos como lista, [x,y,z]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P02&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P12&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="c1">#repare na diferença de denominação entre os pontos das duas superfícies</span>
+
+<span class="n">create_point_matrix</span><span class="p">()</span> <span class="c1">#definição final da matriz dos pontos</span>
+
+<span class="n">gen_bezier_surface</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;superficie_2u_3v&#39;</span><span class="p">)</span> <span class="c1">#calculo matricial de Bézier</span>
+</pre></div>
+</td></tr></table></div>
+<p>O plot de ambas superfícies é obtido da mesma forma, apenas mudando o argumento de identificação:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">surface_plot</span><span class="p">(</span><span class="n">init_identif</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">final_identif</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="n">points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="c1">#informar à função quais superfícies são desejadas no plot. No caso, &#39;0&#39; e &#39;1&#39;.</span>
+</pre></div>
+</td></tr></table></div>
+<div class="figure align-center" id="id13">
+<a class="reference internal image-reference" href="_images/bezier_surf2.png"><img alt="_images/bezier_surf2.png" src="_images/bezier_surf2.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Mais uma superfície foi adicionada ao plot.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+<p>A validação dessas superfícies como limites na matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span> deverá ser feita com uma função
+a parte, chamada de <code class="docutils literal notranslate"><span class="pre">gen_epsi_bezier_surface()</span></code>. Nessa função, será determinada se a superfície é
+considerada uma entrada do sólido ou uma saída, bem como qual o melhor plano para validar tal informação.</p>
+<p>Inicialmente só sera validada no domínio a <em>superficie_3u_2v</em>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_bezier_surface</span><span class="p">(</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;entry+exit and/or entry&#39;</span><span class="p">,</span><span class="n">plane</span><span class="o">=</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Os argumentos podem parecer confusos inicialmente. Por conta disso, explicaremos cada um
+separadamente (há também bastante informação em <a class="reference internal" href="docstring.html#docstring"><span class="std std-ref">Docstring</span></a>):</p>
+<p>O argumento <code class="docutils literal notranslate"><span class="pre">surface_type</span></code> indica que tipo de limite a superfície em questão é. Pode assumir
+apenas 2 valores, <code class="docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">entry'</span></code> ou <code class="docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">exit'</span></code>. Assumindo
+o primeiro deles, todos os índices da <span class="math notranslate nohighlight">\({\epsilon}\)</span> que estiverem <strong>depois</strong> da superfície (partindo de um plano específico)
+serão considerados sólidos, ou seja, serão setados como 1. É isso o que a parte
+“entry” quer dizer. A lógica se aplica também ao segundo valor possível, porém ao invés dos índices
+serem setados como 1, serão setados como 0, o que explica a parte “exit”. Caso a superfície em
+questão seja entrada e saída ao mesmo tempo, o usuário não deve se preocupar: o código está pronto
+para entender tal problema e é isso o que a parte “entry+exit” significa.</p>
+<p>Já o argumento <code class="docutils literal notranslate"><span class="pre">plane</span></code> indica qual sentido essa varredura feita por <code class="docutils literal notranslate"><span class="pre">surface_type</span></code>
+será feita. Só pode assumir <code class="docutils literal notranslate"><span class="pre">xy</span></code>, <code class="docutils literal notranslate"><span class="pre">xz</span></code> ou <code class="docutils literal notranslate"><span class="pre">zy</span></code>. O usuário só poderá resolver
+as superfícies nos planos quais a superfície tem alguma dimensão. No caso deste exemplo,
+a superfície indicada com 0, <em>superficie_3u_2v</em>, não tem dimensão alguma no plano <span class="math notranslate nohighlight">\({xy}\)</span>,
+enquanto a superfície indicada com 1 não tem dimensão alguma no plano <span class="math notranslate nohighlight">\({xz}\)</span>.</p>
+<p>Portanto, para o exemplo, tudo o que estiver depois da superfície (ou entre seus limites) tomando
+como referência o plano de origem <span class="math notranslate nohighlight">\({zy}\)</span> será setado como 1.</p>
+<p>Continunando com o exemplo e gerando os arquivos de saída:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_output</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">name</span><span class="p">)</span> <span class="c1">#essa é a função que gera os arquivos de saída.</span>
+</pre></div>
+</td></tr></table></div>
+<p>E visualizando no software <a class="reference external" href="https://www.paraview.org/">ParaView</a> (exemplos de como visualizar
+a <span class="math notranslate nohighlight">\({\epsilon}\)</span> no software ao longo desta página):</p>
+<div class="figure align-center" id="id14">
+<img alt="_images/bezier_surf_paraview_1.png" src="_images/bezier_surf_paraview_1.png" />
+<p class="caption"><span class="caption-text">Como esperado, temos um sólido representado pela superfície construída.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<p>Adicionando a outra superfície na matriz e gerando seu output:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#validando limites</span>
+
+<span class="n">gen_epsi_bezier_surface</span><span class="p">(</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;entry+exit and/or exit&#39;</span><span class="p">,</span><span class="n">plane</span><span class="o">=</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+
+<span class="c1">#gerando arquivos de saída</span>
+
+<span class="n">gen_output</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>O usuário deve observar que essa superfície vai ser resolvida exatamente da mesma forma
+que a primeira, exceto pelo fato de que <strong>será considerada uma saída do sólido.</strong></p>
+<p>Pode-se então visualizar o trabalho feito no <a class="reference external" href="https://www.paraview.org/">ParaView</a>:</p>
+<div class="figure align-center">
+<img alt="_images/bezier_surf_paraview_2.png" src="_images/bezier_surf_paraview_2.png" />
+</div>
+<p>Para gerar essa visualização:</p>
+<ol class="arabic simple">
+<li><p>Abrir dentro do ParaView o arquivo .xdmf presente na pasta do projeto;</p></li>
+<li><p>Open data with… <strong>XDMF reader</strong>;</p></li>
+<li><p>Apply;</p></li>
+<li><p>Mudar o tipo de visualização de Outline para Volume.</p></li>
+</ol>
+<p>Pronto. O sólido delimitado pelas 2 superfícies criadas foi representado. O usuário
+consegue perceber a infinidade de opções que as superfícies de Bézier proporcionam
+para a criação de sólidos.</p>
+<p>Como mencionado no início da seção, superfícies muito complexas podem ser um problema
+para o solver da função. Caso o usuário não tenha escapatória, é recomendado dividir
+essa grande superície complexa em várias pequenas, ou usar uma das funções
+que serão apresentadas nas próximas seções.</p>
+<div class="section" id="transladar">
+<h4>2.1.1 Transladar<a class="headerlink" href="#transladar" title="Permalink to this headline">¶</a></h4>
+<p>Para transladar uma superfície de Bézier, basta adicionar um comando <strong>entre as funções</strong>
+<code class="docutils literal notranslate"><span class="pre">create_point_matrix()</span></code> e <code class="docutils literal notranslate"><span class="pre">gen_bezier_surface()</span></code>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">set_point_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P20&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P21&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">create_point_matrix</span><span class="p">()</span>
+
+<span class="n">translate</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1">#fora dessa linha, a função não terá funcionalidade.</span>
+
+<span class="n">gen_bezier_surface</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;superficie_3u_3v&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="rotacionar">
+<h4>2.1.2 Rotacionar<a class="headerlink" href="#rotacionar" title="Permalink to this headline">¶</a></h4>
+<p>Para rotacionar uma superfície de Bézier, basta adicionar um comando <strong>entre as funções</strong>
+<code class="docutils literal notranslate"><span class="pre">create_point_matrix()</span></code> e <code class="docutils literal notranslate"><span class="pre">gen_bezier_surface()</span></code>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">set_point_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P20&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P21&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">create_point_matrix</span><span class="p">()</span>
+
+<span class="n">rotate</span><span class="p">(</span><span class="n">plane</span><span class="o">=</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span><span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span> <span class="c1">#o solver sofre um pouco com essa função, usar com cuidado</span>
+
+<span class="n">gen_bezier_surface</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;superficie_3u_3v&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="deflexao">
+<h4>2.1.2 Deflexão<a class="headerlink" href="#deflexao" title="Permalink to this headline">¶</a></h4>
+<p>Provavelmente o usuário já entende um pouco sobre curvas/superfícies de Bézier e
+já sabe que <strong>os pontos intermediários só servem para ditar a curvatura da
+superfície/curva</strong>, ou seja, a superfície/curva só realmente “enconsta” nos pontos
+iniciais e finais.</p>
+<p>Porém, há um jeito de burlar isso, num caso específico. Caso uma das direções <span class="math notranslate nohighlight">\({u}\)</span>
+ou <span class="math notranslate nohighlight">\({u}\)</span> tenham 3 pontos (somente uma delas), o usuário pode setar como <code class="docutils literal notranslate"><span class="pre">True</span></code> o único
+argumento da função <code class="docutils literal notranslate"><span class="pre">create_point_matrix</span></code>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">set_point_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P20&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P21&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span>
+
+<span class="n">create_point_matrix</span><span class="p">(</span><span class="n">deflection</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#aqui onde a deflexão é ativada</span>
+
+<span class="n">gen_bezier_surface</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;superficie_3u_3v&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>A diferença entre usar ou não a deflexão:</p>
+<div class="figure align-center" id="id15">
+<img alt="_images/bezier_surf_deflection.png" src="_images/bezier_surf_deflection.png" />
+<p class="caption"><span class="caption-text">À esquerda a superfície com a deflexão ligada, à direta com a deflexão desligada.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deflexão também está presente nas outras funções que usam a abordagem de Bézier:
+revolve e extrude.</p>
+</div>
+</div>
+</div>
+<div class="section" id="extrude">
+<h3>2.2 Extrude<a class="headerlink" href="#extrude" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Na documentação, há uma área especial para as superfícies/curvas de Bézier:
+<a class="reference internal" href="bezier.html#bezier"><span class="std std-ref">Abordagem de Bézier</span></a>. Caso o usuário tenha dúvidas de como funcionam, é melhor dar
+uma pausa nesta página e voltar após breve entendimento.</p>
+</div>
+<p>Para criar um extrude, primeiro é necessário setar os pontos governantes
+de seu perfil, construído com curvas de Bézier. <strong>Esse processo se repetirá
+toda vez que o usuário queira criar um extrude.</strong></p>
+<p>A setagem é feita através de um dicionário (ver também <a class="reference internal" href="docstring.html#docstring"><span class="std std-ref">Docstring</span></a>):</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#setagem dos parâmetros de duas curvas com 4 pontos governantes cada:</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">extrude_information</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:[</span><span class="s1">&#39;entry+exit and/or exit&#39;</span> <span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">,[[</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.75</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">1</span><span class="p">]]],</span>
+                       <span class="s1">&#39;0&#39;</span><span class="p">:[</span><span class="s1">&#39;entry+exit and/or entry&#39;</span><span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">,[[</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.25</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">1</span><span class="p">]]]}</span>
+
+<span class="c1">#a identificação dentro do dicionário é independente da identificação das features!</span>
+
+<span class="c1">#criados os pontos e as informações sobre as curvas, cria-se de fato a feature:</span>
+
+<span class="n">gen_extrude_profile</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;primeiro_extrude&#39;</span><span class="p">,</span>
+                    <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Neste caso, está sendo construído um perfil para o extrude com 2 curvas, identificadas
+como 0 e 1. Nenhuma identificação no dicionário deve ser igual a outra e sempre deve começar em 0 e somar 1 a cada nova curva.
+Além de identificar, esse termo tem o papel de setar a ordem em que as curvas serão resolvidas. Normalmente o usuário
+vai querer resolver primeiro todas entradas.</p>
+<p>Ambas curvas serão validadas como limites de modo <strong>vertical</strong>, é isso o que a variável <span class="math notranslate nohighlight">\({v}\)</span> no dicionário indica.
+De modo simples (aprofundamento em <a class="reference internal" href="docstring.html#docstring"><span class="std std-ref">Docstring</span></a>), a cada nó existente
+no eixo horizontal, um vetor <strong>vertical</strong> será gerado. Quando esse vetor cruzar uma curva,
+ele validará um limite.</p>
+<p>O tipo do limite é o usuário quem determina, seja ele entrada ou saída: <code class="docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">exit'</span></code> ou
+<code class="docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">entry'</span></code>. Para o caso que a superfície seja ambos, o código já está pronto para lidar.</p>
+<p>Observando a imagem gerada pela função, a informações ficam mais evidentes:</p>
+<div class="figure align-center" id="id16">
+<a class="reference internal image-reference" href="_images/extrude_1.png"><img alt="_images/extrude_1.png" src="_images/extrude_1.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Cada linha pontilhada vermelha representa um dos vetores verticais que criam os limites.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<p>De baixo para cima (lógica da solução vertical), a curva <span class="math notranslate nohighlight">\({0}\)</span> é uma entrada e a curva
+<span class="math notranslate nohighlight">\({1}\)</span> é uma saída.</p>
+<p>Em <span class="math notranslate nohighlight">\({lz=1.0}\)</span> até <span class="math notranslate nohighlight">\({lz=1.5}\)</span>, ambas curvas se comportam como entrada e saída ao mesmo tempo,
+e o código está preparado para entender isso.</p>
+<p>Para resolver essas curvas <strong>usando vetores horizontais</strong>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#perceba a diferença no segundo argumento do dicionário:</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">extrude_information</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:[</span><span class="s1">&#39;entry+exit and/or entry&#39;</span><span class="p">,</span><span class="s1">&#39;h&#39;</span><span class="p">,[[</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.75</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">1</span><span class="p">]]],</span>
+                       <span class="s1">&#39;0&#39;</span><span class="p">:[</span><span class="s1">&#39;entry+exit and/or entry&#39;</span><span class="p">,</span><span class="s1">&#39;h&#39;</span><span class="p">,[[</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.25</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">1</span><span class="p">]]]}</span>
+
+<span class="c1">#a identificação dentro do dicionário é independente da identificação das features</span>
+
+<span class="c1">#observar que agora ambas curvas serão consideradas entradas/saídas simultâneas.</span>
+
+<span class="n">gen_extrude_profile</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;primeiro_extrude&#39;</span><span class="p">,</span>
+                    <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1">#o extrude começará em 0 e terminará em 3, na direção do eixo x.</span>
+</pre></div>
+</td></tr></table></div>
+<div class="figure align-center" id="id17">
+<a class="reference internal image-reference" href="_images/extrude_2.png"><img alt="_images/extrude_2.png" src="_images/extrude_2.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Cada linha pontilhada vermelha representa um dos vetores horizontais que criam os limites.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
+<p>Agora, a lógica da solução é da esquerda para a direita. Ambas curvas são consideradas
+entradas e saídas simultâneas. O usuário pode escolher se quer setar o tipo de limite como
+<code class="docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">entry'</span></code> ou <code class="docutils literal notranslate"><span class="pre">'entry+exit</span> <span class="pre">and/or</span> <span class="pre">exit'</span></code>, tanto faz.</p>
+<p>Explicados os métodos possíveis para a criação dos limites de um extrude, deve-se validá-lo
+na matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_extrude</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Essa célula deverá ter um output, que é um plot. Independente do modo como o usuário
+decidiu resolver os limites de seu extrude (vertical ou horizontalmente), a validação
+deve ser a mesma na <span class="math notranslate nohighlight">\({\epsilon}\)</span>:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/extrude_3.png"><img alt="_images/extrude_3.png" src="_images/extrude_3.png" style="height: 450px;" /></a>
+</div>
+<p>Gerando os arquivos de output:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_output</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">name</span><span class="p">)</span> <span class="c1">#geração dos arquivos de saída</span>
+</pre></div>
+</td></tr></table></div>
+<p>E visualizando no software <a class="reference external" href="https://www.paraview.org/">ParaView</a>:</p>
+<div class="figure align-center" id="id18">
+<a class="reference internal image-reference" href="_images/extrude_paraview.png"><img alt="_images/extrude_paraview.png" src="_images/extrude_paraview.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Como previsto, o sólido tem um limite extamente em 3.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para gerar essa visualização:</p>
+<ol class="arabic simple">
+<li><p>Abrir dentro do ParaView o arquivo .xdmf presente na pasta do projeto;</p></li>
+<li><p>Open data with… <strong>XDMF reader</strong>;</p></li>
+<li><p>Apply;</p></li>
+<li><p>Mudar o tipo de visualização de Outline para Volume;</p></li>
+<li><p>Selecionar a feature Contour.</p></li>
+</ol>
+</div>
+<div class="section" id="revolve">
+<h3>2.3 Revolve<a class="headerlink" href="#revolve" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Na documentação, há uma área especial para as superfícies/curvas de Bézier:
+<a class="reference internal" href="bezier.html#bezier"><span class="std std-ref">Abordagem de Bézier</span></a>. Caso o usuário tenha dúvidas de como funcionam, é melhor dar
+uma pausa nesta página e voltar após breve entendimento.</p>
+</div>
+<p>Para que seja possível a criação de um revolve, o usuário deverá setar dois dicionários
+de entrada (maior detalhamento em <a class="reference internal" href="docstring.html#docstring"><span class="std std-ref">Docstring</span></a>) bem como foi feito na criação de um extrude.
+<strong>Esse processo se repetirá toda vez que o usuário queira criar um extrude.</strong></p>
+<p>Esses dicionários ditarão o perfil que será revolucionado, num plano cartesiano onde o eixo horizontal
+é chamado de <em>axis</em> e o eixo vertical é chamado de <em>radius</em>.</p>
+<p>O primeiro dicionário é relacionado às curvas inferiores do revolve, ou seja,
+num sentido de baixo para cima, a partir dessas curvas se entra no perfil que será revolucionado.</p>
+<p>O segundo dicionário é relacionado às curvas superiores do revolve, ou seja,
+num sentido de baixo para cima, a partir dessas curvas se sai do perfil que será revolucionado.</p>
+<p>Novamente, haverá uma identificação para as curvas de Bézier e a setagem de seus pontos governantes:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">list_storage</span><span class="o">=</span><span class="p">{}</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">superior_revolve_info</span><span class="o">=</span><span class="p">{</span>
+                         <span class="s1">&#39;0&#39;</span><span class="p">:[[[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],[</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]]],</span>
+                         <span class="s1">&#39;1&#39;</span><span class="p">:[[[</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]]],</span>
+                        <span class="p">}</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">inferior_revolve_info</span><span class="o">=</span><span class="p">{</span>
+                         <span class="s1">&#39;0&#39;</span><span class="p">:[[[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.25</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]]],</span>
+                         <span class="s1">&#39;1&#39;</span><span class="p">:[[[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],[</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.75</span><span class="p">]]],</span>
+                         <span class="s1">&#39;2&#39;</span><span class="p">:[[[</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.75</span><span class="p">],[</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.7</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.25</span><span class="p">]]]</span>
+                        <span class="p">}</span>
+
+<span class="c1">#a identificação dentro do dicionário é independente da identificação das features</span>
+
+<span class="c1">#uma vez construídos os dicionários, podemos setar a feature em si</span>
+
+<span class="n">gen_revolve_profile</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;um_revolve&#39;</span><span class="p">,</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+                    <span class="n">center_1</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">center_2</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1">#center_1 e center_2 são relacionados à direção que foi escolhida. Nesse caso,</span>
+<span class="c1">#como o revolve acontece na direção de x, referem-se aos eixos z e y, respectivamente.</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>As primeiras curvas que ditam o perfil o revolve devem sempre começar em 0</strong> (ver
+também <a class="reference internal" href="docstring.html#docstring"><span class="std std-ref">Docstring</span></a>).</p>
+<p>O output dessa célula será um plot:</p>
+<div class="figure align-center" id="id19">
+<a class="reference internal image-reference" href="_images/revolve_plot.png"><img alt="_images/revolve_plot.png" src="_images/revolve_plot.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Destaca-se que o existem 3 curvas inferiores e 2 curvas superiores, bem como nos dicionários.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</div>
+<p>O usuário deve checar se para cada linha vermelha há uma linha cinza na área que sofrerá
+revolução.</p>
+<p>Para conferência dos limites do revolve no domínio, o usuário pode invocar a
+<code class="docutils literal notranslate"><span class="pre">surface_plot()</span></code>. O plot representará dois cilindros, que correspondem ao máximo
+e ao mínimo do revolve.</p>
+<p>Criada a feature, é necessário a validação desses limites na <span class="math notranslate nohighlight">\({\epsilon}\)</span>. Para que
+isso seja feito, executar a célula:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_revolve</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">)</span> <span class="c1">#processo de setagem onde é e onde não é sólido</span>
+</pre></div>
+</td></tr></table></div>
+<p>Para finalizar o projeto, chamar <code class="docutils literal notranslate"><span class="pre">gen_output()</span></code>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_output</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">name</span><span class="p">)</span> <span class="c1">#geração dos arquivos de saída</span>
+</pre></div>
+</td></tr></table></div>
+<p>Pronto. O usuário pode visualizar o projeto no software <a class="reference external" href="https://www.paraview.org/">ParaView</a>:</p>
+<div class="figure align-center" id="id20">
+<img alt="_images/revolve_paraview.png" src="_images/revolve_paraview.png" />
+<p class="caption"><span class="caption-text">Visualização do meio do sólido por meio da feature Slice.</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para gerar essa visualização:</p>
+<ol class="arabic simple">
+<li><p>Abrir dentro do ParaView o arquivo .xdmf presente na pasta do projeto;</p></li>
+<li><p>Open data with… <strong>XDMF reader</strong>;</p></li>
+<li><p>Apply;</p></li>
+<li><p>Mudar o tipo de visualização de Outline para Volume;</p></li>
+<li><p>Selecionar a feature Slice, visualizar como Points com tamanho 8.25.</p></li>
+</ol>
+</div>
+<div class="section" id="toroide">
+<span id="id5"></span><h3>2.4 Toróide<a class="headerlink" href="#toroide" title="Permalink to this headline">¶</a></h3>
+<p>A função de toróide é um caso específico de um revolve. O autor prevê pouca aplicação
+para essa geometria, mas resolveu criá-la para testar a flexibilidade do código.</p>
+<p>Para <strong>criar</strong> um toróide:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_toroid</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;toroide&#39;</span><span class="p">,</span><span class="n">bases_plane</span><span class="o">=</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span>
+           <span class="n">external_radius</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span><span class="n">profile_circle_radius</span><span class="o">=</span><span class="mf">0.425</span><span class="p">,</span>
+           <span class="n">center_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">center_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>O output da célula deverá ser um plot, bem como no caso de um revolve:</p>
+<div class="figure align-center" id="id21">
+<a class="reference internal image-reference" href="_images/toroide_plot.png"><img alt="_images/toroide_plot.png" src="_images/toroide_plot.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">O plot comprova que o toróide nada mais é do que um caso de revolve.</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para visualizar os limites simplificados:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">surface_plot</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<div class="figure align-center" id="id22">
+<img alt="_images/toroide_2.png" src="_images/toroide_2.png" />
+<p class="caption"><span class="caption-text">Novamente, o revolve foi simplificado para dois cilindros.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</div>
+<p>Uma vez criada a feature e conferidos seus limites, deve-se trasmitir toda essa
+informação para a <span class="math notranslate nohighlight">\({\epsilon}\)</span>. Para validar os limites do toróide criado na <span class="math notranslate nohighlight">\({\epsilon}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_revolve</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Gerando os arquivos de saída com <code class="docutils literal notranslate"><span class="pre">gen_output()</span></code> e visualizando no <a class="reference external" href="https://www.paraview.org/">ParaView</a>:</p>
+<div class="figure align-center" id="id23">
+<a class="reference internal image-reference" href="_images/toroide_paraview.png"><img alt="_images/toroide_paraview.png" src="_images/toroide_paraview.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Visualização da isosuperfície = 0.5 dos dados da <strong>:math:`{epsilon}`</strong>.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para gerar a visualização no ParaView:</p>
+<ol class="arabic simple">
+<li><p>Abrir dentro do ParaView o arquivo .xdmf presente na pasta do projeto;</p></li>
+<li><p>Open data with… <strong>XDMF reader</strong>;</p></li>
+<li><p>Apply;</p></li>
+<li><p>Mudar o tipo de visualização de Outline para Volume;</p></li>
+<li><p>Selecionar a feature Contour.</p></li>
+</ol>
+</div>
+<div class="section" id="cilindro">
+<h3>2.5 Cilindro<a class="headerlink" href="#cilindro" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Essa função usa <em>fancy indexing</em>, abordagem extremamente efetiva do Python.</p>
+</div>
+<p>Um cilíndro pode ser considerado um sólido (adicionar material) ou um contorno (remover material).
+Não pode ser rotacionado, ou seja, será sempre paralelo a um dos eixos <span class="math notranslate nohighlight">\({x}\)</span>, <span class="math notranslate nohighlight">\({y}\)</span> ou <span class="math notranslate nohighlight">\({z}\)</span>.</p>
+<p>Para criar a feature, rodar o seguinte bloco:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#primeiro cilindro, chamado de cilindro_ao_longo_de_y e identificado como 4</span>
+
+<span class="n">gen_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cilindro_ao_longo_de_y&#39;</span><span class="p">,</span><span class="n">bases_plane</span><span class="o">=</span><span class="s1">&#39;xz&#39;</span><span class="p">,</span>
+             <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">center_1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">center_2</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1">#segundo cilindro, chamado de cilindro_ao_longo_de_x e identificado como 5</span>
+
+<span class="n">gen_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cilindro_ao_longo_de_x&#39;</span><span class="p">,</span><span class="n">bases_plane</span><span class="o">=</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span>
+             <span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">center_1</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span><span class="n">center_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
+
+<span class="c1">#novamente center_1 e center_2 depende da direção longitudinal da feature.</span>
+</pre></div>
+</td></tr></table></div>
+<p>Visualizando ambos cilindros:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/cilindros_plot.png"><img alt="_images/cilindros_plot.png" src="_images/cilindros_plot.png" style="height: 450px;" /></a>
+</div>
+<p>Para demonstração da variedade da função, setaremos <em>cilindro_ao_longo_de_y</em> como
+um sólido e <em>cilindro_ao_longo_de_x</em> como um contorno na validação das superfícies
+na <span class="math notranslate nohighlight">\({\epsilon}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+
+<span class="n">gen_epsi_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;contour&#39;</span><span class="p">)</span>
+
+<span class="c1">#perceba a velocidade com que a validação será realizada.</span>
+</pre></div>
+</td></tr></table></div>
+<p>Gerando os arquivos de saída com <code class="docutils literal notranslate"><span class="pre">gen_output()</span></code> e visualizando o arquivo
+.xdmf no <a class="reference external" href="https://www.paraview.org/">ParaView</a>:</p>
+<div class="figure align-center" id="id24">
+<a class="reference internal image-reference" href="_images/cilindros_paraview.png"><img alt="_images/cilindros_paraview.png" src="_images/cilindros_paraview.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Bonita visualização com auxílio de Ray Tracing</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para gerar a visualização no ParaView:</p>
+<ol class="arabic simple">
+<li><p>Abrir dentro do ParaView o arquivo .xdmf presente na pasta do projeto;</p></li>
+<li><p>Open data with… <strong>XDMF reader</strong>;</p></li>
+<li><p>Apply;</p></li>
+<li><p>Mudar o tipo de visualização de Outline para Volume;</p></li>
+<li><p>Selecionar a feature Contour;</p></li>
+<li><p>Em Proprieties, Enable Ray Tracing;</p></li>
+<li><p>Ativar Shadows e aumentar Light Scale.</p></li>
+</ol>
+</div>
+<div class="section" id="esfera">
+<span id="id8"></span><h3>2.6 Esfera<a class="headerlink" href="#esfera" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Essa função usa <em>fancy indexing</em>, abordagem extremamente efetiva do Python.</p>
+</div>
+<p>Uma esfera pode ser considerada um sólido (adicionar material) ou um contorno (remover material),
+bem como um cilindro.</p>
+<p>Para criar a feature:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_sphere</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;uma_esfera&#39;</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span><span class="n">cex</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">cey</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cez</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Para visualizar:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">surface_plot</span><span class="p">(</span><span class="n">init_identif</span><span class="o">=</span><span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="n">final_identif</span><span class="o">=</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;mayavi&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Obtendo o output:</p>
+<div class="figure align-center">
+<img alt="_images/esfera_plot.png" src="_images/esfera_plot.png" />
+</div>
+<p>Validando os limites e gerando os arquivos de saída com o bloco:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_sphere</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+
+<span class="c1">#perceba a velocidade com que a validação será realizada.</span>
+
+<span class="n">gen_output</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>No <a class="reference external" href="https://www.paraview.org/">ParaView</a>:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/esfera_paraview.png"><img alt="_images/esfera_paraview.png" src="_images/esfera_paraview.png" style="height: 450px;" /></a>
+</div>
+<p>O processo de criação dessa cena no software foi igual à <a class="reference internal" href="#toroide"><span class="std std-ref">2.4 Toróide</span></a>.</p>
+</div>
+<div class="section" id="prisma-quadrangular">
+<h3>2.7 Prisma Quadrangular<a class="headerlink" href="#prisma-quadrangular" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Essa função usa <em>fancy indexing</em>, abordagem extremamente efetiva do Python.</p>
+</div>
+<p>Um retângulo pode ser considerado um sólido (adicionar material) ou um contorno (remover material),
+assim como a esfera e o cilindro.</p>
+<p>Como um paralelepípedo, o usuário deverá definir as arestas <span class="math notranslate nohighlight">\({a}\)</span>, <span class="math notranslate nohighlight">\({b}\)</span> e <span class="math notranslate nohighlight">\({c}\)</span>
+da feature, que correspondem as dimensões na direção <span class="math notranslate nohighlight">\({x}\)</span>, <span class="math notranslate nohighlight">\({y}\)</span> e <span class="math notranslate nohighlight">\({z}\)</span>, respectivamente.</p>
+<p>Um prisma quadrangular não pode ser rotacionado.</p>
+<p>Como exemplo, serão construídos 3 prismas quadrangulares:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_quad_prism</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;um_retângulo_3d_largo&#39;</span>   <span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span><span class="n">reference_point</span><span class="o">=</span><span class="p">[</span><span class="mf">1.00</span><span class="p">,</span><span class="mf">1.00</span><span class="p">,</span><span class="mf">1.00</span><span class="p">])</span>
+
+<span class="n">gen_quad_prism</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;um_retângulo_3d_alto&#39;</span>    <span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span><span class="n">reference_point</span><span class="o">=</span><span class="p">[</span><span class="mf">1.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">1.25</span><span class="p">])</span>
+
+<span class="n">gen_quad_prism</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;9&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;um_retângulo_3d_profundo&#39;</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mf">2.25</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mf">1.15</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">reference_point</span><span class="o">=</span><span class="p">[</span><span class="mf">1.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">1.35</span><span class="p">])</span>
+
+<span class="c1">#reference_point é o vértice mais próximo da origem (0,0,0)!</span>
+</pre></div>
+</td></tr></table></div>
+<p>Na visualização, observa-se a diferença entre eles:</p>
+<div class="figure align-center" id="id25">
+<a class="reference internal image-reference" href="_images/prism_quad_plot.png"><img alt="_images/prism_quad_plot.png" src="_images/prism_quad_plot.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Uma abstração criada pelo autor.</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</div>
+<p>Novamente validando os limites, criando os arquivos de saída e visualizando no
+<a class="reference external" href="https://www.paraview.org/">ParaView</a>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#validando as 3 features como sólido</span>
+
+<span class="n">gen_epsi_quad_prism</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+
+<span class="n">gen_epsi_quad_prism</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+
+<span class="n">gen_epsi_quad_prism</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;9&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+
+<span class="c1">#criando os outputs</span>
+
+<span class="n">gen_output</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/prism_quad_paraview.png"><img alt="_images/prism_quad_paraview.png" src="_images/prism_quad_paraview.png" style="height: 450px;" /></a>
+</div>
+<p>O processo de criação dessa cena no software foi igual à <a class="reference internal" href="#toroide"><span class="std std-ref">2.4 Toróide</span></a>.</p>
+</div>
+<div class="section" id="normalizacao-interseccoes">
+<span id="intersec"></span><h3>2.8 Normalização/Intersecções<a class="headerlink" href="#normalizacao-interseccoes" title="Permalink to this headline">¶</a></h3>
+<p>Intersecções podem ser criadas com a função <code class="docutils literal notranslate"><span class="pre">normalize_epsi()</span></code>. De forma
+sucinta, a função capta todos os índices da matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span> que tenham um valor
+específico e os seta como 1, enquanto todo o resto é setado como 0, ou seja,
+tudo que é intersecção vira um sólido normal e tudo que nao é some.</p>
+<p>Para exemplificação, vamos gerar um sólido que será a intersecção de 3
+cilindros perpendiculares entre si:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#criação dos cilindros perpendiculares</span>
+
+<span class="n">gen_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ao_longo_de_y&#39;</span><span class="p">,</span><span class="n">bases_plane</span><span class="o">=</span><span class="s1">&#39;xz&#39;</span><span class="p">,</span>
+             <span class="n">radius</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span><span class="n">center_1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">center_2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">gen_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;9&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ao_longo_de_x&#39;</span><span class="p">,</span><span class="n">bases_plane</span><span class="o">=</span><span class="s1">&#39;zy&#39;</span><span class="p">,</span>
+             <span class="n">radius</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span><span class="n">center_1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">center_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">gen_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ao_longo_de_z&#39;</span><span class="p">,</span><span class="n">bases_plane</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span>
+             <span class="n">radius</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span><span class="n">center_1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">center_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">init_height</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">final_height</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>A visualização pela biblioteca <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> desses sólidos feita pela célula:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">surface_plot</span><span class="p">(</span><span class="n">init_identif</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">final_identif</span><span class="o">=</span><span class="s1">&#39;11&#39;</span><span class="p">,</span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>E resulta em:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/intersec_plot.png"><img alt="_images/intersec_plot.png" src="_images/intersec_plot.png" style="height: 450px;" /></a>
+</div>
+<p>Validando tais limites na <span class="math notranslate nohighlight">\({\epsilon}\)</span>, há uma novidade: o argumento <code class="docutils literal notranslate"><span class="pre">add_or_sub</span></code> na função
+<code class="docutils literal notranslate"><span class="pre">gen_epsi_cylinder()</span></code>. Tal argumento comanda a comunicação das superfícies com a <span class="math notranslate nohighlight">\({\epsilon}\)</span>. Pode assumir dois valores,
+<code class="docutils literal notranslate"><span class="pre">add</span></code> ou <code class="docutils literal notranslate"><span class="pre">sub</span></code>.</p>
+<p>Caso assuma <code class="docutils literal notranslate"><span class="pre">sub</span></code>, trata-se do procedimento padrão: onde é sólido
+vira 1, onde não é vira 0.</p>
+<p>Se assumir <code class="docutils literal notranslate"><span class="pre">add</span></code>, ao invés de simplesmente substituir o valor
+do índice da matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span> de 0 para 1, o script somará 1. Portanto, caso haja duas superfícies
+que ocupam o mesmo espaço, <strong>o valor dos índices da :math:`{epsilon}` em tal espaço não será 1, mas sim 2.</strong></p>
+<p>Porém, o <code class="docutils literal notranslate"><span class="pre">incompact3d</span></code> só está preparado para receber a matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span> com valores
+correspondentes a 0 e 1. Portanto, tudo que é 2 no sólido seria “ilegal” no solver.
+Para resolver isso, chama-se a função <code class="docutils literal notranslate"><span class="pre">normalize_epsi()</span></code>. Caso o primeiro termo dessa função (<code class="docutils literal notranslate"><span class="pre">intersection</span></code>)
+for setado como <code class="docutils literal notranslate"><span class="pre">True</span></code>, o usuário deverá indicar qual é o valor correspondente
+da intersecção por meio do segundo argumento, <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>O usuário pode concluir que a opção <code class="docutils literal notranslate"><span class="pre">add</span></code> no argumento <code class="docutils literal notranslate"><span class="pre">add_or_sub</span></code> é perfeita para
+criação de intersecções, e é isso que o exemplo comprovará.</p>
+<p>Agora sim, validando tais limites na <span class="math notranslate nohighlight">\({\epsilon}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">epsi_3d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">nz</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="c1">#limpar possível bagunça</span>
+
+<span class="n">gen_epsi_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;8&#39;</span> <span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span><span class="n">add_or_sub</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">)</span>
+<span class="n">gen_epsi_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;9&#39;</span> <span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span><span class="n">add_or_sub</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">)</span>
+<span class="n">gen_epsi_cylinder</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span><span class="n">add_or_sub</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Antes de efetuar a intersecção como um sólido, a visualização da <span class="math notranslate nohighlight">\({\epsilon}\)</span> sem a chamada de <code class="docutils literal notranslate"><span class="pre">normalize_epsi()</span></code>
+será apresentada.</p>
+<p>Gerando o output:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_output</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Obtém-se a visualização no ParaView:</p>
+<div class="figure align-center" id="id26">
+<a class="reference internal image-reference" href="_images/intersec_cru.png"><img alt="_images/intersec_cru.png" src="_images/intersec_cru.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Perceber a diferença entre as cores e o que isso significa: somatório de valores.</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</div>
+<p>Como esperado, temos outros valores além de 0 e 1 na <span class="math notranslate nohighlight">\({\epsilon}\)</span>: 2 e 3.</p>
+<p>Para validar a intersecção dos 3 cilindros, todos os valores maiores ou iguais a 2
+serão setados como 1 e o resto como 0, através de <code class="docutils literal notranslate"><span class="pre">normalize_epsi()</span></code>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">normalize_epsi</span><span class="p">(</span><span class="n">intersection</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">gen_output</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Resultando no seguinte caso:</p>
+<div class="figure align-center" id="id27">
+<a class="reference internal image-reference" href="_images/intersec2.png"><img alt="_images/intersec2.png" src="_images/intersec2.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Todos os valores que eram 2 se tornaram 1 e a intersecção foi validada como um sólido normal.</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para obter tal visualização, o usuário deverá dar Rescale na seção Coloring.</p>
+<p>Para validar a região do espaço em que necessariamente os 3 cilindros estão,
+o usuário deve <strong>rodar novamente o código</strong> (dar restart na kernel) apenas alterando o valor de <code class="docutils literal notranslate"><span class="pre">target</span></code>
+de 2 para 3.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">normalize_epsi</span><span class="p">(</span><span class="n">intersection</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<div class="figure align-center" id="id28">
+<a class="reference internal image-reference" href="_images/intersec3.png"><img alt="_images/intersec3.png" src="_images/intersec3.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Todos os valores que eram 3 se tornaram 1 e a intersecção foi validada como um sólido normal.</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">add_or_sub</span></code> é um argumento comum entre validação de <strong>esferas, cilindros, prismas
+quandrangulares e superfícies de Béizer</strong>!</p>
+</div>
+</div>
+<div class="section" id="espelhamento">
+<h3>2.9 Espelhamento<a class="headerlink" href="#espelhamento" title="Permalink to this headline">¶</a></h3>
+<p>Espelhamento é uma feature de criação de sólidos/limites indireta. Nessa função, não será
+setado nenhum raio, aresta ou ponto governante.</p>
+<p>Importante frisar que o espelhamento será feito na própria matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span> e não
+nas superfícies delimitadoras. Portanto, para criar um espelhamento, todas as superfícies
+já devem ter sidos validadas na <span class="math notranslate nohighlight">\({\epsilon}\)</span>.</p>
+<p>O espelhamento pode ser feito em apenas um sólido ou no domínio inteiro.</p>
+<div class="section" id="solido">
+<h4>2.9.1 Sólido<a class="headerlink" href="#solido" title="Permalink to this headline">¶</a></h4>
+<p>Num espelhamento em relação a um sólido, o que será feito é a determinação de um
+sólido único com quantas superfícies forem necessárias, por meio da função
+<code class="docutils literal notranslate"><span class="pre">bounds_into_single_solid()</span></code>. Depois, haverá espelhamento desse mesmo sólido
+em relação a um dos eixos <span class="math notranslate nohighlight">\({x}\)</span>, <span class="math notranslate nohighlight">\({y}\)</span> e <span class="math notranslate nohighlight">\({z}\)</span>.</p>
+<p>Para o estudo de caso, criaremos uma esfera e uma superfície de Bézier que
+interceptará a esfera, cortando uma fração dela fora:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#criando a esfera</span>
+
+<span class="n">gen_sphere</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;uma_esfera&#39;</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">cey</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">cez</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1">#criando a superfície de Bézier</span>
+
+<span class="n">set_point_matrix</span><span class="p">(</span><span class="n">num_u_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">num_v_points</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#prepara a matriz dos pontos a serem recebidos</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P00&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#setar os pontos como lista, [x,y,z]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P01&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P10&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">point_storage</span><span class="p">[</span><span class="s1">&#39;P11&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">create_point_matrix</span><span class="p">()</span> <span class="c1">#definição final da matriz dos pontos</span>
+
+<span class="n">gen_bezier_surface</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;11&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;fatiador_de_esferas&#39;</span><span class="p">)</span> <span class="c1">#calculo matricial de Bézier</span>
+
+<span class="c1">#sobre visualização</span>
+
+<span class="n">surface_plot</span><span class="p">(</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="s1">&#39;12&#39;</span><span class="p">,</span><span class="s1">&#39;mayavi&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>O plot gerado pela célula deverá ser:</p>
+<div class="figure align-center" id="id29">
+<img alt="_images/mirror_plot.png" src="_images/mirror_plot.png" />
+<p class="caption"><span class="caption-text">Visualize a superfície de Bézier como algo que fatiará a esfera.</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</div>
+<p>Para validação das features criadas na matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#validar a esfera como um sólido</span>
+
+<span class="n">gen_epsi_sphere</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+
+<span class="c1">#validar a superfície de Bézier como uma saída de um sólido, ou seja, a partir da superfície não existe mais sólido</span>
+
+<span class="n">gen_epsi_bezier_surface</span><span class="p">(</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;entry+exit and/or exit&#39;</span><span class="p">,</span><span class="n">plane</span><span class="o">=</span><span class="s1">&#39;xz&#39;</span><span class="p">,</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;11&#39;</span><span class="p">,</span><span class="n">add_or_sub</span><span class="o">=</span><span class="s1">&#39;sub&#39;</span><span class="p">)</span>
+
+<span class="c1">#prestar atenção que variando o plane que a superfície é resolvida, o resultado também varia</span>
+
+<span class="c1">#criando um output intermediário para melhor explicação</span>
+
+<span class="n">gen_output</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>A visualização da <span class="math notranslate nohighlight">\({\epsilon}\)</span> intermediária, no ParaView, é:</p>
+<div class="figure align-center" id="id30">
+<img alt="_images/mirror_solid_1.png" src="_images/mirror_solid_1.png" />
+<p class="caption"><span class="caption-text">O esperado se confirma: a superfície fatiou a esfera!</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
+<p>Como mencionado anteriormente, para realização do espelhamento de um sólido
+é necessária a invocação da função <code class="docutils literal notranslate"><span class="pre">bounds_into_single_solid()</span></code> antes:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">bounds_into_single_solid</span><span class="p">(</span><span class="n">identif_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10&#39;</span><span class="p">],</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;12&#39;</span><span class="p">)</span>
+
+<span class="c1">#essa função seta os limites do sólido 10, a esfera, como os limites de um sólido independente</span>
+
+<span class="c1">#a identificação desse novo sólido é 12</span>
+</pre></div>
+</td></tr></table></div>
+<p>Criado o sólido a parte, torna-se possível a realização do espelhamento dele em relação
+a seus limites:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_mirror</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="c1">#outra forma de ler: espelhe o sólido 12 ao longo do eixo x</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>Um momento antes</strong> de gerar os arquivos de saída, o usuário deve normalizar a <span class="math notranslate nohighlight">\({\epsilon}\)</span>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">normalize_epsi</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>Motivo: toda vez que o usuário criar um sólido com <code class="docutils literal notranslate"><span class="pre">bounds_into_single_solid()</span></code>,
+toda a informação desse sólido na <span class="math notranslate nohighlight">\({\epsilon}\)</span> deixará de ter o valor 1 para ter o valor
+da própria identificação desse sólido.</p>
+<p>No caso do exemplo, tudo que estava dentro os limites da esfera foi setado
+com o valor de 12 na <span class="math notranslate nohighlight">\({\epsilon}\)</span>. Essa abordagem foi criada para tentar
+proteger o espelhamento, ou seja, espelhar apenas o que o usuário deseja, sem
+interferências de possíveis sólidos nas proximidades.</p>
+<p>Por fim, a geração dos arquivos de saída pode ser realizada com <code class="docutils literal notranslate"><span class="pre">gen_output()</span></code>.
+A visualização no software ParaView:</p>
+<div class="figure align-center" id="id31">
+<img alt="_images/mirror_solid_2.png" src="_images/mirror_solid_2.png" />
+<p class="caption"><span class="caption-text">Observar que a esfera foi repetida imediatamente após seu próprio fim na direção do eixo x.</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</div>
+<p><strong>Uma vez criado um mirror</strong>, os limites do sólido criado com <code class="docutils literal notranslate"><span class="pre">bounds_into_single_solid()</span></code>
+se atualizam. Portanto, caso o <code class="docutils literal notranslate"><span class="pre">gen_epsi_mirror()</span></code> seja chamada duas vezes <strong>antes da Espi ser normalizada</strong>,
+a nossa primeira esfera fatiada será quadruplicada:</p>
+<div class="figure align-center">
+<img alt="_images/mirror_solid_duplo.png" src="_images/mirror_solid_duplo.png" />
+</div>
+<p>Caso o usuário tenha dúvidas em relação aos limites gerados pela função <code class="docutils literal notranslate"><span class="pre">bounds_into_single_solid</span></code>,
+executar a seguinte célula:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">solid_storage</span>
+
+<span class="c1">#o output será uma lista com 6 elementos: máximo em x, máximo em y, máximo z, mínimo em x, mínimo em y e mínimo em z.</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id11">
+<h4>2.9.2 Domínio<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<p>Num espelhamento em relação a um domínio, o usuário não deve se preocupar
+em criar um sólido único. Tudo que há no lado do domínio mais próximo da origem
+será copiado para o outro lado, na direção de qualquer um dos eixos x, y ou z.</p>
+<p>Partindo do mesmo ponto onde foi parado na seção anterior, chamar a função de espelhamento
+novamente, dessa vez mudando apenas o argumento <code class="docutils literal notranslate"><span class="pre">target</span></code>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">gen_epsi_mirror</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;whole_domain&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Chamando novamente a função que gera os arquivos de saída, a visualização do ParaView:</p>
+<div class="figure align-center" id="id32">
+<img alt="_images/mirror_solid_3.png" src="_images/mirror_solid_3.png" />
+<p class="caption"><span class="caption-text">Notar que dessa vez o espelhamento não se deu no exato limite da esfera, sim no exato meio do domínio.</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+</div>
+<p>Chamando uma última vez <code class="docutils literal notranslate"><span class="pre">gen_epsi_mirror()</span></code>, só que dessa vez em relação à direção <span class="math notranslate nohighlight">\({y}\)</span>:</p>
+<div class="figure align-center">
+<img alt="_images/mirror_solid_y.png" src="_images/mirror_solid_y.png" />
+</div>
+<p>Obviamente, o conjunto das esferas fatiadas se tornou num conjunto de esferas completas uma
+vez que as esferas tiveram sua fração retirada apenas na parte superior, que foi
+substituída pelo espelhamento.</p>
+</div>
+</div>
+</div>
+<div class="section" id="refinamento-de-malha">
+<h2>3. Refinamento de Malha<a class="headerlink" href="#refinamento-de-malha" title="Permalink to this headline">¶</a></h2>
+<p>O usuário deve estar se perguntando onde o refinamento de malha entra, já que não
+foi mencionado em nenhum das subseções presentes em <a class="reference internal" href="#features"><span class="std std-ref">2. Features</span></a>.</p>
+<p>A resposta é simples: o refinamento está presente em todas as situações.</p>
+<p>Obviamente, gerar uma <span class="math notranslate nohighlight">\({\epsilon}\)</span> refinada nas 3 direções é custoso para o computador,
+uma vez que as dimensões da matriz estão sendo escalonadas por um fator. Essa complicação
+pode ser evitada na parte de desenvolvimento do projeto, na qual o usuário ainda está definido como
+será o objeto que interceptará o fluxo.</p>
+<p>Uma vez terminado a etapa de construção dos sólidos, o usuário irá querer partir
+para a simulação numérica através do <code class="docutils literal notranslate"><span class="pre">incompact3d</span></code>. Porém, como já
+mencionado anteriormente, o <em>solver</em> necessita das <span class="math notranslate nohighlight">\({\epsilon}\)</span> refinadas para entender
+melhor onde realmente está o sólido.</p>
+<p>Para construir as <span class="math notranslate nohighlight">\({\epsilon}\)</span> refinadas, o usuário deve apenas setar o argumento <code class="docutils literal notranslate"><span class="pre">rav_path=True</span></code>
+quando existir dentro das funções que validam os limites na <span class="math notranslate nohighlight">\({\epsilon}\)</span>.</p>
+<p><strong>Lista de funções que geram refinamento de malha:</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_toroid()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_revolve_profile()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_epsi_bezier_surface()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_epsi_mirror()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_epsi_cylinder()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_epsi_quad_prism()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_epsi_sphere()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bounds_into_single_solid()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">normalize_epsi()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_output()</span></code></p></li>
+</ol>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>O usuário pode conferir quais são os argumentos das funções com o comando
+<strong>shift+tab</strong> dentro dos parênteses!</p>
+</div>
+<p>Por default, todos os argumentos <code class="docutils literal notranslate"><span class="pre">rav_path</span></code> são <code class="docutils literal notranslate"><span class="pre">False</span></code> (economia de tempo
+na etapa de desenvolvimento do projeto).</p>
+<p><strong>Obviamente, para que o refinamento seja efetuado corretamente, todas essas funções
+devem ter o argumento setado como verdadeiro ao final do projeto.</strong></p>
+<p>O usuário pode perceber que quando o refinamento de malha estiver ativo, a mesma
+função será repetida 4 vezes, uma para cada <span class="math notranslate nohighlight">\({\epsilon}\)</span>.</p>
+<p>Para exemplificar, vamos pegar o mesmo exemplo de <a class="reference internal" href="#esfera"><span class="std std-ref">2.6 Esfera</span></a>:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#não necessita refinamento:</span>
+
+<span class="n">gen_sphere</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;uma_esfera&#39;</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span><span class="n">cex</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">cey</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cez</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1">#necessita refinamento:</span>
+
+<span class="n">gen_epsi_sphere</span><span class="p">(</span><span class="n">identif</span><span class="o">=</span><span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="n">surface_type</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span> <span class="n">sph_raf_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">gen_output</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">out_raf_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>A visualização no ParaView facilita muito a compreensão do refinamento de malha:</p>
+<div class="figure align-center" id="id33">
+<a class="reference internal image-reference" href="_images/raf_1.png"><img alt="_images/raf_1.png" src="_images/raf_1.png" style="height: 450px;" /></a>
+<p class="caption"><span class="caption-text">Sem refinamento (topo esquerda), refinamento em x (topo direita), refinamento em y (baixo esquerda) e refinamento em z (baixo direita).</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+</div>
+<p>A figura deixa evidente a diferença entre os 4 arquivos de <span class="math notranslate nohighlight">\({\epsilon}\)</span> e como o refinamento
+ocorre em cada uma das direções, separadamente.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bezier.html" class="btn btn-neutral float-right" title="Abordagem de Bézier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="geo_bezier_3d" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, André Mombach
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

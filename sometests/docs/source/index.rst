@@ -1,45 +1,44 @@
-``geo_bezier_3d``
+:obj:`geo_bezier_3d`
 =========================================================
 
 .. figure:: images/capa7.png
    :align: center
 
-Projetado para ser o mais robusto possível, ``geo_bezier_3d`` é capaz de entregar
-resultados satisfatórios quando se trata de construção de sólidos para `IBM
-<https://www.sciencedirect.com/topics/engineering/immersed-boundary-method>`_
-aplicada no código |optparse.incompact3d|_. A motivação do projeto se dá na
-dificuldade de representação de objetos complexos
-dentro do solver.
-Antes do ``geo_bezier_3d``, simular escoamentos ao redor de sólidos não triviais
-no ``incompact3d`` era uma tarefa trabalhosa ou impraticável.
+O :obj:`geo_bezier_3d` surgiu de uma proposta de um doutorando a um estagiário:
+tentar representar um canal (como um rio sinuoso) numa malha cartesiana tridimensional,
+tanto para aprimorar as habilidades de programação do estagiário quanto para começar
+o desenvolvimento de um dos objetivos em que o grupo de pesquisa trabalha.
 
-.. |optparse.incompact3d| replace:: ``incompact3d``
-.. _optparse.incompact3d: https://www.incompact3d.com/
+A tarefa foi árdua inicialmente, porém o canal foi construído com sucesso e o projeto não parou
+por aí. Empolgando com os seus resultados (e com **muito** tempo livre devido à quarentena), o estagiário resolveu
+estudar mais a fundo abordagens geométricas e como representá-las na malha cartesiana, através do método das fronteiras imersas (IBM).
+Eis que surge :obj:`geo_bezier_3d`: uma espécie de *CAD artesanal*, na qual o usuário consegue criar
+objetos de forma mais intuitiva do que simplesmente programar equações dentro
+do :obj:`Incompact3d` (esse era o método que se utilizava para representar sólidos antes desse projeto).
 
-Toda facilidade/praticidade do código provém da matemática
-descrita pela abordagem de Bézier. Há bastante material disponível na internet
-sobre o assunto,
-mesmo assim há uma pequena parte *homemade* nesta página dedicada somente às Bézier.
-Além disso, neste *doc* o usuário será
-capaz de entender como as funções disponíveis no código funcionam e
-terá livre acesso aos exemplos já desenvolvidos.
+O usuário pode estar se perguntado o motivo da criação de um CAD artesanal se já existem
+infinitos CADs avançados pelo mundo. Inclusive, muitas pessoas já conseguem representar
+sólidos construidos em CAD em escoamentos. Porém, todos esses sólidos não conseguem
+entrar dentro do solver do grupo. Esse é o motivo da criação do :obj:`geo_bezier_3d`.
 
-Antes de prosseguir aos conteúdos, deve-se definir alguns termos que são exaustivamente
-repetidos ao longo da documentação e talvez não tenham um significado tão evidente:
+Dentro do código, o usuário encontrará a matemática que descreve as superfícies e curvas
+de Bézier, capazes de construir sólidos quais equações governantes não são triviais
+(um cilindro e uma esfera tem equações extremamente simples, por exemplo). O usuário pode,
+também, criar espelhamentos e padrões com o auxilio da interface visual que :obj:`Python` oferece,
+dentre tantas outras features presentes dentro do código.
 
-    **1. Notebook:** interface encontrada na pasta ``/Jupyter Notebook``
-    em arquivo ``.ipynb`` em que o usuário pode construir
-    sólidos e/ou montar exemplos já construídos.
-
-    **2. Epsi:** matriz binária gerada através do ``geo_bezier_3d`` e
-    usada como entrada no ``incompact3d``.
-
-Aproveite a documentação e, na hora de construir um sólido, seja criativo!
+O autor recomenda que o usuário primeiro visite a página :ref:`howto`. É verdadeiramente
+o primeiro passo. Enquanto olha o tutorial que essa página oferece, o usuário também vai querer
+acessar :ref:`bezier`. Quando acabar ambas, partirá para :ref:`examples`. Provavelmente, depois
+de todo esse caminho, construir sólidos com ajuda de :ref:`docstring` por conta própria deverá ser uma tarefa fácil (mesmo
+que trabalhosa na maioria das vezes).
 
 .. toctree::
-   :maxdepth: 10
+   :maxdepth: 30
    :caption: Conteúdos:
 
+   howto
    bezier
-   instrucoes
-   exemplos
+   examples
+   docstring
+   gallery

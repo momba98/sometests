@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Abordagem de Bézier" href="bezier.html" /> 
+    <link rel="next" title="How To" href="howto.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,9 +82,11 @@
             
               <p class="caption"><span class="caption-text">Conteúdos:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How To</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="instrucoes.html">Funções e Respectivas Instruções</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exemplos.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
 </ul>
 
             
@@ -130,7 +132,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li><code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code></li>
+      <li><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code></li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -150,53 +152,87 @@
            <div itemprop="articleBody">
             
   <div class="section" id="geo-bezier-3d">
-<h1><code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code><a class="headerlink" href="#geo-bezier-3d" title="Permalink to this headline">¶</a></h1>
+<h1><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code><a class="headerlink" href="#geo-bezier-3d" title="Permalink to this headline">¶</a></h1>
 <div class="figure align-center">
 <img alt="_images/capa7.png" src="_images/capa7.png" />
 </div>
-<p>Projetado para ser o mais robusto possível, <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> é capaz de entregar
-resultados satisfatórios quando se trata de construção de sólidos para <a class="reference external" href="https://www.sciencedirect.com/topics/engineering/immersed-boundary-method">IBM</a>
-aplicada no código <a class="reference external" href="https://www.incompact3d.com/"><code class="docutils literal notranslate"><span class="pre">incompact3d</span></code></a>. A motivação do projeto se dá na
-dificuldade de representação de objetos complexos
-dentro do solver.
-Antes do <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code>, simular escoamentos ao redor de sólidos não triviais
-no <code class="docutils literal notranslate"><span class="pre">incompact3d</span></code> era uma tarefa trabalhosa ou impraticável.</p>
-<p>Toda facilidade/praticidade do código provém da matemática
-descrita pela abordagem de Bézier. Há bastante material disponível na internet
-sobre o assunto,
-mesmo assim há uma pequena parte <em>homemade</em> nesta página dedicada somente às Bézier.
-Além disso, neste <em>doc</em> o usuário será
-capaz de entender como as funções disponíveis no código funcionam e
-terá livre acesso aos exemplos já desenvolvidos.</p>
-<p>Antes de prosseguir aos conteúdos, deve-se definir alguns termos que são exaustivamente
-repetidos ao longo da documentação e talvez não tenham um significado tão evidente:</p>
-<blockquote>
-<div><p><strong>1. Notebook:</strong> interface encontrada na pasta <code class="docutils literal notranslate"><span class="pre">/Jupyter</span> <span class="pre">Notebook</span></code>
-em arquivo <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> em que o usuário pode construir
-sólidos e/ou montar exemplos já construídos.</p>
-<p><strong>2. Epsi:</strong> matriz binária gerada através do <code class="docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> e
-usada como entrada no <code class="docutils literal notranslate"><span class="pre">incompact3d</span></code>.</p>
-</div></blockquote>
-<p>Aproveite a documentação e, na hora de construir um sólido, seja criativo!</p>
+<p>O <code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code> surgiu de uma proposta de um doutorando a um estagiário:
+tentar representar um canal (como um rio sinuoso) numa malha cartesiana tridimensional,
+tanto para aprimorar as habilidades de programação do estagiário quanto para começar
+o desenvolvimento de um dos objetivos em que o grupo de pesquisa trabalha.</p>
+<p>A tarefa foi árdua inicialmente, porém o canal foi construído com sucesso e o projeto não parou
+por aí. Empolgando com os seus resultados (e com <strong>muito</strong> tempo livre devido à quarentena), o estagiário resolveu
+estudar mais a fundo abordagens geométricas e como representá-las na malha cartesiana, através do método das fronteiras imersas (IBM).
+Eis que surge <code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code>: uma espécie de <em>CAD artesanal</em>, na qual o usuário consegue criar
+objetos de forma mais intuitiva do que simplesmente programar equações dentro
+do <code class="xref py py-obj docutils literal notranslate"><span class="pre">Incompact3d</span></code> (esse era o método que se utilizava para representar sólidos antes desse projeto).</p>
+<p>O usuário pode estar se perguntado o motivo da criação de um CAD artesanal se já existem
+infinitos CADs avançados pelo mundo. Inclusive, muitas pessoas já conseguem representar
+sólidos construidos em CAD em escoamentos. Porém, todos esses sólidos não conseguem
+entrar dentro do solver do grupo. Esse é o motivo da criação do <code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code>.</p>
+<p>Dentro do código, o usuário encontrará a matemática que descreve as superfícies e curvas
+de Bézier, capazes de construir sólidos quais equações governantes não são triviais
+(um cilindro e uma esfera tem equações extremamente simples, por exemplo). O usuário pode,
+também, criar espelhamentos e padrões com o auxilio da interface visual que <code class="xref py py-obj docutils literal notranslate"><span class="pre">Python</span></code> oferece,
+dentre tantas outras features presentes dentro do código.</p>
+<p>O autor recomenda que o usuário primeiro visite a página <a class="reference internal" href="howto.html#howto"><span class="std std-ref">How To</span></a>. É verdadeiramente
+o primeiro passo. Enquanto olha o tutorial que essa página oferece, o usuário também vai querer
+acessar <a class="reference internal" href="bezier.html#bezier"><span class="std std-ref">Abordagem de Bézier</span></a>. Quando acabar ambas, partirá para <a class="reference internal" href="examples.html#examples"><span class="std std-ref">Examples</span></a>. Provavelmente, depois
+de todo esse caminho, construir sólidos com ajuda de <a class="reference internal" href="docstring.html#docstring"><span class="std std-ref">Docstring</span></a> por conta própria deverá ser uma tarefa fácil (mesmo
+que trabalhosa na maioria das vezes).</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Conteúdos:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bezier.html#formulacao">1. Formulação</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bezier.html#interpolacao">2. Interpolação</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bezier.html#algumas-imagens-legais">3. Algumas Imagens Legais</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How To</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#primeiros-passos">1. Primeiros Passos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#dominio">1.1 Domínio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#nomeacao">1.2 Nomeação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#arquivos-auxiliares-e-bibliotecas">1.3 Arquivos Auxiliares e Bibliotecas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#parametro-de-refinamento-de-malha">1.4 Parâmetro de Refinamento de Malha</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="instrucoes.html">Funções e Respectivas Instruções</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exemplos.html">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#cybertruck">1. Cybertruck</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#esfinge-not-updated">2. Esfinge (not updated)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#nozzle">3. Nozzle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#casco-de-turbina">4. Casco de Turbina</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#ventilador-de-turbina">5. Ventilador de Turbina</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#canal-sinuoso">6. Canal Sinuoso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#trocador-casco-e-tubos">7. Trocador Casco e Tubos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exemplos.html#ahmed-body">8. Ahmed Body</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#features">2. Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#limpando-a-memoria">2.0 Limpando a Memória</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#superficie-de-bezier">2.1 Superfície de Bézier</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="howto.html#transladar">2.1.1 Transladar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="howto.html#rotacionar">2.1.2 Rotacionar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="howto.html#deflexao">2.1.2 Deflexão</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#extrude">2.2 Extrude</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#revolve">2.3 Revolve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#toroide">2.4 Toróide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#cilindro">2.5 Cilindro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#esfera">2.6 Esfera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#prisma-quadrangular">2.7 Prisma Quadrangular</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#normalizacao-interseccoes">2.8 Normalização/Intersecções</a></li>
+<li class="toctree-l3"><a class="reference internal" href="howto.html#espelhamento">2.9 Espelhamento</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="howto.html#solido">2.9.1 Sólido</a></li>
+<li class="toctree-l4"><a class="reference internal" href="howto.html#id11">2.9.2 Domínio</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#refinamento-de-malha">3. Refinamento de Malha</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#cybertruck">1. Cybertruck</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#ahmed-body">2. Ahmed Body</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#geo-bezier-3d">3. geo_bezier_3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#nozzle">4. Nozzle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#cybertruck">1. Cybertruck</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#esfinge">2. Esfinge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#nozzle">3. Nozzle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#ventilador-de-turbina">4. Ventilador de Turbina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#canal-sinuoso">5. Canal Sinuoso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#trocador-casco-e-tubos">6. Trocador Casco e Tubos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#ahmed-body">7. Ahmed Body</a></li>
 </ul>
 </li>
 </ul>
@@ -211,7 +247,7 @@ usada como entrada no <code class="docutils literal notranslate"><span class="pr
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bezier.html" class="btn btn-neutral float-right" title="Abordagem de Bézier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="howto.html" class="btn btn-neutral float-right" title="How To" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

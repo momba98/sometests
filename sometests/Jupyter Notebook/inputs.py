@@ -7,4 +7,4 @@ nz=129
 dx=0.03137254901960784
 dy=0.015625
 dz=0.015625
-name="final_ahmd"
+name="cyboso"
