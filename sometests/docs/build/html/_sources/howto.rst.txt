@@ -23,23 +23,33 @@ a kernel do Jupyter deverá ser reiniciada.**
 
 Inicialmente, o usuário deverá definir os parâmetros para seu domínio, determinando
 o comprimento nas 3 direções :math:`{lx}`, :math:`{ly}` e :math:`{lz}`, bem como o número de nós de malha
-:math:`{nx}`, :math:`{ny}` e :math:`{nz}`.
+:math:`{nx}`, :math:`{ny}` e :math:`{nz}` e se a determinada direção
+possui a característica períodica ou não (não-periódico, de modo simplificado, significa
+que o domínio não tem paredes). 
+
+A setagem será feita por meio de um dicionário, no qual o usuário setará o nome do eixo
+como a *key* e uma lista como os *values*, contendo as informações de comprimento,
+número de nós e se a direção é periódica ou não:
+
+.. code-block:: python
+   :linenos:
+   
+   #lendo de outra forma: 'eixo_x'=[comprimento lx, número de nós nx, is_periodic]
+
+   domain_info={'x':[4,81,False], 
+                'y':[2,81,False],
+                'z':[3,61,False]}
+
+Dessa forma, o espaçamento entre nós pode ser calculado. Importante frisar que a característica períodica altera a forma com que o espaçamento é calculado.
 
 .. code-block:: python
    :linenos:
 
-   lx,ly,lz=4,2,3 #valores arbitrados
-
-   #no incompact3d, x representa comprimento, z representa largura e y representa altura.
-
-   nx,ny,nz=81,41,61 #valores também arbitrados
-
-Dessa forma, o espaçamento entre nós pode ser calculado:
-
-.. code-block:: python
-   :linenos:
-
-   dx,dy,dz=lx/(nx-1),ly/(ny-1),lz/(nz-1)
+   for axis,(length,nodes,is_periodic) in domain_info.items():
+       if is_periodic==True:
+           domain_info["%s"%(axis)]+=[length/(nodes)]
+       else:
+           domain_info["%s"%(axis)]+=[length/(nodes-1)]
 
 1.2 Nomeação
 +++++++++++++
@@ -65,12 +75,10 @@ auxiliares:
 
 .. code-block:: python
    :linenos:
-
+   
    open(f'inputs.py', 'w').close()
    with open(f'inputs.py', 'a') as the_file:
-       the_file.write(f'lx={lx}\n'), the_file.write(f'ly={ly}\n'), the_file.write(f'lz={lz}\n')
-       the_file.write(f'nx={nx}\n'), the_file.write(f'ny={ny}\n'), the_file.write(f'nz={nz}\n')
-       the_file.write(f'dx={dx}\n'), the_file.write(f'dy={dy}\n'), the_file.write(f'dz={dz}\n')
+       the_file.write(f'domain_info={domain_info}\n')
        the_file.write('name='),the_file.write(f'"'), the_file.write(f'{name}'), the_file.write(f'"')
 
 O mesmo para bibliotecas:

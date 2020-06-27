@@ -44,9 +44,10 @@ point_matrix_z=s.point_matrix_z
 lz=s.lz
 lx=s.lx
 ly=s.ly
+xp=s.xp
+yp=s.yp
+zp=s.zp
 eq_storage=s.eq_storage
-visu_nz,visu_ny,visu_nx=s.visu_nz,s.visu_ny,s.visu_nx
-visu_dz,visu_dy,visu_dx=s.visu_dz,s.visu_dy,s.visu_dx
 count=s.count
 nraf=s.nraf
 nx_raf = s.nx_raf
@@ -80,17 +81,32 @@ def gen_raf_information(nraf):
     """
     global nx_raf,dx_raf,epsi_3d_x_raf,raf,ny_raf,dy_raf,epsi_3d_y_raf,nz_raf,dz_raf,epsi_3d_z_raf
     
-    nx_raf = nx*nraf
-    dx_raf = lx/(nx_raf-1)
-    epsi_3d_x_raf = np.zeros((nx_raf,ny,nz),dtype=np.float32)
+    if xp==True:
+        nx_raf = (nx*nraf)+1
+        dx_raf = lx/nx_raf
+        epsi_3d_x_raf = np.zeros((nx_raf,ny,nz),dtype=np.float32)
+    else:
+        nx_raf = ((nx-1)*nraf)+1
+        dx_raf = lx/(nx_raf-1)
+        epsi_3d_x_raf = np.zeros((nx_raf,ny,nz),dtype=np.float32)
 
-    ny_raf = ny*nraf
-    dy_raf = ly/(ny_raf-1)
-    epsi_3d_y_raf = np.zeros((nx,ny_raf,nz),dtype=np.float32)
+    if yp==True:
+        ny_raf = (ny*nraf)+1
+        dy_raf = ly/ny_raf
+        epsi_3d_y_raf = np.zeros((nx,ny_raf,nz),dtype=np.float32)
+    else:
+        ny_raf = ((ny-1)*nraf)+1
+        dy_raf = ly/(ny_raf-1)
+        epsi_3d_y_raf = np.zeros((nx,ny_raf,nz),dtype=np.float32)
 
-    nz_raf = nz*nraf
-    dz_raf=lz/(nz_raf-1)
-    epsi_3d_z_raf = np.zeros((nx,ny,nz_raf),dtype=np.float32)
+    if zp==True:
+        nz_raf = (nz*nraf)+1
+        dz_raf = lz/nz_raf
+        epsi_3d_z_raf = np.zeros((nx,ny,nz_raf),dtype=np.float32)
+    else:
+        nz_raf = ((nz-1)*nraf)+1
+        dz_raf = lz/(nz_raf-1)
+        epsi_3d_z_raf = np.zeros((nx,ny,nz_raf),dtype=np.float32)
 
 def set_point_matrix(num_u_points,num_v_points):
     
@@ -1876,13 +1892,6 @@ def gen_epsi_mirror(target, direction, mirror_raf_path=False):
                 medium_knot=int(solid_storage[f'{target}'][0]/dx_gen)
                 maximum_knot=int((2*solid_storage[f'{target}'][0]-solid_storage[f'{target}'][3])/dx_gen)
                 
-                #print('inicio', solid_storage[f'{target}'][3], 'meio', solid_storage[f'{target}'][0], 'fim', 2*solid_storage[f'{target}'][0]-solid_storage[f'{target}'][3])
-                
-                #print(raf,nx_gen,ny_gen,nz_gen)
-                #print('minimo indice=',minimum_knot)
-                #print('medio indice=',medium_knot)
-                #print('maximum indice=',maximum_knot)
-                
                 knot_range=maximum_knot-minimum_knot+1
                 zero_side=medium_knot
 
@@ -1901,10 +1910,6 @@ def gen_epsi_mirror(target, direction, mirror_raf_path=False):
                         for cz in range(int(solid_storage[f'{target}'][5]/dz_gen),math.ceil(solid_storage[f'{target}'][2]/dz_gen)+1):
                             if matrix_gen[processed_side,cy,cz] == int(target):
                                 matrix_gen[zero_side,cy,cz] = matrix_gen[processed_side,cy,cz]
-                
-                #print(' ')
-
-                    
                     
             if direction=='y':
                 minimum_knot=math.ceil(solid_storage[f'{target}'][4]/dy_gen)

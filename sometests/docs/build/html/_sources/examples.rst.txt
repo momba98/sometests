@@ -1,15 +1,20 @@
 .. _examples:
 
 Examples
-*********
+**************
 
 Após percorrer :ref:`howto`, o usuário estará pronto para dar um passo adiante e entender exemplos
-mais complexos ou extensos. Aqui estão listados alguns já produzidos com o código, todos comentados.
+mais complexos ou extensos. Aqui estão mostrados alguns já produzidos com o código, parte deles comentados.
 
-Basta fazer o download da pasta zipada e rodar o código na plataforma Jupyter.
+Todos os notebooks estão presentes no `repositório do projeto <https://github.com/fschuch/CAD-to-Incompact3d>`_.
 
 1. Cybertruck
 ====================
+
+.. figure:: images/cyber.jpg
+   :align: center
+   
+   *Carro americano construído com superfícies de Bézier;*
 
 Exemplo extenso que aborda incontáveis superfícies de Bézier, cilindros e espelhamento em relação a um sólido único.
 
@@ -19,20 +24,55 @@ Exemplo extenso que aborda incontáveis superfícies de Bézier, cilindros e esp
 2. Ahmed Body
 ===============
 
+.. figure:: images/ahmed.png
+  :align: center
+
+  *O incrivelmente feio Ahmed Body (embora pareça simples, é bem complicado);*
+
 Exemplo complexo que aborda interseções, espelhamento em relação ao domínio, superfícies de Bézier e também cilindros.
 
 :download:`Jupyter Notebook - Ahmed Body <downloads/ahmed.zip>`
 
-3. geo_bezier_3d
-=================
 
-Exemplo que aborda extrude.
-
-not updated
-
-4. Nozzle
+3. Nozzle
 ===========
+
+.. figure:: images/nozzle.png
+   :align: center
+   
+   *Nozzle de turbina de avião;*
 
 Exemplo relativamente simples que aborda revolve e também superfícies de Bézier.
 
 :download:`Jupyter Notebook - Nozzle <downloads/nozzle.zip>`
+
+
+4. Esfinge
+========================
+.. figure:: images/esfinge.jpg
+   :align: center
+
+   *Versão 3D do monumento egípcio recriada em Epsi;*
+
+
+5. Ventilador de Turbina
+==========================
+.. figure:: images/simple_turbine_fan.png
+   :align: center
+
+   *Ventilador e casco de turbina criados para testar o código;*
+
+6. Canal Sinuoso
+==========================
+.. figure:: images/canal_0.png
+  :align: center
+
+  *Canal construído com cerca de 150 curvas de Bézier de 2ª ordem;*
+
+7. Trocador Casco e Tubos
+==========================
+.. figure:: images/troca_2.png
+  :align: center
+
+  *Trocador de Calor com tubos e chicanas (sem representação física);*
+

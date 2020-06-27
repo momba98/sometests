@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,20 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,18 +32,17 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Galeria" href="gallery.html" />
     <link rel="prev" title="Examples" href="examples.html" /> 
 </head>
 
@@ -51,7 +57,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> geo_bezier_3d
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> geo_bezier_3d
           
 
           
@@ -74,6 +80,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -87,12 +94,12 @@
 <li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Docstring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -131,7 +138,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Docstring</li>
     
@@ -155,9 +162,9 @@
   <div class="section" id="docstring">
 <span id="id1"></span><h1>Docstring<a class="headerlink" href="#docstring" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-creating_solid"></span><p>O usuário recebe nessa página todas informações dos argumentos de todas as funções presentes no código.</p>
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.berstein">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">berstein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_p</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.berstein" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">berstein</code><span class="sig-paren">(</span><em class="sig-param">n_p</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.berstein" title="Permalink to this definition">¶</a></dt>
 <dd><p>Matemática chave por trás das curvas/superfícies de Bézier, dentro da própria função <code class="docutils literal notranslate"><span class="pre">gen_bezier_surface()</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -166,9 +173,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.bounds_into_single_solid">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">bounds_into_single_solid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif_list</span></em>, <em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">solid_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.bounds_into_single_solid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">bounds_into_single_solid</code><span class="sig-paren">(</span><em class="sig-param">identif_list</em>, <em class="sig-param">identif</em>, <em class="sig-param">solid_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.bounds_into_single_solid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Função que agrega diversas features em apenas um sólido. Se faz necessário na hora de realizar um mirror atrelado a um <code class="docutils literal notranslate"><span class="pre">'target'</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -181,9 +188,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.create_point_matrix">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">create_point_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">deflection</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.create_point_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">create_point_matrix</code><span class="sig-paren">(</span><em class="sig-param">deflection=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.create_point_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Auxílio na hora de setar os pontos necessários para as equações da função <a class="reference internal" href="#creating_solid.gen_bezier_surface" title="creating_solid.gen_bezier_surface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_bezier_surface()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -204,9 +211,9 @@ pontos nas direççoes <span class="math notranslate nohighlight">\({u}\)</span>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.epsi_plot">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">epsi_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">direction</span></em>, <em class="sig-param"><span class="n">grid</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ticks</span><span class="o">=</span><span class="default_value">'full'</span></em>, <em class="sig-param"><span class="n">integral</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raf</span><span class="o">=</span><span class="default_value">'normal'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.epsi_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">epsi_plot</code><span class="sig-paren">(</span><em class="sig-param">direction</em>, <em class="sig-param">grid=True</em>, <em class="sig-param">ticks='full'</em>, <em class="sig-param">integral=False</em>, <em class="sig-param">raf='normal'</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.epsi_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Confira se os limites estão corretos, camada por camada ou por amostragem, em qualquer direção.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -221,9 +228,9 @@ pontos nas direççoes <span class="math notranslate nohighlight">\({u}\)</span>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_bezier_surface">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_bezier_surface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">show_equation</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_bezier_surface" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_bezier_surface</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">name</em>, <em class="sig-param">show_equation=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_bezier_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>As equações de Bézier são governadas pelos parâmetros <span class="math notranslate nohighlight">\({u}\)</span> e <span class="math notranslate nohighlight">\({v}\)</span> e fornecem leis para curvas/superfícies.</p>
 <p>São definidas por pontos arbitrados pelo usuário, tendo um mínimo de 2 em cada direção <span class="math notranslate nohighlight">\({u}\)</span> e <span class="math notranslate nohighlight">\({v}\)</span> e sem algum máximo pré-determinado.</p>
 <p>Os pontos iniciais e finais determinam onde a curva começa e termina. <em>São os únicos pontos por onde a Bézier (naturalmente) passará com certeza</em>.
@@ -257,9 +264,9 @@ z(𝑢,𝑣) = −3𝑢²+4𝑢+𝑣²(−11𝑢²+14𝑢−7)+𝑣(18𝑢²−2
 <p>Evidentemente, são equações longas, não lineares e dependentes de mais de uma variável. O solver não se dá muito bem com isso. O usuário pode tentar a sorte, simplificar a superfície ou tentar outro tipo de solver na hora de gerar a matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span> na função <code class="docutils literal notranslate"><span class="pre">gen_epsi_bezier_surface()</span></code>.</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_cylinder">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">bases_plane</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">center_1</span></em>, <em class="sig-param"><span class="n">center_2</span></em>, <em class="sig-param"><span class="n">init_height</span></em>, <em class="sig-param"><span class="n">final_height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_cylinder" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_cylinder</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">name</em>, <em class="sig-param">bases_plane</em>, <em class="sig-param">radius</em>, <em class="sig-param">center_1</em>, <em class="sig-param">center_2</em>, <em class="sig-param">init_height</em>, <em class="sig-param">final_height</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_cylinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Crie um cilíndro ao longo de <span class="math notranslate nohighlight">\({x}\)</span>, <span class="math notranslate nohighlight">\({y}\)</span> ou <span class="math notranslate nohighlight">\({z}\)</span> em qualquer ponto do domínio. Não há possibilidade de rotações.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,9 +284,9 @@ z(𝑢,𝑣) = −3𝑢²+4𝑢+𝑣²(−11𝑢²+14𝑢−7)+𝑣(18𝑢²−2
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_epsi_bezier_surface">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_bezier_surface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">surface_type</span></em>, <em class="sig-param"><span class="n">plane</span></em>, <em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">solver</span><span class="o">=</span><span class="default_value">'scipy'</span></em>, <em class="sig-param"><span class="n">add_or_sub</span><span class="o">=</span><span class="default_value">'sub'</span></em>, <em class="sig-param"><span class="n">interval</span><span class="o">=</span><span class="default_value">numpy.arange</span></em>, <em class="sig-param"><span class="n">bez_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_bezier_surface" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_bezier_surface</code><span class="sig-paren">(</span><em class="sig-param">surface_type</em>, <em class="sig-param">plane</em>, <em class="sig-param">identif</em>, <em class="sig-param">solver='scipy'</em>, <em class="sig-param">add_or_sub='sub'</em>, <em class="sig-param">interval=numpy.arange</em>, <em class="sig-param">bez_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_bezier_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Nesta função, usa-se as equações geradas pelos pontos fornecidos pelo usuário para setar os limites de onde é sólido (na <span class="math notranslate nohighlight">\({\epsilon}\)</span>, <code class="docutils literal notranslate"><span class="pre">1</span></code>) e onde
 não é sólido (na <span class="math notranslate nohighlight">\({\epsilon}\)</span>, <code class="docutils literal notranslate"><span class="pre">0</span></code>). Também se seta o que é considerado entrada e saída, ou ambos.</p>
 <dl class="field-list simple">
@@ -354,9 +361,9 @@ no sentido positivo: os pontos iniciais devem ser mais próximos da origem do qu
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_epsi_cylinder">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">surface_type</span></em>, <em class="sig-param"><span class="n">add_or_sub</span><span class="o">=</span><span class="default_value">'sub'</span></em>, <em class="sig-param"><span class="n">cyl_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_cylinder" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_cylinder</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">surface_type</em>, <em class="sig-param">add_or_sub='sub'</em>, <em class="sig-param">cyl_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_cylinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Geração da <span class="math notranslate nohighlight">\({\epsilon}\)</span> da esfera criada anteriormente.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -370,9 +377,9 @@ no sentido positivo: os pontos iniciais devem ser mais próximos da origem do qu
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_epsi_extrude">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_extrude</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">ext_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_extrude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_extrude</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">ext_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_extrude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Geração da <span class="math notranslate nohighlight">\({\epsilon}\)</span> do Extrude criado anteriormente.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -384,9 +391,9 @@ no sentido positivo: os pontos iniciais devem ser mais próximos da origem do qu
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_epsi_mirror">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_mirror</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">direction</span></em>, <em class="sig-param"><span class="n">mirror_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_mirror" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_mirror</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">direction</em>, <em class="sig-param">mirror_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_mirror" title="Permalink to this definition">¶</a></dt>
 <dd><p>Espelhe o domínio inteiro ou apenas um sólido construído com <code class="docutils literal notranslate"><span class="pre">bounds_into_single_solid()</span></code>.</p>
 <p>Após a criação de um espelhamento, normalizar a matriz <span class="math notranslate nohighlight">\({\epsilon}\)</span> com a função <code class="docutils literal notranslate"><span class="pre">normalize_epsi</span></code>. Maiores informações em <a class="reference internal" href="howto.html#howto"><span class="std std-ref">How To</span></a>.</p>
 <dl class="field-list simple">
@@ -400,9 +407,9 @@ no sentido positivo: os pontos iniciais devem ser mais próximos da origem do qu
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_epsi_quad_prism">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_quad_prism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">surface_type</span></em>, <em class="sig-param"><span class="n">add_or_sub</span><span class="o">=</span><span class="default_value">'sub'</span></em>, <em class="sig-param"><span class="n">qp_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_quad_prism" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_quad_prism</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">surface_type</em>, <em class="sig-param">add_or_sub='sub'</em>, <em class="sig-param">qp_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_quad_prism" title="Permalink to this definition">¶</a></dt>
 <dd><p>Geração da <span class="math notranslate nohighlight">\({\epsilon}\)</span> do prisma criado anteriormente.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -416,9 +423,9 @@ no sentido positivo: os pontos iniciais devem ser mais próximos da origem do qu
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_epsi_revolve">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_revolve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_revolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_revolve</code><span class="sig-paren">(</span><em class="sig-param">identif</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_revolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Geração da <span class="math notranslate nohighlight">\({\epsilon}\)</span> do Revolve criado anteriormente.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -427,9 +434,9 @@ no sentido positivo: os pontos iniciais devem ser mais próximos da origem do qu
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_epsi_sphere">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_sphere</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">surface_type</span></em>, <em class="sig-param"><span class="n">add_or_sub</span><span class="o">=</span><span class="default_value">'sub'</span></em>, <em class="sig-param"><span class="n">sph_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_sphere" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_epsi_sphere</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">surface_type</em>, <em class="sig-param">add_or_sub='sub'</em>, <em class="sig-param">sph_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_epsi_sphere" title="Permalink to this definition">¶</a></dt>
 <dd><p>Geração da <span class="math notranslate nohighlight">\({\epsilon}\)</span> da esfera criada anteriormente.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -443,9 +450,9 @@ no sentido positivo: os pontos iniciais devem ser mais próximos da origem do qu
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_extrude_profile">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_extrude_profile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">direction</span></em>, <em class="sig-param"><span class="n">init_height</span></em>, <em class="sig-param"><span class="n">final_height</span></em>, <em class="sig-param"><span class="n">deflection</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_extrude_profile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_extrude_profile</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">name</em>, <em class="sig-param">direction</em>, <em class="sig-param">init_height</em>, <em class="sig-param">final_height</em>, <em class="sig-param">deflection=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_extrude_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Criação de um perfil que será posteriormente extrudado. O input da função deve assumir a seguinte forma de um dicionário:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#forma geral</span>
 
@@ -484,9 +491,9 @@ perfil de extrude. Caso essa curva seja saída, o algorítmo interpretará como 
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_output">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_output</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">names</span></em>, <em class="sig-param"><span class="n">out_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_output" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_output</code><span class="sig-paren">(</span><em class="sig-param">names</em>, <em class="sig-param">out_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Geração dos arquivos de saída. Tornam possível a visualização no ParaView da <span class="math notranslate nohighlight">\({\epsilon}\)</span>, bem como a resolução das equações
 de Navier Stokes nas redondezas do sólido criado.</p>
 <dl class="field-list simple">
@@ -499,9 +506,9 @@ de Navier Stokes nas redondezas do sólido criado.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_quad_prism">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_quad_prism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">c</span></em>, <em class="sig-param"><span class="n">reference_point</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_quad_prism" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_quad_prism</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">name</em>, <em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">c</em>, <em class="sig-param">reference_point</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_quad_prism" title="Permalink to this definition">¶</a></dt>
 <dd><p>Crie um cubóide (prisma quadrangular) em qualquer posição do domínio.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -516,9 +523,9 @@ de Navier Stokes nas redondezas do sólido criado.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_raf_information">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_raf_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nraf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_raf_information" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_raf_information</code><span class="sig-paren">(</span><em class="sig-param">nraf</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_raf_information" title="Permalink to this definition">¶</a></dt>
 <dd><p>Geração de informações para <span class="math notranslate nohighlight">\({\epsilon}\)</span> refinada, importante arquivo para o <code class="xref py py-obj docutils literal notranslate"><span class="pre">Incompact3d</span></code>. O objetivo é obter maior precisão em cada dimensão por vez.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -527,9 +534,9 @@ de Navier Stokes nas redondezas do sólido criado.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_revolve_profile">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_revolve_profile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">direction</span></em>, <em class="sig-param"><span class="n">center_1</span></em>, <em class="sig-param"><span class="n">center_2</span></em>, <em class="sig-param"><span class="n">init_height</span></em>, <em class="sig-param"><span class="n">deflection</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">rev_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_revolve_profile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_revolve_profile</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">name</em>, <em class="sig-param">direction</em>, <em class="sig-param">center_1</em>, <em class="sig-param">center_2</em>, <em class="sig-param">init_height</em>, <em class="sig-param">deflection=False</em>, <em class="sig-param">rev_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_revolve_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construa um perfil de revolve por meio de curvas de Bézier sempre no sentido positivo, sem idas e voltas (cada coordenada <span class="math notranslate nohighlight">\({axis}\)</span> so pode ter 1 <span class="math notranslate nohighlight">\({radius}\)</span> correspondente).</p>
 <p><strong>Primeiro ponto de ambos limites (superior e inferior) sempre deve ser 0. Perfil superior e perfil inferior devem terminar no mesmo ponto.</strong></p>
 <p>Para confirmar a efetividade da função, checar que dentro da área do perfil de revolve (área limitada pelo perfil superior e inferior), para toda linha vermelha pontilhada deve existir uma linha cinza contínua.</p>
@@ -584,9 +591,9 @@ de Navier Stokes nas redondezas do sólido criado.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_sphere">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_sphere</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">cex</span></em>, <em class="sig-param"><span class="n">cey</span></em>, <em class="sig-param"><span class="n">cez</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_sphere" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_sphere</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">name</em>, <em class="sig-param">radius</em>, <em class="sig-param">cex</em>, <em class="sig-param">cey</em>, <em class="sig-param">cez</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_sphere" title="Permalink to this definition">¶</a></dt>
 <dd><p>Crie uma esfera em qualquer posição do domínio.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -602,9 +609,9 @@ de Navier Stokes nas redondezas do sólido criado.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.gen_toroid">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_toroid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identif</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">bases_plane</span></em>, <em class="sig-param"><span class="n">external_radius</span></em>, <em class="sig-param"><span class="n">profile_circle_radius</span></em>, <em class="sig-param"><span class="n">center_1</span></em>, <em class="sig-param"><span class="n">center_2</span></em>, <em class="sig-param"><span class="n">init_height</span></em>, <em class="sig-param"><span class="n">tor_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_toroid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">gen_toroid</code><span class="sig-paren">(</span><em class="sig-param">identif</em>, <em class="sig-param">name</em>, <em class="sig-param">bases_plane</em>, <em class="sig-param">external_radius</em>, <em class="sig-param">profile_circle_radius</em>, <em class="sig-param">center_1</em>, <em class="sig-param">center_2</em>, <em class="sig-param">init_height</em>, <em class="sig-param">tor_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.gen_toroid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Função facilitadora para criação de um toróide por meio da função <code class="docutils literal notranslate"><span class="pre">gen_revolve_profile()</span></code>. Não necessita de informações (dicionário) de entrada.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -623,9 +630,9 @@ de Navier Stokes nas redondezas do sólido criado.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.normalize_epsi">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">normalize_epsi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intersection</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">target</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">epsi_raf_path</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.normalize_epsi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">normalize_epsi</code><span class="sig-paren">(</span><em class="sig-param">intersection=False</em>, <em class="sig-param">target=2</em>, <em class="sig-param">epsi_raf_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.normalize_epsi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ideal chamar essa função antes de gerar os arquivos de saída. Corrige qualquer valor inadequado da <span class="math notranslate nohighlight">\({\epsilon}\)</span> (menor do que 0 ou maior do que 1) que podem ser gerados ao decorrer do projeto.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -638,9 +645,9 @@ de Navier Stokes nas redondezas do sólido criado.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.rotate">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">rotate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plane</span></em>, <em class="sig-param"><span class="n">origin</span></em>, <em class="sig-param"><span class="n">angle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.rotate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">rotate</code><span class="sig-paren">(</span><em class="sig-param">plane</em>, <em class="sig-param">origin</em>, <em class="sig-param">angle</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.rotate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotacione os pontos governantes de uma superfície de Bézier de forma eficiente em qualquer plano, ao redor de qualquer ponto. Função auxiliadora na hora
 da criação de patterns circulares.</p>
 <dl class="field-list simple">
@@ -658,9 +665,9 @@ da criação de patterns circulares.</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.set_point_matrix">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">set_point_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_u_points</span></em>, <em class="sig-param"><span class="n">num_v_points</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.set_point_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">set_point_matrix</code><span class="sig-paren">(</span><em class="sig-param">num_u_points</em>, <em class="sig-param">num_v_points</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.set_point_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determinar o número de pontos em cada direção <span class="math notranslate nohighlight">\({u}\)</span> e <span class="math notranslate nohighlight">\({v}\)</span> numa superfície de Bézier.</p>
 <p>Caso fique em dúvida da nomenclatura de quais pontos serão necessários setar, execute uma célula (após executar a função em pauta) com <code class="docutils literal notranslate"><span class="pre">print(point_storage)</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#exemplo de como tirar a dúvida dos pontos que devem receber algum input</span>
@@ -696,9 +703,9 @@ da criação de patterns circulares.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.surface_plot">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">surface_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init_identif</span></em>, <em class="sig-param"><span class="n">final_identif</span></em>, <em class="sig-param"><span class="n">engine</span><span class="o">=</span><span class="default_value">'matplotlib'</span></em>, <em class="sig-param"><span class="n">points</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">domain</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">grids</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">legend</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0.3</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.surface_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">surface_plot</code><span class="sig-paren">(</span><em class="sig-param">init_identif</em>, <em class="sig-param">final_identif</em>, <em class="sig-param">engine='matplotlib'</em>, <em class="sig-param">points=False</em>, <em class="sig-param">domain=True</em>, <em class="sig-param">grids=True</em>, <em class="sig-param">legend=True</em>, <em class="sig-param">alpha=0.3</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.surface_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visualize as superfícies construídas desejadas.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -716,9 +723,9 @@ da criação de patterns circulares.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="creating_solid.translate">
-<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">translate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">direction</span></em>, <em class="sig-param"><span class="n">quantity</span></em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.translate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">creating_solid.</code><code class="sig-name descname">translate</code><span class="sig-paren">(</span><em class="sig-param">direction</em>, <em class="sig-param">quantity</em><span class="sig-paren">)</span><a class="headerlink" href="#creating_solid.translate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Caso tenha se precipitado em relação à posição de sua superfície, translade os pontos governantes de uma superfície de Bézier de forma eficiente
 em qualquer direção.</p>
 <dl class="field-list simple">
@@ -745,8 +752,6 @@ em qualquer direção.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gallery.html" class="btn btn-neutral float-right" title="Galeria" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
       
         <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
@@ -757,11 +762,19 @@ em qualquer direção.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, André Mombach
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -772,7 +785,6 @@ em qualquer direção.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,20 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,15 +32,15 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Docstring" href="docstring.html" />
@@ -51,7 +58,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> geo_bezier_3d
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> geo_bezier_3d
           
 
           
@@ -74,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,17 +96,20 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cybertruck">1. Cybertruck</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ahmed-body">2. Ahmed Body</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#geo-bezier-3d">3. geo_bezier_3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#nozzle">4. Nozzle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nozzle">3. Nozzle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#esfinge">4. Esfinge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ventilador-de-turbina">5. Ventilador de Turbina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#canal-sinuoso">6. Canal Sinuoso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trocador-casco-e-tubos">7. Trocador Casco e Tubos</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -137,7 +148,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Examples</li>
     
@@ -161,27 +172,62 @@
   <div class="section" id="examples">
 <span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <p>Após percorrer <a class="reference internal" href="howto.html#howto"><span class="std std-ref">How To</span></a>, o usuário estará pronto para dar um passo adiante e entender exemplos
-mais complexos ou extensos. Aqui estão listados alguns já produzidos com o código, todos comentados.</p>
-<p>Basta fazer o download da pasta zipada e rodar o código na plataforma Jupyter.</p>
+mais complexos ou extensos. Aqui estão mostrados alguns já produzidos com o código, parte deles comentados.</p>
+<p>Todos os notebooks estão presentes no <a class="reference external" href="https://github.com/fschuch/CAD-to-Incompact3d">repositório do projeto</a>.</p>
 <div class="section" id="cybertruck">
 <h2>1. Cybertruck<a class="headerlink" href="#cybertruck" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id2">
+<img alt="_images/cyber.jpg" src="_images/cyber.jpg" />
+<p class="caption"><span class="caption-text"><em>Carro americano construído com superfícies de Bézier;</em></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
 <p>Exemplo extenso que aborda incontáveis superfícies de Bézier, cilindros e espelhamento em relação a um sólido único.</p>
 <p><a class="reference download internal" download="" href="_downloads/418e1060bd9cb50876e9353fdece08e3/cyber.zip"><code class="xref download docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">Notebook</span> <span class="pre">-</span> <span class="pre">Cybertruck</span></code></a></p>
 </div>
 <div class="section" id="ahmed-body">
 <h2>2. Ahmed Body<a class="headerlink" href="#ahmed-body" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id3">
+<img alt="_images/ahmed.png" src="_images/ahmed.png" />
+<p class="caption"><span class="caption-text"><em>O incrivelmente feio Ahmed Body (embora pareça simples, é bem complicado);</em></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
 <p>Exemplo complexo que aborda interseções, espelhamento em relação ao domínio, superfícies de Bézier e também cilindros.</p>
 <p><a class="reference download internal" download="" href="_downloads/80998ad9267a9df695a7204345e2a0b9/ahmed.zip"><code class="xref download docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">Notebook</span> <span class="pre">-</span> <span class="pre">Ahmed</span> <span class="pre">Body</span></code></a></p>
 </div>
-<div class="section" id="geo-bezier-3d">
-<h2>3. geo_bezier_3d<a class="headerlink" href="#geo-bezier-3d" title="Permalink to this headline">¶</a></h2>
-<p>Exemplo que aborda extrude.</p>
-<p>not updated</p>
-</div>
 <div class="section" id="nozzle">
-<h2>4. Nozzle<a class="headerlink" href="#nozzle" title="Permalink to this headline">¶</a></h2>
+<h2>3. Nozzle<a class="headerlink" href="#nozzle" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id4">
+<img alt="_images/nozzle.png" src="_images/nozzle.png" />
+<p class="caption"><span class="caption-text"><em>Nozzle de turbina de avião;</em></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
 <p>Exemplo relativamente simples que aborda revolve e também superfícies de Bézier.</p>
 <p><a class="reference download internal" download="" href="_downloads/1084a960662052c3c3f424f2a18d568e/nozzle.zip"><code class="xref download docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">Notebook</span> <span class="pre">-</span> <span class="pre">Nozzle</span></code></a></p>
+</div>
+<div class="section" id="esfinge">
+<h2>4. Esfinge<a class="headerlink" href="#esfinge" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id5">
+<img alt="_images/esfinge.jpg" src="_images/esfinge.jpg" />
+<p class="caption"><span class="caption-text"><em>Versão 3D do monumento egípcio recriada em Epsi;</em></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="ventilador-de-turbina">
+<h2>5. Ventilador de Turbina<a class="headerlink" href="#ventilador-de-turbina" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id6">
+<img alt="_images/simple_turbine_fan.png" src="_images/simple_turbine_fan.png" />
+<p class="caption"><span class="caption-text"><em>Ventilador e casco de turbina criados para testar o código;</em></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="canal-sinuoso">
+<h2>6. Canal Sinuoso<a class="headerlink" href="#canal-sinuoso" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id7">
+<img alt="_images/canal_0.png" src="_images/canal_0.png" />
+<p class="caption"><span class="caption-text"><em>Canal construído com cerca de 150 curvas de Bézier de 2ª ordem;</em></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="trocador-casco-e-tubos">
+<h2>7. Trocador Casco e Tubos<a class="headerlink" href="#trocador-casco-e-tubos" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id8">
+<img alt="_images/troca_2.png" src="_images/troca_2.png" />
+<p class="caption"><span class="caption-text"><em>Trocador de Calor com tubos e chicanas (sem representação física);</em></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 </div>
 
@@ -205,11 +251,19 @@ mais complexos ou extensos. Aqui estão listados alguns já produzidos com o có
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, André Mombach
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -220,7 +274,6 @@ mais complexos ou extensos. Aqui estão listados alguns já produzidos com o có
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

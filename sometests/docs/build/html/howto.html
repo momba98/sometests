@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,20 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,15 +32,15 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Abordagem de Bézier" href="bezier.html" />
@@ -51,7 +58,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> geo_bezier_3d
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> geo_bezier_3d
           
 
           
@@ -74,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -119,12 +127,12 @@
 <li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -163,7 +171,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>How To</li>
     
@@ -201,20 +209,33 @@ a kernel do Jupyter deverá ser reiniciada.</strong></p>
 <h3>1.1 Domínio<a class="headerlink" href="#dominio" title="Permalink to this headline">¶</a></h3>
 <p>Inicialmente, o usuário deverá definir os parâmetros para seu domínio, determinando
 o comprimento nas 3 direções <span class="math notranslate nohighlight">\({lx}\)</span>, <span class="math notranslate nohighlight">\({ly}\)</span> e <span class="math notranslate nohighlight">\({lz}\)</span>, bem como o número de nós de malha
-<span class="math notranslate nohighlight">\({nx}\)</span>, <span class="math notranslate nohighlight">\({ny}\)</span> e <span class="math notranslate nohighlight">\({nz}\)</span>.</p>
+<span class="math notranslate nohighlight">\({nx}\)</span>, <span class="math notranslate nohighlight">\({ny}\)</span> e <span class="math notranslate nohighlight">\({nz}\)</span> e se a determinada direção
+possui a característica períodica ou não (não-periódico, de modo simplificado, significa
+que o domínio não tem paredes).</p>
+<p>A setagem será feita por meio de um dicionário, no qual o usuário setará o nome do eixo
+como a <em>key</em> e uma lista como os <em>values</em>, contendo as informações de comprimento,
+número de nós e se a direção é periódica ou não:</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">lx</span><span class="p">,</span><span class="n">ly</span><span class="p">,</span><span class="n">lz</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="c1">#valores arbitrados</span>
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#lendo de outra forma: &#39;eixo_x&#39;=[comprimento lx, número de nós nx, is_periodic]</span>
 
-<span class="c1">#no incompact3d, x representa comprimento, z representa largura e y representa altura.</span>
-
-<span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">nz</span><span class="o">=</span><span class="mi">81</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">61</span> <span class="c1">#valores também arbitrados</span>
+<span class="n">domain_info</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:[</span><span class="mi">4</span><span class="p">,</span><span class="mi">81</span><span class="p">,</span><span class="kc">False</span><span class="p">],</span>
+             <span class="s1">&#39;y&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">81</span><span class="p">,</span><span class="kc">False</span><span class="p">],</span>
+             <span class="s1">&#39;z&#39;</span><span class="p">:[</span><span class="mi">3</span><span class="p">,</span><span class="mi">61</span><span class="p">,</span><span class="kc">False</span><span class="p">]}</span>
 </pre></div>
 </td></tr></table></div>
-<p>Dessa forma, o espaçamento entre nós pode ser calculado:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="p">,</span><span class="n">dz</span><span class="o">=</span><span class="n">lx</span><span class="o">/</span><span class="p">(</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">ly</span><span class="o">/</span><span class="p">(</span><span class="n">ny</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">lz</span><span class="o">/</span><span class="p">(</span><span class="n">nz</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<p>Dessa forma, o espaçamento entre nós pode ser calculado. Importante frisar que a característica períodica altera a forma com que o espaçamento é calculado.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">axis</span><span class="p">,(</span><span class="n">length</span><span class="p">,</span><span class="n">nodes</span><span class="p">,</span><span class="n">is_periodic</span><span class="p">)</span> <span class="ow">in</span> <span class="n">domain_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">is_periodic</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">domain_info</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">axis</span><span class="p">)]</span><span class="o">+=</span><span class="p">[</span><span class="n">length</span><span class="o">/</span><span class="p">(</span><span class="n">nodes</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">domain_info</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">axis</span><span class="p">)]</span><span class="o">+=</span><span class="p">[</span><span class="n">length</span><span class="o">/</span><span class="p">(</span><span class="n">nodes</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -241,14 +262,10 @@ auxiliares:</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;inputs.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;inputs.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;inputs.py&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_file</span><span class="p">:</span>
-    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;lx=</span><span class="si">{</span><span class="n">lx</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ly=</span><span class="si">{</span><span class="n">ly</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;lz=</span><span class="si">{</span><span class="n">lz</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nx=</span><span class="si">{</span><span class="n">nx</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ny=</span><span class="si">{</span><span class="n">ny</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nz=</span><span class="si">{</span><span class="n">nz</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dx=</span><span class="si">{</span><span class="n">dx</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dy=</span><span class="si">{</span><span class="n">dy</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dz=</span><span class="si">{</span><span class="n">dz</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;name=&#39;</span><span class="p">),</span><span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;domain_info=</span><span class="si">{domain_info}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;name=&#39;</span><span class="p">),</span><span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">the_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 <p>O mesmo para bibliotecas:</p>
@@ -1449,11 +1466,19 @@ ocorre em cada uma das direções, separadamente.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, André Mombach
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1464,7 +1489,6 @@ ocorre em cada uma das direções, separadamente.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

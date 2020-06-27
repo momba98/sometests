@@ -1,7 +1,7 @@
 ..  _bezier:
 
-Abordagem de Bézier
-**********************
+Abordagem de Bézier 
+***********************
 
 .. figure:: images/bez.gif
    :align: right

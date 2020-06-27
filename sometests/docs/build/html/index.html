@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,20 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,15 +32,15 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="How To" href="howto.html" /> 
@@ -50,7 +57,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> geo_bezier_3d
+            <a href="#" class="icon icon-home" alt="Documentation Home"> geo_bezier_3d
           
 
           
@@ -73,6 +80,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -86,12 +94,12 @@
 <li class="toctree-l1"><a class="reference internal" href="bezier.html">Abordagem de Bézier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -130,7 +138,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code></li>
     
@@ -163,7 +171,8 @@ o desenvolvimento de um dos objetivos em que o grupo de pesquisa trabalha.</p>
 <p>A tarefa foi árdua inicialmente, porém o canal foi construído com sucesso e o projeto não parou
 por aí. Empolgando com os seus resultados (e com <strong>muito</strong> tempo livre devido à quarentena), o estagiário resolveu
 estudar mais a fundo abordagens geométricas e como representá-las na malha cartesiana, através do método das fronteiras imersas (IBM).
-Eis que surge <code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code>: uma espécie de <em>CAD artesanal</em>, na qual o usuário consegue criar
+Eis que surge o <a class="reference external" href="https://github.com/fschuch/CAD-to-Incompact3d">projeto</a>. <code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_bezier_3d</span></code>:
+uma espécie de <em>CAD artesanal</em>, na qual o usuário consegue criar
 objetos de forma mais intuitiva do que simplesmente programar equações dentro
 do <code class="xref py py-obj docutils literal notranslate"><span class="pre">Incompact3d</span></code> (esse era o método que se utilizava para representar sólidos antes desse projeto).</p>
 <p>O usuário pode estar se perguntado o motivo da criação de um CAD artesanal se já existem
@@ -220,21 +229,14 @@ que trabalhosa na maioria das vezes).</p>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#cybertruck">1. Cybertruck</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#ahmed-body">2. Ahmed Body</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#geo-bezier-3d">3. geo_bezier_3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#nozzle">4. Nozzle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#nozzle">3. Nozzle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#esfinge">4. Esfinge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#ventilador-de-turbina">5. Ventilador de Turbina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#canal-sinuoso">6. Canal Sinuoso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#trocador-casco-e-tubos">7. Trocador Casco e Tubos</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docstring.html">Docstring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gallery.html#cybertruck">1. Cybertruck</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gallery.html#esfinge">2. Esfinge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gallery.html#nozzle">3. Nozzle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gallery.html#ventilador-de-turbina">4. Ventilador de Turbina</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gallery.html#canal-sinuoso">5. Canal Sinuoso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gallery.html#trocador-casco-e-tubos">6. Trocador Casco e Tubos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gallery.html#ahmed-body">7. Ahmed Body</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -257,11 +259,19 @@ que trabalhosa na maioria das vezes).</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, André Mombach
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -272,7 +282,6 @@ que trabalhosa na maioria das vezes).</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
