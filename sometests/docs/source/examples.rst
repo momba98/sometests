@@ -6,7 +6,9 @@ Examples
 Após percorrer :ref:`howto`, o usuário estará pronto para dar um passo adiante e entender exemplos
 mais complexos ou extensos. Aqui estão mostrados alguns já produzidos com o código, parte deles comentados.
 
-Todos os notebooks estão presentes no `repositório do projeto <https://github.com/fschuch/CAD-to-Incompact3d>`_.
+Todos os notebooks estão presentes no `repositório do projeto <https://github.com/fschuch/CAD-to-Incompact3d>`_. O usuário pode simplesmente 
+visualizar através de um link HTML ou também acessar direto do repositório
+clonado.
 
 1. Cybertruck
 ====================
@@ -18,7 +20,7 @@ Todos os notebooks estão presentes no `repositório do projeto <https://github.
 
 Exemplo extenso que aborda incontáveis superfícies de Bézier, cilindros e espelhamento em relação a um sólido único.
 
-:download:`Jupyter Notebook - Cybertruck <downloads/cyber.zip>`
+`Visualize o Jupyter Notebook deste projeto! <https://htmlpreview.github.io/?https://github.com/momba98/sometests/blob/master/sometests/Jupyter%20Notebook/cyber.html>`_
 
 
 2. Ahmed Body
@@ -31,7 +33,7 @@ Exemplo extenso que aborda incontáveis superfícies de Bézier, cilindros e esp
 
 Exemplo complexo que aborda interseções, espelhamento em relação ao domínio, superfícies de Bézier e também cilindros.
 
-:download:`Jupyter Notebook - Ahmed Body <downloads/ahmed.zip>`
+`Visualize o Jupyter Notebook deste projeto! <https://htmlpreview.github.io/?https://github.com/momba98/sometests/blob/master/sometests/Jupyter%20Notebook/ahmed.html>`_
 
 
 3. Nozzle
@@ -44,7 +46,7 @@ Exemplo complexo que aborda interseções, espelhamento em relação ao domínio
 
 Exemplo relativamente simples que aborda revolve e também superfícies de Bézier.
 
-:download:`Jupyter Notebook - Nozzle <downloads/nozzle.zip>`
+`Visualize o Jupyter Notebook deste projeto! <https://htmlpreview.github.io/?https://github.com/momba98/sometests/blob/master/sometests/Jupyter%20Notebook/nozzle.html>`_
 
 
 4. Esfinge

@@ -34,7 +34,7 @@ master_doc = 'index'
 # ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon','sphinx_copybutton']
 
-autodoc_mock_imports = ['progressbar','matplotlib','numpy','sympy','scipy','mpl_toolkits','IPython','infos','inputs','mayavi']
+autodoc_mock_imports = ['progressbar','matplotlib','numpy','sympy','scipy','mpl_toolkits','IPython','infos','inputs','mayavi','sphinx_copybutton']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

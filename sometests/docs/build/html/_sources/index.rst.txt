@@ -12,7 +12,7 @@ o desenvolvimento de um dos objetivos em que o grupo de pesquisa trabalha.
 A tarefa foi árdua inicialmente, porém o canal foi construído com sucesso e o projeto não parou
 por aí. Empolgando com os seus resultados (e com **muito** tempo livre devido à quarentena), o estagiário resolveu
 estudar mais a fundo abordagens geométricas e como representá-las na malha cartesiana, através do método das fronteiras imersas (IBM).
-Eis que surge o `projeto <https://github.com/fschuch/CAD-to-Incompact3d>`_. :obj:`geo_bezier_3d`: 
+Eis que surge o `projeto <https://github.com/fschuch/CAD-to-Incompact3d>`_ :obj:`geo_bezier_3d`: 
 uma espécie de *CAD artesanal*, na qual o usuário consegue criar
 objetos de forma mais intuitiva do que simplesmente programar equações dentro
 do :obj:`Incompact3d` (esse era o método que se utilizava para representar sólidos antes desse projeto).
