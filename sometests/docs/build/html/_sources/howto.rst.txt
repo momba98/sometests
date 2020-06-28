@@ -41,6 +41,7 @@ número de nós e se a direção é periódica ou não:
                 'z':[3,61,False]}
 
 Dessa forma, o espaçamento entre nós pode ser calculado. Importante frisar que a característica períodica altera a forma com que o espaçamento é calculado.
+O usuário pode aprender mais no `repositório do solver <https://github.com/xcompact3d/Incompact3d/wiki/Beginner's-guide>`_.
 
 .. code-block:: python
    :linenos:

@@ -6,9 +6,8 @@ Examples
 Após percorrer :ref:`howto`, o usuário estará pronto para dar um passo adiante e entender exemplos
 mais complexos ou extensos. Aqui estão mostrados alguns já produzidos com o código, parte deles comentados.
 
-Todos os notebooks estão presentes no `repositório do projeto <https://github.com/fschuch/CAD-to-Incompact3d>`_. O usuário pode simplesmente 
-visualizar através de um link HTML ou também acessar direto do repositório
-clonado.
+Todos os notebooks estão presentes no `repositório do projeto <https://github.com/fschuch/CAD-to-Incompact3d>`_, ou também o usuário pode simplesmente 
+visualizar através do link HTML presente logo após das figuras.
 
 1. Cybertruck
 ====================
