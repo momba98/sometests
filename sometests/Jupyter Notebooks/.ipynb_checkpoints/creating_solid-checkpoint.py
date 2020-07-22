@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Para passar uma ideia geral do projeto, um fluxograma é apresentado ao usuário:
-
-.. figure:: images/fluxogram.jpg
-   :align: center
-
-   *Na figura, todas os blocos na cor verde são obrigatórias no processo de criação de um projeto.*
-   
-O usuário também recebe nessa página todas informações dos argumentos de todas as funções presentes no código:
-
-
+O usuário recebe nessa página todas informações dos argumentos de todas as funções presentes no código.
 
 """
 import matplotlib
