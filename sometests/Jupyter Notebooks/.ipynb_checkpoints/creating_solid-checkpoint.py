@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-O usuário recebe nessa página todas informações dos argumentos de todas as funções presentes no código.
+Para passar uma ideia geral do projeto, um fluxograma é apresentado ao usuário:
+
+.. figure:: images/fluxogram.jpg
+   :align: center
+
+   *Na figura, todas os blocos na cor verde são obrigatórias no processo de criação de um projeto.*
+   
+O usuário também recebe nessa página todas informações dos argumentos de todas as funções presentes no código:
+
+
 
 """
 import matplotlib
@@ -11,8 +20,9 @@ import math
 import sympy as sp
 import progressbar
 import os
+from numba import njit, prange
 
-from mayavi import mlab
+#from mayavi import mlab
 from sympy import symbols
 from sympy.solvers import solve
 from scipy.io import FortranFile
@@ -1470,6 +1480,7 @@ def gen_epsi_revolve(identif):
 
         bar.finish()
 
+
 def gen_epsi_bezier_surface(surface_type,plane,identif,solver='scipy',add_or_sub='sub',interval=np.arange(-0.1,1+0.2,0.1),bez_raf_path=False):
     
     """
@@ -1591,8 +1602,8 @@ def gen_epsi_bezier_surface(surface_type,plane,identif,solver='scipy',add_or_sub
                                                progressbar.Timer(),], 
                                                max_value=(max_1+1-min_1)*(max_2+1-min_2)).start()
 
-        for c1 in range(min_1,max_1+1,1):
-            for c2 in range(min_2,max_2+1,1):
+        for c1 in prange(min_1,max_1+1,1):
+            for c2 in prange(min_2,max_2+1,1):
                 bar+=1
                 args_list=[]
                 if solver=='scipy':

@@ -1,0 +1,7 @@
+<ColorMaps>
+<ColorMap space="CIELAB" indexedLookup="false" name="yel555">
+<Point x="0.000000" o="1" r="0.2667" g="0.4549" b="0.6156"/>
+<Point x="1.000000" o="1" r="0.2667" g="0.4549" b="0.6156"/>
+<NaN r="0.25" g="0" b="0"/>
+</ColorMap>
+</ColorMaps>

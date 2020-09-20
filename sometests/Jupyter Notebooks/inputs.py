@@ -1,2 +1,2 @@
-domain_info={'x': [8, 257, False, 0.03125], 'y': [2, 129, False, 0.015625], 'z': [2, 129, False, 0.015625]}
-name="ciber"
+domain_info={'x': [6, 501, False, 0.012], 'y': [2, 201, False, 0.01], 'z': [2, 201, False, 0.01]}
+name="AHMED"

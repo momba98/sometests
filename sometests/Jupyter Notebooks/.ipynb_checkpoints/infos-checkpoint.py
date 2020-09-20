@@ -6,7 +6,7 @@ import sympy as sp
 import progressbar
 import os
 
-from mayavi import mlab
+#from mayavi import mlab
 from sympy import symbols
 from sympy.solvers import solve
 from scipy.io import FortranFile
